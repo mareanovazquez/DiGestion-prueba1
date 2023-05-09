@@ -1,0 +1,86 @@
+
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* body {
+  background-color: rgba(0,0,0,0.1);
+} */
+
+li {
+  list-style: none;
+  
+}
+.contenedorRemitos {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  height: 100vh;
+}
+.tablaRemitos {
+
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.iconRemito:hover {
+  color: red;
+  
+}
+.contenedorLogIn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.formLogIn {
+  background-color: rgba(0,0,0,0.1);
+  box-shadow: 0px 0px 21px 11px rgba(0,0,0,0.45);
+  width: 35%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 50px;
+  border: 2px;
+  border-style: solid;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-color: rgba(0,0,0,0.4);
+}
+
+
+.grupo-proveedores {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.card:hover {
+  background-color: grey;
+  color: white;
+  transition: .2s;
+}
+
+.card {
+  width: 100px;
+  height: 100px;
+}
+
+
+.read-the-docs {
+  color: #888;
+}
