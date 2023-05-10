@@ -4,8 +4,9 @@ export const AddRemito = () => {
 
         <>
             <div className="contenedorAltaRemito">
-                <h2 className="text-center"> Altas remitos</h2>
+
                 <div className="row altaRemito">
+                    <h2 className="text-left"> Alta de Remito</h2>
                     <div className="col">
                         <label>Departamento</label>
                         <input type="text" className="form-control" placeholder="Departamento" aria-label="Departamento" />
@@ -13,15 +14,15 @@ export const AddRemito = () => {
                     <div className="col">
                         <label for='proveedores' >Proveedor</label>
                         <div>
-                                <select className="form-control" name="opciones">
-                                    <option value="" disabled selected className="text-muted">Proveedores</option>
-                                    <option value="opcion1">Proveedor 1</option>
-                                    <option value="opcion2">Proveedor 2</option>
-                                    <option value="opcion3">Proveedor 3</option>
-                                    <option value="opcion4">Proveedor 4</option>
-                                </select>
+                            <select className="form-control" name="opciones">
+                                <option value="" disabled selected className="text-muted">Proveedores</option>
+                                <option value="opcion1">Proveedor 1</option>
+                                <option value="opcion2">Proveedor 2</option>
+                                <option value="opcion3">Proveedor 3</option>
+                                <option value="opcion4">Proveedor 4</option>
+                            </select>
                         </div>
-                        
+
                     </div>
                     <div className="col">
                         <label for='fechaRecepcionSTI' >Fecha recepción STI</label>
@@ -65,12 +66,17 @@ export const AddRemito = () => {
                 <div className="row altaRemito">
                     <div className="col">
                         <label>COMENTARIOS</label>
-                        <textarea id="comentarios" name="comentarios" rows="3" cols="100"></textarea>
+                        <textarea id="comentarios" className="form-control" name="comentarios" rows="3" cols="100"></textarea>
 
                     </div>
                 </div>
-                <div class="container contenedorBtnGuardarRemito">
-                    <button class="btn btn-danger btnGuardarRemito" >Guardar</button>
+                <div className="row altaRemito">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        {/* <button class="btn btn-primary me-md-2" type="button">Button</button> */}
+                        <button class="btn btn-primary" type="button">Button</button>
+                    </div>
+
+
                 </div>
             </div>
         </>

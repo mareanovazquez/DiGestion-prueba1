@@ -29,7 +29,7 @@ function App() {
       {/*  <LogIn /> */}
       {/* <ListProveedores /> */}
 
-     {/*  <AddRemito/> */}
+      <AddRemito/>
      {/*   <ItemListRemito /> */}
       
       {/* <ItemRemito/> */}
