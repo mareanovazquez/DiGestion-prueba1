@@ -12,10 +12,10 @@ export const AddRemito = () => {
                         <input type="text" className="form-control" placeholder="Departamento" aria-label="Departamento" />
                     </div>
                     <div className="col">
-                        <label for='proveedores' >Proveedor</label>
+                        <label htmlfor='proveedores' >Proveedor</label>
                         <div>
                             <select className="form-control" name="opciones">
-                                <option value="" disabled selected className="text-muted">Proveedores</option>
+                                    <option value="" disabled className="text-muted">Proveedores</option>
                                 <option value="opcion1">Proveedor 1</option>
                                 <option value="opcion2">Proveedor 2</option>
                                 <option value="opcion3">Proveedor 3</option>
@@ -25,7 +25,7 @@ export const AddRemito = () => {
 
                     </div>
                     <div className="col">
-                        <label for='fechaRecepcionSTI' >Fecha recepción STI</label>
+                        <label htmlFor='fechaRecepcionSTI' >Fecha recepción STI</label>
                         <input className="form-control" type="date" id="fechaRecepcionSTI" name="fecha" pattern="\d{1,2}/\d{1,2}/\d{2}" placeholder="dd/mm/aa" required aria-label="Fecha recepción STI" />
                     </div>
                 </div>
@@ -39,7 +39,7 @@ export const AddRemito = () => {
                         <input type="text" className="form-control" placeholder="Expediente" aria-label="Expediente" />
                     </div>
                     <div className="col">
-                        <label for='fechaRecepcionDTI' >Fecha recepción DTI</label>
+                        <label htmlFor='fechaRecepcionDTI' >Fecha recepción DTI</label>
                         <input className="form-control" type="date" id="fechaRecepcionDTI" name="fecha" pattern="\d{1,2}/\d{1,2}/\d{2}" placeholder="dd/mm/aa" required aria-label="Fecha recepción DTI" />
                     </div>
                 </div>
@@ -65,7 +65,7 @@ export const AddRemito = () => {
 
                 <div className="row altaRemito">
                     <div className="col">
-                        <label>COMENTARIOS</label>
+                        <label htmlFor="comentarios">COMENTARIOS</label>
                         <textarea id="comentarios" className="form-control" name="comentarios" rows="3" cols="100"></textarea>
 
                     </div>
