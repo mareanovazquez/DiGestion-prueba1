@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Filter } from "../Filter/Filters";
+import { Link } from "react-router-dom";
+import descargaProveedor from '../../assets/download.svg'
 export const ListProveedores = () => {
 
     const [proveedores, setProveedores] = useState([]);
@@ -59,7 +61,7 @@ export const ListProveedores = () => {
                                     <td className="border-bottom">{proveedor.updated_by}</td>
                                     <td className="border-bottom">{proveedor.created_at}</td>
                                     <td className="border-bottom">{proveedor.updated_at}</td>
-                                    <td className="border-bottom"><Link to={`/proveedor/${proveedor.id}`}><img src={descargaRemito} alt="" /></Link></td>
+                                    <td className="border-bottom"><Link to={`/proveedor/${proveedor.id}`}><img src={descargaProveedor} alt="" /></Link></td>
                                 </tr>
 
 
@@ -79,7 +81,7 @@ export const ListProveedores = () => {
                                     <td className="border-bottom">{proveedor.updated_by}</td>
                                     <td className="border-bottom">{proveedor.created_at}</td>
                                     <td className="border-bottom">{proveedor.updated_at}</td>
-                                    <td className="border-bottom"><Link to={`/proveedor/${proveedor.id}`}><img src={descargaRemito} alt="" /></Link></td>
+                                    <td className="border-bottom"><Link to={`/proveedor/${proveedor.id}`}><img src={descargaProveedor} alt="" /></Link></td>
                                     </tr>
 
 
