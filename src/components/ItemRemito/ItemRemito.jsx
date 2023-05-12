@@ -1,27 +1,47 @@
 import eliminar from '../../assets/eliminar.svg'
 import agregar from '../../assets/agregar.svg'
 import volver from '../../assets/volver.svg'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 export const ItemRemito = () => {
 
+
+    const [remitos, setRemitos] = useState({})
+    const {pid} = useParams()
+
+    const FetchRemitos = async () => {
+        const response = await fetch(`http://10.10.49.124/api/remitos/${pid}`);
+        const results = await response.json()
+        const remitos = results.data
+
+        setRemitos(remitos)
+    }
+
+    useEffect(() => {
+        FetchRemitos(pid);
+    }, [])
+
+   
+    
     return (
 
         <>
 
             <div className="card cardRemito" >
                 <div className="card-body">
-                    <h5 className="card-title">Remito N°</h5>
-                    <div class="container">
-                        <div class="row align-items-start">
-                            <div class="col">
+                    <h5 className="card-title">Remito N° {remitos.id}</h5>
+                    <div className="container">
+                        <div className="row align-items-start">
+                            <div className="col">
                                 <ul>
-                                    <li><b>Departamento:</b></li>
+                                    <li><b>Departamento:</b>{remitos.departamento_id}</li>
                                     <li><b>Remito:</b></li>
                                     <li><b>Usuario alta:</b></li>
                                     <li><b>Orden provisión:</b></li>
                                 </ul>
                             </div>
-                            <div class="col">
+                            <div className="col">
                                 <ul>
                                     <li><b>Proveedor:</b></li>
                                     <li><b>Expediente:</b></li>
@@ -29,10 +49,10 @@ export const ItemRemito = () => {
                                     <li><b>Orden entrega:</b></li>
                                 </ul>
                             </div>
-                            <div class="col">
+                            <div className="col">
                                 <ul>
-                                    <li><b>Fecha recepción:</b></li>
-                                    <li><b>Fecha recepción DTI:</b></li>
+                                    <li><b>Fecha recepción:</b> {remitos.fecha_recepcion}</li>
+                                    <li><b>Fecha recepción DTI:</b>{remitos.fecha_recepcion_dti}</li>
                                     <li><b>Legajo compra:</b></li>
                                     
                                 </ul>
@@ -44,7 +64,7 @@ export const ItemRemito = () => {
 
                     <hr></hr>
                     <h6 className="card-subtitle text-muted">PERIFÉRICOS</h6>
-                    <table class="table table-striped">
+                    <table className="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">Periférico</th>

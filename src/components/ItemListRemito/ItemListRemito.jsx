@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Filter } from "../Filter/Filters";
+import { Link } from "react-router-dom";
 import descargaRemito from '../../assets/download.svg'
 
 export const ItemListRemito = () => {
@@ -54,7 +55,7 @@ export const ItemListRemito = () => {
                                     <td className="border-bottom">{remito.fecha_recepcion}</td>
                                     <td className="border-bottom">{remito.remito}</td>
                                     <td className="border-bottom">{remito.fecha_recepcion_dti}</td>
-                                    <td className="border-bottom"><img src={descargaRemito} alt="" /></td>
+                                    <td className="border-bottom"><Link to={`/remitos/${remito.id}`}><img src={descargaRemito} alt="" /></Link></td>
                                 </tr>
 
 
@@ -73,7 +74,7 @@ export const ItemListRemito = () => {
                                         <td className="border-bottom" >{remito.fecha_recepcion}</td>
                                         <td className="border-bottom" >{remito.remito}</td>
                                         <td className="border-bottom" >{remito.fecha_recepcion_dti}</td>
-                                        <td className="border-bottom" >.. </td>
+                                        <td className="border-bottom" ><img src={descargaRemito} alt="" /> </td>
                                     </tr>
 
 

@@ -7,7 +7,7 @@ import { ListProveedores } from './components/ListProveedores/ListProveedores'
 import { ListaRemitos } from './components/ListaRemitos/ListaRemitos.jsx';
 import { NavBar } from './components/NavBar/NavBar';
 import { FooterNav } from './components/FooterNav/FooterNav';
-import { BrowserRouter, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { LogIn } from './components/LogIn/LogIn';
 import { ItemListRemito } from './components/ItemListRemito/ItemListRemito.jsx';
 import { ListaRemitos2 } from './components/ListaRemitos2/ListaRemitos2';
@@ -24,18 +24,23 @@ function App() {
 
   return (
     <>
+    <BrowserRouter>
 
       <NavBar />
-      {/*  <LogIn /> */}
-      {/* <ListProveedores /> */}
 
-      <AddRemito/>
-     {/*   <ItemListRemito /> */}
-      
-      {/* <ItemRemito/> */}
-      <FooterNav />
+      <Routes>
+        {/*  <LogIn /> */}
+        {/* <ListProveedores /> */}
 
-    </>
+        {/* <AddRemito /> */}
+        <Route path='/remitos' element={<ItemListRemito />} />
+        <Route path='/remitos/:pid' element={<ItemRemito />} />
+       
+      </Routes>
+      {/* <FooterNav /> */}
+
+    </BrowserRouter>
+  </>
   )
 }
 
