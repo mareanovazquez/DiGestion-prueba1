@@ -29,12 +29,13 @@ function App() {
       <NavBar />
 
       <Routes>
-        {/*  <LogIn /> */}
-        {/* <ListProveedores /> */}
+        <Route path='/' element={<LogIn /> }/>
+        
 
         {/* <AddRemito /> */}
+        <Route path='/proveedores' element={<ListProveedores />}/>
         <Route path='/remitos' element={<ItemListRemito />} />
-        <Route path='/remitos/:pid' element={<ItemRemito />} />
+        <Route path='/remito/:pid' element={<ItemRemito />} />
        
       </Routes>
       {/* <FooterNav /> */}

@@ -55,7 +55,7 @@ export const ItemListRemito = () => {
                                     <td className="border-bottom">{remito.fecha_recepcion}</td>
                                     <td className="border-bottom">{remito.remito}</td>
                                     <td className="border-bottom">{remito.fecha_recepcion_dti}</td>
-                                    <td className="border-bottom"><Link to={`/remitos/${remito.id}`}><img src={descargaRemito} alt="" /></Link></td>
+                                    <td className="border-bottom"><Link to={`/remito/${remito.id}`}><img src={descargaRemito} alt="" /></Link></td>
                                 </tr>
 
 
@@ -74,7 +74,7 @@ export const ItemListRemito = () => {
                                         <td className="border-bottom" >{remito.fecha_recepcion}</td>
                                         <td className="border-bottom" >{remito.remito}</td>
                                         <td className="border-bottom" >{remito.fecha_recepcion_dti}</td>
-                                        <td className="border-bottom" ><img src={descargaRemito} alt="" /> </td>
+                                        <td className="border-bottom"><Link to={`/remito/${remito.id}`}><img src={descargaRemito} alt="" /></Link></td>
                                     </tr>
 
 
@@ -93,14 +93,7 @@ export const ItemListRemito = () => {
 
     return (
         <>
-            {/*  <h3 className="text-center"> Lista de remitos</h3>
-
-            {<ul className="card-group">
-                {remitos.map((remito) => (
-                    <li className="card" key={remito.id}>{remito.proveedor_id}</li>
-                ))}
-
-            </ul>} */}
+           
 
             <Filter>
                 {handleProductFiltered}
