@@ -2,6 +2,7 @@ import { Nav, Navbar, Dropdown, DropdownButton, Button } from 'react-bootstrap';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
 import { InteractionStatus } from "@azure/msal-browser"; 
 import { loginRequest, b2cPolicies } from '../authConfig';
+import { NavLink } from 'react-router-dom';
 
 
 export const NavigationBar = () => {
@@ -45,17 +46,18 @@ export const NavigationBar = () => {
     return (
         <>
             <Navbar bg="primary" variant="dark" className="navbarStyle">
-                <a className="navbar-brand" href="/">
-                    Microsoft identity platform
-                </a>
+                
+                <NavLink className='navbar-brand' to='/'>DIGESTIÓN | </NavLink>
                 <AuthenticatedTemplate>
-                    <Nav.Link className="navbarButton" href="/remitos">
-                        Remitos
-                    </Nav.Link>
+                <Nav className="me-auto">
+                        <NavLink to='/proveedores' className= 'nav-link btn text-white' >PROVEEDORES</NavLink>
+                        <NavLink to='/remitos' className= 'nav-link btn text-white' >REMITOS</NavLink>
+
+                    </Nav>
                     <div className="collapse navbar-collapse justify-content-end">
-                        <Button variant="info" onClick={handleProfileEdit} className="profileButton">
+                        {/* <Button variant="info" onClick={handleProfileEdit} className="profileButton">
                            Proveedores
-                        </Button>
+                        </Button> */}
 
                         <DropdownButton
                             variant="warning"

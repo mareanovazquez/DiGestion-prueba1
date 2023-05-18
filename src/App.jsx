@@ -104,7 +104,11 @@ const Pages = () => {
 
     return (
       <BrowserRouter>
-      <NavBar />
+      
+      {/* Para que veas que el problema está casi seguro adentor de Switch rendericé el componente por fuera de Switch y se muestra pero no funcionan los links */}
+      <ItemListRemito/>
+
+      {/* Creo que el problema está adentro de Switch, por eso no renderiza los componentes, pero no se bien dónde está el problema.  */}
         <Switch>
            
             <Route path="/" element={<Home />} />
