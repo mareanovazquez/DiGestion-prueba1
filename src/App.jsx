@@ -42,7 +42,7 @@ const Pages = () => {
                  * policies may use "acr" instead of "tfp"). To learn more about B2C tokens, visit:
                  * https://docs.microsoft.com/en-us/azure/active-directory-b2c/tokens-overview
                  */
-                if (compareIssuingPolicy(event.payload.idTokenClaims, b2cPolicies.names.editProfile)) {
+                // if (compareIssuingPolicy(event.payload.idTokenClaims, b2cPolicies.names.editProfile)) {
                     // retrieve the account from initial sing-in to the app
                     const originalSignInAccount = instance
                         .getAllAccounts()
@@ -60,7 +60,7 @@ const Pages = () => {
 
                     // silently login again with the signUpSignIn policy
                     instance.ssoSilent(signUpSignInFlowRequest);
-                }
+                // }
 
                 /**
                  * Below we are checking if the user is returning from the reset password flow.
@@ -69,29 +69,30 @@ const Pages = () => {
                  * you can replace the code below with the same pattern used for handling the return from
                  * profile edit flow
                  */
-                if (compareIssuingPolicy(event.payload.idTokenClaims, b2cPolicies.names.forgotPassword)) {
-                    let signUpSignInFlowRequest = {
-                        authority: b2cPolicies.authorities.signUpSignIn.authority,
-                        scopes: [
-                            ...protectedResources.apiTodoList.scopes.read,
-                            ...protectedResources.apiTodoList.scopes.write,
-                        ],
-                    };
-                    instance.loginRedirect(signUpSignInFlowRequest);
-                }
+                // if (compareIssuingPolicy(event.payload.idTokenClaims, b2cPolicies.names.forgotPassword)) {
+                //     let signUpSignInFlowRequest = {
+                //         authority: b2cPolicies.authorities.signUpSignIn.authority,
+                //         scopes: [
+                //             ...protectedResources.apiTodoList.scopes.read,
+                //             ...protectedResources.apiTodoList.scopes.write,
+                //         ],
+                //     };
+                //     instance.loginRedirect(signUpSignInFlowRequest);
+                // }
             }
 
-            if (event.eventType === EventType.LOGIN_FAILURE) {
-                // Check for forgot password error
-                // Learn more about AAD error codes at https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-aadsts-error-codes
-                if (event.error && event.error.errorMessage.includes('AADB2C90118')) {
-                    const resetPasswordRequest = {
-                        authority: b2cPolicies.authorities.forgotPassword.authority,
-                        scopes: [],
-                    };
-                    instance.loginRedirect(resetPasswordRequest);
-                }
-            }
+            // if (event.eventType === EventType.LOGIN_FAILURE) {
+            //     // Check for forgot password error
+            //     // Learn more about AAD error codes at https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-aadsts-error-codes
+            //     debugger;
+            //     if (event.error && event.error.errorMessage.includes('AADB2C90118')) {
+            //         const resetPasswordRequest = {
+            //             authority: b2cPolicies.authorities.forgotPassword.authority,
+            //             scopes: [],
+            //         };
+            //         instance.loginRedirect(resetPasswordRequest);
+            //     }
+            // }
         });
 
         return () => {
