@@ -12,7 +12,7 @@ import { LogLevel } from "@azure/msal-browser";
  */
 export const b2cPolicies = {
     names: {
-        signUpSignIn: 'B2C_1_digestion',
+        signUpSignIn: 'B2C_1A_VALIDATED_SIGNIN',
         // forgotPassword: 'B2C_1_reset_v3',
         // editProfile: 'B2C_1_edit_profile_v2',
     },
