@@ -13,7 +13,7 @@ import { compareIssuingPolicy } from './utils/claimUtils';
  import { ListaRemitos } from './components/ListaRemitos/ListaRemitos.jsx';
  import { NavBar } from './components/NavBar/NavBar';
  import { FooterNav } from './components/FooterNav/FooterNav';
- import { BrowserRouter, Route, Switch } from 'react-router-dom';
+ import { BrowserRouter, Route, Routes } from 'react-router-dom';
  import { ItemListRemito } from './components/ItemListRemito/ItemListRemito.jsx';
  import { ListaRemitos2 } from './components/ListaRemitos2/ListaRemitos2';
  import { ItemRemito } from './components/ItemRemito/ItemRemito';
@@ -103,13 +103,8 @@ const Pages = () => {
     }, [instance]);
 
     return (
-      <BrowserRouter>
       
-      {/* Para que veas que el problema está casi seguro adentor de Switch rendericé el componente por fuera de Switch y se muestra pero no funcionan los links */}
-      <ItemListRemito/>
-
-      {/* Creo que el problema está adentro de Switch, por eso no renderiza los componentes, pero no se bien dónde está el problema.  */}
-        <Switch>
+        <Routes>
            
             <Route path="/" element={<Home />} />
           
@@ -124,8 +119,8 @@ const Pages = () => {
               {/* <FooterNav /> */}
         
              
-        </Switch>
-        </BrowserRouter>
+        </Routes>
+        
     );
 };
 
