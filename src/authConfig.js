@@ -18,7 +18,7 @@ export const b2cPolicies = {
     },
     authorities: {
         signUpSignIn: {
-            authority: 'https://mesatecnica.b2clogin.com/mesatecnica.onmicrosoft.com/B2C_1_digestion',
+            authority: 'https://mesatecnica.b2clogin.com/mesatecnica.onmicrosoft.com/B2C_1A_VALIDATED_SIGNIN',
         },
         // forgotPassword: {
         //     authority: 'https://fabrikamb2c.b2clogin.com/fabrikamb2c.onmicrosoft.com/B2C_1_reset_v3',
