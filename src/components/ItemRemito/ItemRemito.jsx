@@ -3,12 +3,13 @@ import agregar from '../../assets/agregar.svg'
 import volver from '../../assets/volver.svg'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export const ItemRemito = () => {
 
 
     const [remitos, setRemitos] = useState({})
-    const { pid } = useParams()
+    const { rid } = useParams()
 
     const FetchRemitos = async () => {
         const response = await fetch(`http://10.10.49.124/api/remito/${pid}`);
@@ -19,7 +20,7 @@ export const ItemRemito = () => {
     }
 
     useEffect(() => {
-        FetchRemitos(pid);
+        FetchRemitos(rid);
     }, [])
 
     
@@ -115,8 +116,9 @@ export const ItemRemito = () => {
                                 </tbody>
                             </table>
                             <div className="card-footer ">
-                                <a href="#" className="card-link "><img src={agregar} alt="agregar periféricos" /></a>
-                                <a href="#" className="card-link "><img src={volver} alt="volver a la lista de remitos" /></a>
+                                <Link to='/remito/addRemito' className='card-link'><img src={agregar} alt="agregar periféricos" /></Link>
+                                <Link to='/' className='card-link'><img src={volver} alt="volver a la lista de remitos" /></Link>
+                                
                             </div>
                         </div>
                     </div>
