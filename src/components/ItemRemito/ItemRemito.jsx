@@ -12,7 +12,7 @@ export const ItemRemito = () => {
     const { rid } = useParams()
 
     const FetchRemitos = async () => {
-        const response = await fetch(`http://10.10.49.124/api/remito/${pid}`);
+        const response = await fetch(`http://10.10.49.124/api/remito/${rid}`);
         const results = await response.json()
         const remitos = results.data
 
