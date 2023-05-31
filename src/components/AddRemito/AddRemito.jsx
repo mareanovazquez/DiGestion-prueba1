@@ -12,7 +12,7 @@ export const AddRemito = () => {
                         <input type="text" className="form-control" placeholder="Departamento" aria-label="Departamento" />
                     </div>
                     <div className="col">
-                        <label htmlfor='proveedores' >Proveedor</label>
+                        <label htmlFor='proveedores' >Proveedor</label>
                         <div>
                             <select className="form-control" name="opciones">
                                     <option value="" disabled className="text-muted">Proveedores</option>
@@ -71,9 +71,9 @@ export const AddRemito = () => {
                     </div>
                 </div>
                 <div className="row altaRemito">
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                         {/* <button class="btn btn-primary me-md-2" type="button">Button</button> */}
-                        <button class="btn btn-primary" type="button">Guardar</button>
+                        <button className="btn btn-primary" type="button">Guardar</button>
                     </div>
 
 

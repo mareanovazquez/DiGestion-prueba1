@@ -116,7 +116,7 @@ export const ItemRemito = () => {
                                 </tbody>
                             </table>
                             <div className="card-footer ">
-                                <Link to='/remito/addRemito' className='card-link'><img src={agregar} alt="agregar periféricos" /></Link>
+                                <Link to='/remito/addRemito' className='card-link'><img src={agregar} alt="agregar remito" /></Link>
                                 <Link to='/' className='card-link'><img src={volver} alt="volver a la lista de remitos" /></Link>
                                 
                             </div>
