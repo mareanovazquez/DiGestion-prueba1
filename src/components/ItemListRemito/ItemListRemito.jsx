@@ -6,19 +6,22 @@ import descargaRemito from '../../assets/download.svg'
 export const ItemListRemito = () => {
     const [remitos, setRemitos] = useState([])
 
+
     const FetchRemitos = async () => {
         const response = await fetch('http://10.10.49.124/api/remitos');
         const results = await response.json()
         const remitos = results.data
 
         setRemitos(remitos)
+
     }
+
 
     useEffect(() => {
         FetchRemitos();
     }, [])
 
-    const handleProductFiltered = ({ filterState, handleFilterChange }) => {
+    const handleProductFiltered = ({ filterState, handleFilterChange, filterStateR, handleFilterChangeR, filterStateFR, handleFilterChangeFR, filterStateFRdti, handleFilterChangeFRdti }) => {
 
 
         return (
@@ -29,7 +32,7 @@ export const ItemListRemito = () => {
 
 
                 <br></br>
-                <input type='text' value={filterState} placeholder="Filtrar" onChange={handleFilterChange} />
+                {/* <input type='text' value={filterState} placeholder="Filtrar" onChange={handleFilterChange} /> */}
                 <table className="table tablaRemitos">
                     <thead>
                         <tr>
@@ -40,6 +43,14 @@ export const ItemListRemito = () => {
                             <th scope='col'> Fecha recepción DTI</th>
                             <th scope="col">Descarga</th>
                         </tr>
+                        <tr>
+                            <th className="text-center" scope='col'></th>
+                            <th scope='col'> <input type='text' value={filterState} placeholder="Filtrar" onChange={handleFilterChange} /></th>
+                            <th scope='col'> <input type="date" value={filterStateFR} placeholder="filtrar" onChange={handleFilterChangeFR}/></th>
+                            <th scope='col'> <input type='text' value={filterStateR} placeholder="Filtrar" onChange={handleFilterChangeR} /></th>
+                            <th scope='col'> <input type="date" value={filterStateFRdti} placeholder="filtrar" onChange={handleFilterChangeFRdti}/></th>
+                            <th scope="col"></th>
+                        </tr>
                     </thead>
 
                     <tbody>
@@ -47,8 +58,6 @@ export const ItemListRemito = () => {
 
                             ? remitos.map((remito) =>
                             (
-
-
                                 <tr className="border-bottom my-2" key={remito.id} scope="row">
                                     <td className="border-bottom">{remito.id}</td>
                                     <td className="border-bottom">{remito.departamento_id}</td>
@@ -58,13 +67,10 @@ export const ItemListRemito = () => {
                                     <td className="border-bottom"><Link to={`/remito/${remito.id}`}><img src={descargaRemito} alt="" /></Link></td>
                                 </tr>
 
-
-
                             )
 
                             )
-                            : remitos.filter(remito => remito.departamento_id.toString().toLowerCase().includes(filterState.toLowerCase()) ||
-                                remito.proveedor_id.toString().toLowerCase().includes(filterState.toLowerCase()))
+                            : remitos.filter(remito => remito.departamento_id.toString().toLowerCase().includes(filterState.toLowerCase())) 
                                 .map((remito) => (
 
 
@@ -76,14 +82,15 @@ export const ItemListRemito = () => {
                                         <td className="border-bottom" >{remito.fecha_recepcion_dti}</td>
                                         <td className="border-bottom"><Link to={`/remito/${remito.id}`}><img src={descargaRemito} alt="" /></Link></td>
                                     </tr>
-
-
                                 )
 
-
-
                                 )
+                        
+                                
+                        
                         }
+
+                        
                     </tbody>
                 </table>
 
@@ -93,7 +100,7 @@ export const ItemListRemito = () => {
 
     return (
         <>
-           
+
 
             <Filter>
                 {handleProductFiltered}

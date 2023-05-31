@@ -3,11 +3,7 @@ import { ProductFilter } from "../ProductFilter/ProductFilter"
 
 
 export const ListaRemitos2 = () => {
-    /*  const [products, setProducts] = useState([
-       { id: 1, name: 'Product 1' },
-       { id: 2, name: 'Product 2' },
-       { id: 3, name: 'Product 3' },
-     ]) */
+   
 
     const [remitos, setRemitos] = useState([]);
 

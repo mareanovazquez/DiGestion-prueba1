@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
+
 
 import { PublicClientApplication, EventType } from "@azure/msal-browser";
 import { BrowserRouter } from "react-router-dom";
@@ -9,6 +10,7 @@ import App from "./App";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
+import axios from "axios";
 
 /**
 * MSAL should be instantiated outside of the component tree to prevent it from being re-instantiated on re-renders.
@@ -30,6 +32,10 @@ msalInstance.addEventCallback((event) => {
         event.payload.account
     ) {
         msalInstance.setActiveAccount(event.payload.account);
+        //fetch
+
+       
+
     }
 });
 

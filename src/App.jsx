@@ -10,7 +10,7 @@ import { b2cPolicies, protectedResources } from './authConfig';
 import { compareIssuingPolicy } from './utils/claimUtils';
 
  import { ListProveedores } from './components/ListProveedores/ListProveedores'
- import { ListaRemitos } from './components/ListaRemitos/ListaRemitos.jsx';
+ 
  import { NavBar } from './components/NavBar/NavBar';
  import { FooterNav } from './components/FooterNav/FooterNav';
  import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -109,9 +109,6 @@ const Pages = () => {
            
             <Route path="/" element={<Home />} />
           
-        
-
-                 
                  <Route path='/proveedores' element={<ListProveedores />}/>
                  <Route path='/remitos' element={<ItemListRemito />} />
                  {/* En la route de remito cambié el parámetro pid por rid para que sea más significativo a remitoID, creo que cuando este proyecto sea más grande estos detalles van a importar. */}

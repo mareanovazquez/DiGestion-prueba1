@@ -12,6 +12,7 @@
   "dependencies": {
     "@azure/msal-browser": "^2.37.0",
     "@azure/msal-react": "^1.5.7",
+    "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
     "react": "^18.2.0",
