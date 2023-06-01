@@ -1,4 +1,24 @@
+import { useEffect, useState } from "react"
+
 export const AddRemito = () => {
+
+    const [proveedores, setProveedores] = useState([]);
+
+    useEffect(() => {
+        const FetchProveedores = async () => {
+            const response = await fetch('http://10.10.49.124/api/proveedores');
+            const result = await response.json();
+            const proveedores = result.data
+
+            setProveedores(proveedores);
+
+        }
+
+        FetchProveedores()
+
+    }, []);
+
+
 
     return (
 
@@ -12,14 +32,13 @@ export const AddRemito = () => {
                         <input type="text" className="form-control" placeholder="Departamento" aria-label="Departamento" />
                     </div>
                     <div className="col">
-                        <label htmlFor='proveedores' >Proveedor</label>
+                        <label htmlFor='proveedores' >Proveedores</label>
                         <div>
                             <select className="form-control" name="opciones">
-                                    <option value="" disabled className="text-muted">Proveedores</option>
-                                <option value="opcion1">Proveedor 1</option>
-                                <option value="opcion2">Proveedor 2</option>
-                                <option value="opcion3">Proveedor 3</option>
-                                <option value="opcion4">Proveedor 4</option>
+                                <option value="" disabled selected className="text-muted">Proveedores</option>
+                                {proveedores.map((proveedor) => (
+                                    <option key={proveedor.id} value="" >{proveedor.nombre}</option>
+                                ))}
                             </select>
                         </div>
 
