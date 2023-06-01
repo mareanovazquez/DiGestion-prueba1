@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import descargaRemito from '../../assets/download.svg'
+import agregar from '../../assets/agregar.svg'
 
 export const ItemListRemito = () => {
     const [remitos, setRemitos] = useState([]);
@@ -97,7 +98,8 @@ para que ese filtro también funcione */}
             
         </div>
         <div>
-            <button><Link to='/remito/addRemito'>Remito Nuevo</Link></button>
+            
+          <button>  <Link to='/remito/addRemito' className='card-link addRemito'><img src={agregar} alt="agregar remito" /></Link> </button>
         </div>
         </>
         )
