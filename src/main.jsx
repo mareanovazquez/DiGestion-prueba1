@@ -10,7 +10,6 @@ import App from "./App";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import axios from "axios";
 
 /**
 * MSAL should be instantiated outside of the component tree to prevent it from being re-instantiated on re-renders.

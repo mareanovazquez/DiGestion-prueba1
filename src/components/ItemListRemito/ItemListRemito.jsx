@@ -99,7 +99,7 @@ para que ese filtro también funcione */}
         </div>
         <div>
             
-          <button>  <Link to='/remito/addRemito' className='card-link addRemito'><img src={agregar} alt="agregar remito" /></Link> </button>
+        <Link to='/remito/addRemito' className='card-link addRemito'><img src={agregar} alt="agregar remito" /></Link>
         </div>
         </>
         )
