@@ -10,8 +10,8 @@ import { b2cPolicies, protectedResources } from './authConfig';
 import { compareIssuingPolicy } from './utils/claimUtils';
 
  import { ListProveedores } from './components/ListProveedores/ListProveedores'
- import { ListaRemitos } from './components/ListaRemitos/ListaRemitos.jsx';
- import { NavBar } from './components/NavBar/NavBar';
+ 
+
  import { FooterNav } from './components/FooterNav/FooterNav';
  import { BrowserRouter, Route, Routes } from 'react-router-dom';
  import { ItemListRemito } from './components/ItemListRemito/ItemListRemito.jsx';
