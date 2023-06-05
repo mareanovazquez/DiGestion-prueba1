@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Filter } from "../Filter/Filters";
 import { Link } from "react-router-dom";
 import descargaRemito from '../../assets/download.svg'
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
 
 export const ItemListRemito = () => {
     const [remitos, setRemitos] = useState([])
@@ -93,11 +94,16 @@ export const ItemListRemito = () => {
 
     return (
         <>
-           
+           <AuthenticatedTemplate>
 
             <Filter>
                 {handleProductFiltered}
             </Filter>
+            </AuthenticatedTemplate>
+
+            <UnauthenticatedTemplate>
+                <h2 className="text-center">Tenés que loguearte para ver la lista de remitos</h2>
+            </UnauthenticatedTemplate>
         </>
     )
 }

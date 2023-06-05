@@ -1,8 +1,13 @@
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react"
+import { Home } from "../../pages/Home"
+
 export const AddRemito = () => {
 
     return (
 
         <>
+        <AuthenticatedTemplate>
+        
             <div className="contenedorAltaRemito">
 
                 <div className="row altaRemito">
@@ -79,6 +84,11 @@ export const AddRemito = () => {
 
                 </div>
             </div>
+            </AuthenticatedTemplate>
+
+            <UnauthenticatedTemplate>
+                <h2 className="text-center">Tenés que loguearte para ingresar</h2> 
+            </UnauthenticatedTemplate>
         </>
     )
 }

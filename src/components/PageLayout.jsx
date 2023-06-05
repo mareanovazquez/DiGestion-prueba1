@@ -1,5 +1,6 @@
 import { AuthenticatedTemplate } from "@azure/msal-react";
 import { NavigationBar } from "./NavigationBar";
+import { FooterNav } from "./FooterNav/FooterNav";
 
 export const PageLayout = (props) => {
     return (
@@ -13,7 +14,9 @@ export const PageLayout = (props) => {
             {props.children}
             <br />
             <AuthenticatedTemplate>
-                <footer>
+            <FooterNav/>
+                {/* <footer>
+                    
                     <center>
                         How did we do?
                         <a
@@ -25,7 +28,7 @@ export const PageLayout = (props) => {
                             Share your experience!
                         </a>
                     </center>
-                </footer>
+                </footer> */}
             </AuthenticatedTemplate>
         </>
     );

@@ -1,24 +1,25 @@
 import Nav from 'react-bootstrap/Nav';
+import { NavLink } from 'react-router-dom';
 
 export const FooterNav = () => {
     return (
         <>
-            <Nav className="justify-content-center bg-dark"  activeKey="/home">
+            <Nav className="justify-content-center bg-dark" activeKey="/home">
                 <Nav.Item>
-                    <Nav.Link className='text-white' href="/home">| DiGestión |</Nav.Link>
+                    <NavLink className='text-white' to='/'> | DIGESTIÓN | </NavLink>
                 </Nav.Item>
-                </Nav>
-                
-                <Nav className="justify-content-center bg-dark" >
-                <Nav.Item>
-                    <Nav.Link className='text-white' eventKey="link-1">PROVEEDORES</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link className='text-white' eventKey="link-2">REMITOS</Nav.Link>
-                </Nav.Item>
-               
             </Nav>
-            
+
+            <Nav className="justify-content-center bg-dark" >
+                <Nav.Item>
+                    <NavLink to='/proveedores' className='nav-link btn text-white' >PROVEEDORES</NavLink>
+                </Nav.Item>
+                <Nav.Item>
+                    <NavLink to='/remitos' className='nav-link btn text-white' >REMITOS</NavLink>
+                </Nav.Item>
+
+            </Nav>
+
         </>
     );
 }

@@ -4,6 +4,7 @@ import volver from '../../assets/volver.svg'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react'
 
 export const ItemRemito = () => {
 
@@ -28,7 +29,7 @@ export const ItemRemito = () => {
     return (
 
             <>
-
+        <AuthenticatedTemplate>
             
                 <div className="card cardRemito" >
                     <div className="card-body">
@@ -122,6 +123,12 @@ export const ItemRemito = () => {
                             </div>
                         </div>
                     </div>
+
+                    </AuthenticatedTemplate>
+
+                    <UnauthenticatedTemplate>
+                        <h2 className='text-center'>Tenés que loguearte para ver los remitos individuales</h2>
+                    </UnauthenticatedTemplate>
                     
                 </>
 

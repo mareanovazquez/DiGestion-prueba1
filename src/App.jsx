@@ -104,24 +104,18 @@ const Pages = () => {
     }, [instance]);
 
     return (
-      
-        <Routes>
-           
-            <Route path="/" element={<Home />} />
-          
-        
 
-                 
-                 <Route path='/proveedores' element={<ListProveedores />}/>
-                 <Route path='/remitos' element={<ItemListRemito />} />
+        <Routes>
+
+            <Route path="/" element={<Home />} />
+            <Route path='/proveedores' element={<ListProveedores />}/>
+            <Route path='/remitos' element={<ItemListRemito />} />
                  {/* En la route de remito cambié el parámetro pid por rid para que sea más significativo a remitoID, creo que cuando este proyecto sea más grande estos detalles van a importar. */}
-                 <Route path='/remito/:rid' element={<ItemRemito />} />
-                 <Route path='/remito/addRemito' element={<AddRemito/>}/>
-               
-       
+            <Route path='/remito/:rid' element={<ItemRemito />} />
+            <Route path='/remito/addRemito' element={<AddRemito/>}/>
+
               {/* <FooterNav /> */}
-        
-             
+
         </Routes>
         
     );
