@@ -1,13 +1,23 @@
+import { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { UserContext } from '../../UserContext/UserContext';
+
 
 export const LogIn = () => {
+
+   
+
+    const {  handleLogin, username,setUsername, password, setPassword, error, setError} = useContext(UserContext);
+    
+
     return (
         <div className='contenedorLogIn'>
-            <Form className='formLogIn'>
+            <Form className='formLogIn' onSubmit={handleLogin}>
+                <h2 className='text-center'>DIGESTIÓN</h2>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Usuario</Form.Label>
-                    <Form.Control type="email" placeholder="Ingrese Usuario" />
+                    <Form.Control type="text" placeholder="Ingrese Usuario" value={username} onChange={(e) => setUsername(e.target.value)} />
                     <Form.Text className="text-muted">
 
                     </Form.Text>
@@ -15,13 +25,16 @@ export const LogIn = () => {
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Constraseña</Form.Label>
-                    <Form.Control type="password" placeholder="Contraseña" />
+                    <Form.Control type="password" placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </Form.Group>
 
                 <Button variant="primary" type="submit">
                     Ingresar
                 </Button>
+                {error && <p>{error}</p>}
             </Form>
         </div>
     );
+
+    <NavBar />
 }

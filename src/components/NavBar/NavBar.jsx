@@ -15,7 +15,9 @@ export const NavBar = () => {
                     <Nav className="me-auto">
                         <NavLink to='/proveedores' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>PROVEEDORES</NavLink>
                         <NavLink to='/remitos' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>REMITOS</NavLink>
-
+                    </Nav>
+                    <Nav>
+                        <NavLink to='/'><button>Cerrar sesión</button></NavLink>
                     </Nav>
 
                 </Navbar.Collapse>

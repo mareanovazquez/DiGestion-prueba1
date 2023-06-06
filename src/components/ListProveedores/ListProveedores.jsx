@@ -26,7 +26,7 @@ export const ListProveedores = () => {
 
 
         return (
-            <><AuthenticatedTemplate>
+            <>
                 <div className="contenedorRemitos">
                     <hr></hr>
                     <h2 className="text-center"> Lista de Proveedores</h2>
@@ -56,6 +56,7 @@ export const ListProveedores = () => {
 
 
                                     <tr className="border-bottom my-2" key={proveedor.id} scope="row">
+                                        <td className="border-bottom">{proveedor.id}</td>
                                         <td className="border-bottom">{proveedor.nombre}</td>
                                         <td className="border-bottom">{proveedor.estado}</td>
                                         <td className="border-bottom">{proveedor.created_by}</td>
@@ -76,6 +77,7 @@ export const ListProveedores = () => {
 
 
                                         <tr className="border-bottom my-2" key={proveedor.id} scope="row">
+                                            <td className="border-bottom">{proveedor.id}</td>
                                             <td className="border-bottom">{proveedor.nombre}</td>
                                             <td className="border-bottom">{proveedor.estado}</td>
                                             <td className="border-bottom">{proveedor.created_by}</td>
@@ -95,11 +97,7 @@ export const ListProveedores = () => {
                     </table>
 
                 </div>
-            </AuthenticatedTemplate>
-                <UnauthenticatedTemplate>
-                    <h2 className="text-center"> NO ESTAS AUTENTICADO LOCO</h2>
-
-                </UnauthenticatedTemplate></>
+            </>
         )
     }
 

@@ -34,8 +34,8 @@ export const AddRemito = () => {
                     <div className="col">
                         <label htmlFor='proveedores' >Proveedores</label>
                         <div>
-                            <select className="form-control" name="opciones">
-                                <option value="" disabled selected className="text-muted">Proveedores</option>
+                            <select className="form-control" name="opciones" defaultValue='1'>
+                                <option value='1' disabled  className="text-muted">Proveedores</option>
                                 {proveedores.map((proveedor) => (
                                     <option key={proveedor.id} value="" >{proveedor.nombre}</option>
                                 ))}

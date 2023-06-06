@@ -4,7 +4,8 @@ import { NavigationBar } from "./NavigationBar";
 export const PageLayout = (props) => {
     return (
         <>
-            <NavigationBar />
+            {/* <NavigationBar /> */}
+            
             <br />
             <h5>
                 <center>Welcome to the Microsoft Authentication Library For React Tutorial</center>
