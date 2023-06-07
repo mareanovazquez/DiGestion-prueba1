@@ -4,6 +4,7 @@ import volver from '../../assets/volver.svg'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { NavBar } from '../NavBar/NavBar'
 
 export const ItemRemito = () => {
 
@@ -29,7 +30,7 @@ export const ItemRemito = () => {
 
             <>
 
-            
+            <NavBar/>
                 <div className="card cardRemito" >
                     <div className="card-body">
                         

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { NavBar } from "../NavBar/NavBar";
 
 export const AddRemito = () => {
 
@@ -23,6 +24,7 @@ export const AddRemito = () => {
     return (
 
         <>
+        <NavBar/>
             <div className="contenedorAltaRemito">
 
                 <div className="row altaRemito">

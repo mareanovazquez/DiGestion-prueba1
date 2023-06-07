@@ -3,6 +3,7 @@ import { Filter } from "../Filter/Filters";
 import { Link } from "react-router-dom";
 import descargaProveedor from '../../assets/download.svg'
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
+import { NavBar } from "../NavBar/NavBar";
 export const ListProveedores = () => {
 
     const [proveedores, setProveedores] = useState([]);
@@ -106,6 +107,7 @@ export const ListProveedores = () => {
     return (
 
         <>
+        <NavBar/>
             <Filter>
                 {handleProductFiltered}
             </Filter>

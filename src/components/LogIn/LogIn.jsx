@@ -1,14 +1,15 @@
 import { useContext, useState } from 'react';
+import { UserContext } from '../../UserContext/UserContext';
+
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { UserContext } from '../../UserContext/UserContext';
+
 
 
 export const LogIn = () => {
 
-   
 
-    const {  handleLogin, username,setUsername, password, setPassword, error, setError} = useContext(UserContext);
+    const {  handleLogin, username,setUsername, password, setPassword, error } = useContext(UserContext);
     
 
     return (
