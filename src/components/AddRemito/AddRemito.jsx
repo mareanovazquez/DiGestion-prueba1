@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { NavBar } from "../NavBar/NavBar";
+import { UserContext } from "../../UserContext/UserContext";
 
 export const AddRemito = () => {
 
     const [proveedores, setProveedores] = useState([]);
+    const { usuarios, setUsuarios, permisos, setPermisos } = useContext(UserContext)
 
+    //este useEffect hace un fetch a la lista de proveedores
     useEffect(() => {
         const FetchProveedores = async () => {
             const response = await fetch('http://10.10.49.124/api/proveedores');
@@ -19,6 +22,21 @@ export const AddRemito = () => {
 
     }, []);
 
+  /*   const handleAddRemito = ()=> {
+        if (permisos === 'Admin') {
+          // Acciones para el permiso 'Admin'
+          console.log(usuarios + ' tiene permisos de administrador.');
+        } else if (permisos === 'ReadAndWrite') {
+          // Acciones para el permiso 'ReadAndWrite'
+          console.log(usuarios + ' tiene permisos de lectura y escritura.');
+        } else if (permisos === 'Read') {
+          // Acciones para el permiso 'Read'
+          console.log(usuarios + ' tiene permisos de lectura.');
+        } else {
+          // Acciones para cualquier otro permiso desconocido
+          console.log(usuarios + ' NO tiene permiso de ningun tipo');
+        }
+      }; */
 
 
     return (

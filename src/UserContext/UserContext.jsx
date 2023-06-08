@@ -1,3 +1,5 @@
+
+import { AuthenticatedTemplate } from "@azure/msal-react";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -5,8 +7,10 @@ import { useNavigate } from "react-router-dom";
 
 export const UserContext = createContext([]);
 
+
 export const UserContextProvider = ({ children }) => {
 
+    
 
     const navigate = useNavigate();
     //estados y funciones globales para INYECTAR
@@ -16,7 +20,9 @@ export const UserContextProvider = ({ children }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [permisos, setPermisos]= useState('')
+    const [usuarios, setUsuarios] = useState('');
+    const [permisos, setPermisos] = useState('')
+    
     
 
     const dataUsuarios = [
@@ -24,13 +30,13 @@ export const UserContextProvider = ({ children }) => {
             id: 1,
             nombre: 'Mariano',
             contraseña: 'contraseña1',
-            permiso: 'Administrador'
+            permiso: 'Admin'
         },
         {
             id: 2,
             nombre: 'Matías',
             contraseña: 'contraseña2',
-            permiso: 'Administrador'
+            permiso: 'Admin'
         },
         {
             id: 3,
@@ -52,6 +58,7 @@ export const UserContextProvider = ({ children }) => {
         }
     ];
 
+    
     const handleLogin = (e) => {
         e.preventDefault();
 
@@ -60,13 +67,14 @@ export const UserContextProvider = ({ children }) => {
 
         if (usuario) {
             // Iniciar sesión exitosamente
-            
-            console.log('Inicio de sesión exitoso | ' + usuario.nombre + permisos);
+            //ELIMINAR ESTE CONSOLE.LOG CUANDO TODO FUNCIONE
+            console.log('Inicio de sesión exitoso | ' + usuario.nombre + ' ' + usuario.permiso);
             navigate('/inicio')
-            
             setPermisos(usuario.permiso)
-            
+            setUsername('')
+            setPassword('')
             // Aquí puedes redirigir al usuario a la página de inicio o realizar otras acciones necesarias
+        
         } else {
             // Credenciales inválidas
             setError('Usuario o contraseña incorrectos');
@@ -75,46 +83,12 @@ export const UserContextProvider = ({ children }) => {
 
         }
 
-
-
     };
-    
-//revisar como evaluar los casos y los permisos y ver de componentizar esta función
-    const handlePermisos = () => {
 
-    for (let i = 0; i < dataUsuarios.length; i++) {
-        const usuario = dataUsuarios[i];
-        
-        switch (permisos) {
-            case 'Administrador':
-                // Código para usuarios con permiso de Administrador
-                console.log(`El usuario ${usuario.nombre} tiene permisos de Administrador`);
-                break;
-            case 'ReadAndWrite':
-                // Código para usuarios con permiso de ReadAndWrite
-                console.log(`El usuario ${usuario.nombre} tiene permisos de Lectura y Escritura`);
-                break;
-            case 'Read':
-                // Código para usuarios con permiso de Read
-                console.log(`El usuario ${usuario.nombre} tiene permisos de Lectura`);
-                break;
-            default:
-                // Código para otros casos
-                console.log(`El usuario ${usuario.nombre} tiene un permiso desconocido`);
-                break;
-        }
-    }
-
-    return (
-        <>
-
-        </>
-    )
-}
-
-useEffect(() => {
-    handlePermisos();
-}, [])
+    const handleButtonClick = () => {
+        setUsuarios(username);
+        setPermisos(permisos)
+    };
 
     return (
         <>
@@ -122,6 +96,7 @@ useEffect(() => {
                 value={{
 
                     handleLogin,
+                    handleButtonClick,
                     
                     username,
                     setUsername,
@@ -129,8 +104,10 @@ useEffect(() => {
                     setPassword,
                     error,
                     setError,
+                    usuarios,
+                    setUsuarios,   
                     permisos,
-                    setPermisos,           
+                    setPermisos,        
                     
 
                 }}
@@ -138,6 +115,7 @@ useEffect(() => {
 
                 {children}
             </UserContext.Provider>
+
 
         </>
     )

@@ -9,13 +9,14 @@ import { NavBar } from "../NavBar/NavBar";
 
 export const Inicio = () => {
 
-const { usuario, setUsuario } = useContext(UserContext)
+const { permisos, setPermisos } = useContext(UserContext)
 
     return (
         <>
         <NavBar/>
         <div className="contenedorInicio">
-        <h2 className="text-center"> Bienvenido </h2>
+        <h2 className="text-center"> DIGESTIÓN </h2>
+        <h5 className='text-center'> Tienes permisos de <b>{permisos}</b></h5>
         
             <div className="contenedorInicioCards">
                 

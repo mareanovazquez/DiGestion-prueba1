@@ -101,7 +101,7 @@ para que ese filtro también funcione */}
         </div>
         <div>
             
-        <Link to='/remito/addRemito' className='card-link addRemito'><img src={agregar} alt="agregar remito" /></Link>
+        <Link /* onClick={handleAddRemito} */ to='/remito/addRemito' className='card-link addRemito'><img src={agregar} alt="agregar remito" /></Link>
         </div>
         </>
         )
