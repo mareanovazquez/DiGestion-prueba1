@@ -1,5 +1,5 @@
 
-import { AuthenticatedTemplate } from "@azure/msal-react";
+
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -22,39 +22,41 @@ export const UserContextProvider = ({ children }) => {
     const [error, setError] = useState('');
     const [usuarios, setUsuarios] = useState('');
     const [permisos, setPermisos] = useState('')
+    const [departamento, setDepartamento] = useState('')
     
-    
-
-    const dataUsuarios = [
+        const dataUsuarios = [
         {
             id: 1,
             nombre: 'Mariano',
-            contraseña: 'contraseña1',
+            contraseña: '1234',
             permiso: 'Admin'
         },
         {
             id: 2,
             nombre: 'Matías',
-            contraseña: 'contraseña2',
+            contraseña: '1234',
             permiso: 'Admin'
         },
         {
             id: 3,
             nombre: 'Ayelén',
-            contraseña: 'contraseña3',
-            permiso: 'ReadAndWrite'
+            contraseña: '1234',
+            permiso: 'ReadAndWrite',
+            departamento: '23'
         },
         {
             id: 4,
             nombre: 'Pingo',
-            contraseña: 'contraseña4',
-            permiso: 'ReadAndWrite'
+            contraseña: '1234',
+            permiso: 'Read',
+            departamento: '31'
         },
         {
             id: 5,
             nombre: 'Pongo',
-            contraseña: 'contraseña5',
-            permiso: 'Read'
+            contraseña: '1234',
+            permiso: 'Read',
+            departamento: '2'
         }
     ];
 
@@ -68,9 +70,10 @@ export const UserContextProvider = ({ children }) => {
         if (usuario) {
             // Iniciar sesión exitosamente
             //ELIMINAR ESTE CONSOLE.LOG CUANDO TODO FUNCIONE
-            console.log('Inicio de sesión exitoso | ' + usuario.nombre + ' ' + usuario.permiso);
+            console.log('Inicio de sesión exitoso | ' + usuario.nombre + ' ' + usuario.permiso +' '+ usuario.departamento);
             navigate('/inicio')
             setPermisos(usuario.permiso)
+            setDepartamento(usuario.departamento)
             setUsername('')
             setPassword('')
             // Aquí puedes redirigir al usuario a la página de inicio o realizar otras acciones necesarias
@@ -88,6 +91,7 @@ export const UserContextProvider = ({ children }) => {
     const handleButtonClick = () => {
         setUsuarios(username);
         setPermisos(permisos)
+        setDepartamento(departamento)
     };
 
     return (
@@ -107,7 +111,9 @@ export const UserContextProvider = ({ children }) => {
                     usuarios,
                     setUsuarios,   
                     permisos,
-                    setPermisos,        
+                    setPermisos,
+                    departamento,
+                    setDepartamento,        
                     
 
                 }}

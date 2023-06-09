@@ -22,22 +22,7 @@ export const AddRemito = () => {
 
     }, []);
 
-  /*   const handleAddRemito = ()=> {
-        if (permisos === 'Admin') {
-          // Acciones para el permiso 'Admin'
-          console.log(usuarios + ' tiene permisos de administrador.');
-        } else if (permisos === 'ReadAndWrite') {
-          // Acciones para el permiso 'ReadAndWrite'
-          console.log(usuarios + ' tiene permisos de lectura y escritura.');
-        } else if (permisos === 'Read') {
-          // Acciones para el permiso 'Read'
-          console.log(usuarios + ' tiene permisos de lectura.');
-        } else {
-          // Acciones para cualquier otro permiso desconocido
-          console.log(usuarios + ' NO tiene permiso de ningun tipo');
-        }
-      }; */
-
+  
 
     return (
 

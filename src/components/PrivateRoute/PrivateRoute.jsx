@@ -1,18 +1,40 @@
-import { useContext } from 'react';
-import { Route, Navigate, useLocation } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { Route, useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../UserContext/UserContext';
 
-export const PrivateRoute = ({ path, Inicio }) => {
+export const PrivateRoute = (props) => {
     // Aquí puedes obtener los datos de autenticación del UserContext
     const { permisos } = useContext(UserContext);
-    const location = useLocation();
+    const navigate = useNavigate();
 
     // Verificar si el usuario está autenticado
-    const isAuthenticated = permisos;
 
-    return isAuthenticated ? (
-        <Route path='/inicio' element={<Inicio />} />
-    ) : (
-        <Navigate to={`/login?redirect=${location.pathname}`} />
-    );
+
+    useEffect(() => {
+
+        if (!permisos) {
+            navigate('/')
+        
+        } else if (permisos === 'Admin') {
+            navigate('/inicio')
+            
+
+        } else if (permisos === 'ReadAndWrite') {
+            navigate('/inicioRaW')
+            
+        } else if (permisos === 'Read') {
+            navigate('/inicioR')
+
+        } else {
+            navigate('/notAllowed')
+        }
+    }, [])
+
+
+    return (
+
+        <>
+            {props.children}
+        </>
+    )
 };

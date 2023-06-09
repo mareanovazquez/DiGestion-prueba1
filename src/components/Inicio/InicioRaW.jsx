@@ -7,7 +7,7 @@ import { NavBar } from "../NavBar/NavBar";
 
 
 
-export const Inicio = () => {
+export const InicioRaW = () => {
 
 const { permisos, setPermisos } = useContext(UserContext)
 
@@ -42,6 +42,3 @@ const { permisos, setPermisos } = useContext(UserContext)
         </>
     )
 }
-
-
-

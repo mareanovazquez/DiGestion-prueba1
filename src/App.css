@@ -73,6 +73,15 @@ li {
   margin-right: auto;
 }
 
+.notAllowed {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
 .custom-input {
   display: flex;
 }

@@ -3,7 +3,6 @@ import { ProductFilter } from "../ProductFilter/ProductFilter"
 
 
 export const ListaRemitos2 = () => {
-   
 
     const [remitos, setRemitos] = useState([]);
 

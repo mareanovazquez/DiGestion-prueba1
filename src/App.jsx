@@ -154,7 +154,7 @@ import { ListProveedores } from './components/ListProveedores/ListProveedores'
 
 import { NavBar } from './components/NavBar/NavBar';
 import { FooterNav } from './components/FooterNav/FooterNav';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { LogIn } from './components/LogIn/LogIn';
 import { ItemListRemito } from './components/ItemListRemito/ItemListRemito.jsx';
 import { ListaRemitos2 } from './components/ListaRemitos2/ListaRemitos2';
@@ -163,6 +163,11 @@ import { AddRemito } from './components/AddRemito/AddRemito';
 import { UserContextProvider } from './UserContext/UserContext';
 import { Inicio } from './components/Inicio/Inicio';
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
+import { PrivateRouteAdm } from './components/PrivateRoute/PrivateRouteAdm';
+import { NotAllowed } from './components/NotAllowed/NotAllowed';
+import { InicioRaW } from './components/Inicio/InicioRaW';
+import { InicioR } from './components/Inicio/InicioR';
+import { ItemListRemitoR } from './components/ItemListRemito/ItemListRemitoR';
 
 
 
@@ -179,19 +184,66 @@ function App() {
 
             <UserContextProvider>
 
-            <Routes>
-                <Route path='/' element={<LogIn />} />
+                <Routes>
+                    <Route path='/' element={<LogIn />} />
 
-                {/* <Route path='/inicio' element={<Inicio/>} /> */}
-                <Route path="/inicio" element={<Inicio/>} />
-                <Route path='/proveedores' element={<ListProveedores />} />
-                <Route path='/remitos' element={<ItemListRemito />} />
-                <Route path='/remito/:rid' element={<ItemRemito />} />
-                <Route path='/remito/addRemito' element={<AddRemito />} />
-                
+{/* INICIO ADMINISTRADOR */}
+                    <Route path="/inicio" element={
+                        <PrivateRoute>
+                            <PrivateRouteAdm>
+                                <Inicio />
+                            </PrivateRouteAdm>
+                        </PrivateRoute>} />
 
-            </Routes>
-            {/* <FooterNav /> */}
+{/* INICIO Read and Write */}
+                    <Route path="/inicioRaW" element={
+                        <PrivateRoute>
+                            <InicioRaW />
+                        </PrivateRoute>} />
+
+{/* INICIO solo Read */}
+                    <Route path="/inicioR" element={
+                        <PrivateRoute>
+                            <InicioR />
+                        </PrivateRoute>} />
+
+                    <Route path='/proveedores' element={
+                        <PrivateRoute>
+                            <ListProveedores />
+                        </PrivateRoute>} />
+
+                    <Route path='/remitos' element={
+                        <PrivateRoute>
+                            <ItemListRemito />
+                        </PrivateRoute>} />
+
+                        <Route path='/remitosR' element={
+                        <PrivateRoute>
+                            <ItemListRemitoR />
+                        </PrivateRoute>} />
+
+
+                    <Route path='/remito/:rid' element={
+                        <PrivateRoute>
+                            <ItemRemito />
+                        </PrivateRoute>} />
+
+                    <Route path='/remito/addRemito' element={
+                        <PrivateRoute>
+                            <PrivateRouteAdm>
+                                <AddRemito />
+                            </PrivateRouteAdm>
+                        </PrivateRoute>} />
+
+                    <Route path='/notAllowed' element={
+                        <PrivateRoute>
+                            <NotAllowed />
+                        </PrivateRoute>} />
+
+
+
+                </Routes>
+                {/* <FooterNav /> */}
 
             </UserContextProvider>
         </>

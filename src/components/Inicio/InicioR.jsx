@@ -3,21 +3,22 @@ import { UserContext } from "../../UserContext/UserContext"
 
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
-import { NavBar } from "../NavBar/NavBar";
+
+import { NavBarR } from "../NavBar/NavBarR";
 
 
 
-export const Inicio = () => {
+export const InicioR = () => {
 
 const { permisos, setPermisos } = useContext(UserContext)
 
     return (
         <>
-        <NavBar/>
+        <NavBarR/>
         <div className="contenedorInicio">
         <h2 className="text-center"> DIGESTIÓN </h2>
         <h5 className='text-center'> Visible para <b>{permisos}</b></h5>
-     
+    
             <div className="contenedorInicioCards">
                 
                 <Link to='/proveedores' replace>
@@ -29,7 +30,7 @@ const { permisos, setPermisos } = useContext(UserContext)
                     </Card.Body>
                 </Card>
                 </Link>
-                <Link to='/remitos' replace><Card className='p-1' style={{ width: '18rem' }}>
+                <Link to='/remitosR' replace><Card className='p-1' style={{ width: '18rem' }}>
                     {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                     <Card.Body>
                         <Card.Title><h2 className="text-center">REMITOS</h2></Card.Title>
@@ -42,6 +43,3 @@ const { permisos, setPermisos } = useContext(UserContext)
         </>
     )
 }
-
-
-
