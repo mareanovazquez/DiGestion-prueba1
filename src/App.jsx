@@ -164,10 +164,11 @@ import { UserContextProvider } from './UserContext/UserContext';
 import { Inicio } from './components/Inicio/Inicio';
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
 import { PrivateRouteAdm } from './components/PrivateRoute/PrivateRouteAdm';
-import { NotAllowed } from './components/NotAllowed/NotAllowed';
+import { NotAllowedR } from './components/NotAllowed/NotAllowedR';
 import { InicioRaW } from './components/Inicio/InicioRaW';
 import { InicioR } from './components/Inicio/InicioR';
 import { ItemListRemitoR } from './components/ItemListRemito/ItemListRemitoR';
+import { ListProveedoresR } from './components/ListProveedores/ListProveedoresR';
 
 
 
@@ -212,6 +213,11 @@ function App() {
                             <ListProveedores />
                         </PrivateRoute>} />
 
+                        <Route path='/proveedoresR' element={
+                        <PrivateRoute>
+                            <ListProveedoresR />
+                        </PrivateRoute>} />
+
                     <Route path='/remitos' element={
                         <PrivateRoute>
                             <ItemListRemito />
@@ -237,7 +243,7 @@ function App() {
 
                     <Route path='/notAllowed' element={
                         <PrivateRoute>
-                            <NotAllowed />
+                            <NotAllowedR />
                         </PrivateRoute>} />
 
 

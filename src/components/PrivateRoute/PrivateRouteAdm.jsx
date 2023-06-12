@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { Route, useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../UserContext/UserContext';
 
-export const PrivateRouteAdm = (props) => {
+export const PrivateRouteAdm = ({children}) => {
     // Aquí puedes obtener los datos de autenticación del UserContext
     const { permisos } = useContext(UserContext);
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ export const PrivateRouteAdm = (props) => {
 return (
     
     <>
-    {props.children}  
+    {children}  
     </>
 )
 };

@@ -17,11 +17,10 @@ export const PrivateRoute = (props) => {
         
         } else if (permisos === 'Admin') {
             navigate('/inicio')
-            
 
         } else if (permisos === 'ReadAndWrite') {
             navigate('/inicioRaW')
-            
+
         } else if (permisos === 'Read') {
             navigate('/inicioR')
 
