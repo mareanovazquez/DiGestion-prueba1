@@ -29,7 +29,7 @@ const { permisos, setPermisos } = useContext(UserContext)
                     </Card.Body>
                 </Card>
                 </Link>
-                <Link to='/remitos' replace><Card className='p-1' style={{ width: '18rem' }}>
+                <Link to='/remitosRaW' replace><Card className='p-1' style={{ width: '18rem' }}>
                     {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                     <Card.Body>
                         <Card.Title><h2 className="text-center">REMITOS</h2></Card.Title>

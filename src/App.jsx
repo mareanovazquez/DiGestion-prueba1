@@ -169,6 +169,7 @@ import { InicioRaW } from './components/Inicio/InicioRaW';
 import { InicioR } from './components/Inicio/InicioR';
 import { ItemListRemitoR } from './components/ItemListRemito/ItemListRemitoR';
 import { ListProveedoresR } from './components/ListProveedores/ListProveedoresR';
+import { ItemListRemitoRaW } from './components/ItemListRemito/ItemListRemitoRaW';
 
 
 
@@ -221,6 +222,11 @@ function App() {
                     <Route path='/remitos' element={
                         <PrivateRoute>
                             <ItemListRemito />
+                        </PrivateRoute>} />
+
+                        <Route path='/remitosRaW' element={
+                        <PrivateRoute>
+                            <ItemListRemitoRaW />
                         </PrivateRoute>} />
 
                         <Route path='/remitosR' element={

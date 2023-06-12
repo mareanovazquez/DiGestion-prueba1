@@ -5,7 +5,7 @@ import agregar from '../../assets/agregar.svg'
 import { UserContext } from "../../UserContext/UserContext";
 import { NavBarR } from "../NavBar/NavBarR";
 
-export const ItemListRemitoR = () => {
+export const ItemListRemitoRaW = () => {
     const [remitos, setRemitos] = useState([]);
     const [filterFechaRecepcion, setFilterFechaRecepcion] = useState('');
     const [filterRemito, setFilterRemito] = useState('');
