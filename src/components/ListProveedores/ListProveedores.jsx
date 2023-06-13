@@ -8,6 +8,7 @@ import { Loading } from "../Loading/Loading";
 export const ListProveedores = () => {
 
     const [proveedores, setProveedores] = useState([]);
+    const [isLoading, setIsLoading] = useState (true);
 
 
     useEffect(() => {
@@ -17,6 +18,7 @@ export const ListProveedores = () => {
             const proveedores = result.data
 
             setProveedores(proveedores);
+            setIsLoading (false)
 
         }
 
@@ -110,15 +112,14 @@ export const ListProveedores = () => {
         <>
         <NavBar/>
         {
-                proveedores.length !== 0 ?
+                isLoading ?
+                <Loading/>
 
-                    <Filter>
+                :    <Filter>
                         {handleProductFiltered}
                     </Filter>
 
-                    :
-                    
-                    <Loading/>
+        
             }
         </>
     )
