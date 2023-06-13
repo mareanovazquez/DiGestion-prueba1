@@ -122,7 +122,7 @@ export const ListProveedoresR = () => {
                         {handleProductFiltered}
                     </Filter>
 
-                 
+        
             }
 
         </>
