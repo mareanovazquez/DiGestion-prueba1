@@ -4,6 +4,7 @@ import descargaRemito from '../../assets/download.svg'
 import agregar from '../../assets/agregar.svg'
 import { UserContext } from "../../UserContext/UserContext";
 import { NavBarR } from "../NavBar/NavBarR";
+import { NavBarRaW } from "../NavBar/NavBarRaW";
 
 export const ItemListRemitoRaW = () => {
     const [remitos, setRemitos] = useState([]);
@@ -107,7 +108,7 @@ para que ese filtro también funcione */}
 
     return( 
         <>
-        <NavBarR/>
+        <NavBarRaW/>
         <div>
             {handleRemitosFiltered()}
             

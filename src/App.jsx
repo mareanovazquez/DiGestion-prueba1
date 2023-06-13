@@ -170,6 +170,7 @@ import { InicioR } from './components/Inicio/InicioR';
 import { ItemListRemitoR } from './components/ItemListRemito/ItemListRemitoR';
 import { ListProveedoresR } from './components/ListProveedores/ListProveedoresR';
 import { ItemListRemitoRaW } from './components/ItemListRemito/ItemListRemitoRaW';
+import { ListProveedoreRaW } from './components/ListProveedores/ListProveedoresRaW';
 
 
 
@@ -189,7 +190,7 @@ function App() {
                 <Routes>
                     <Route path='/' element={<LogIn />} />
 
-{/* INICIO ADMINISTRADOR */}
+                    {/* INICIO ADMINISTRADOR */}
                     <Route path="/inicio" element={
                         <PrivateRoute>
                             <PrivateRouteAdm>
@@ -197,26 +198,9 @@ function App() {
                             </PrivateRouteAdm>
                         </PrivateRoute>} />
 
-{/* INICIO Read and Write */}
-                    <Route path="/inicioRaW" element={
-                        <PrivateRoute>
-                            <InicioRaW />
-                        </PrivateRoute>} />
-
-{/* INICIO solo Read */}
-                    <Route path="/inicioR" element={
-                        <PrivateRoute>
-                            <InicioR />
-                        </PrivateRoute>} />
-
                     <Route path='/proveedores' element={
                         <PrivateRoute>
                             <ListProveedores />
-                        </PrivateRoute>} />
-
-                        <Route path='/proveedoresR' element={
-                        <PrivateRoute>
-                            <ListProveedoresR />
                         </PrivateRoute>} />
 
                     <Route path='/remitos' element={
@@ -224,12 +208,46 @@ function App() {
                             <ItemListRemito />
                         </PrivateRoute>} />
 
-                        <Route path='/remitosRaW' element={
+                    <Route path='/remito/:rid' element={
+                        <PrivateRoute>
+                            <ItemRemito />
+                        </PrivateRoute>} />
+
+                    <Route path='/remito/addRemito' element={
+                        <PrivateRoute>
+                            <PrivateRouteAdm>
+                                <AddRemito />
+                            </PrivateRouteAdm>
+                        </PrivateRoute>} />
+
+                    {/* INICIO Read and Write */}
+                    <Route path="/inicioRaW" element={
+                        <PrivateRoute>
+                            <InicioRaW />
+                        </PrivateRoute>} />
+
+                    <Route path='/remitosRaW' element={
                         <PrivateRoute>
                             <ItemListRemitoRaW />
                         </PrivateRoute>} />
 
-                        <Route path='/remitosR' element={
+                    <Route path='/proveedoresRaW' element={
+                        <PrivateRoute>
+                            <ListProveedoreRaW />
+                        </PrivateRoute>} />
+
+                    {/* INICIO solo Read */}
+                    <Route path="/inicioR" element={
+                        <PrivateRoute>
+                            <InicioR />
+                        </PrivateRoute>} />
+
+                    <Route path='/proveedoresR' element={
+                        <PrivateRoute>
+                            <ListProveedoresR />
+                        </PrivateRoute>} />
+
+                    <Route path='/remitosR' element={
                         <PrivateRoute>
                             <ItemListRemitoR />
                         </PrivateRoute>} />

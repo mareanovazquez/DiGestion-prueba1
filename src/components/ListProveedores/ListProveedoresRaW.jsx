@@ -5,7 +5,9 @@ import descargaProveedor from '../../assets/download.svg'
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
 import { NavBar } from "../NavBar/NavBar";
 import { Loading } from "../Loading/Loading";
-export const ListProveedores = () => {
+import { NavBarRaW } from "../NavBar/NavBarRaW";
+
+export const ListProveedoreRaW = () => {
 
     const [proveedores, setProveedores] = useState([]);
 
@@ -108,7 +110,7 @@ export const ListProveedores = () => {
     return (
 
         <>
-        <NavBar/>
+        <NavBarRaW/>
         {
                 proveedores.length !== 0 ?
 

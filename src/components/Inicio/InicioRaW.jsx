@@ -4,6 +4,7 @@ import { UserContext } from "../../UserContext/UserContext"
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 import { NavBar } from "../NavBar/NavBar";
+import { NavBarRaW } from "../NavBar/NavBarRaW";
 
 
 
@@ -13,14 +14,14 @@ const { permisos, setPermisos } = useContext(UserContext)
 
     return (
         <>
-        <NavBar/>
+        <NavBarRaW/>
         <div className="contenedorInicio">
         <h2 className="text-center"> DIGESTIÓN </h2>
         <h5 className='text-center'> Visible para <b>{permisos}</b></h5>
      
             <div className="contenedorInicioCards">
                 
-                <Link to='/proveedores' replace>
+                <Link to='/proveedoresRaW' replace>
                     <Card className="p-1" style={{ width: '18rem' }}>
                     {/* <Card.Img variant="top" src=''/> */}
                     <Card.Body>
