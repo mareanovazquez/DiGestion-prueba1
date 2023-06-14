@@ -94,7 +94,7 @@ para que ese filtro también funcione */}
 
     return( 
         <>
-        <NavBar/>
+        
         <div>
             {handleRemitosFiltered()}
             

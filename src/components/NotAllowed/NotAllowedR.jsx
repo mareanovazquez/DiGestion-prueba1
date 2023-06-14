@@ -10,7 +10,7 @@ export const NotAllowedR = () => {
     return (
 
         <>
-            <NavBarR />
+           
             <div className="notAllowed">
                 <h1>{usuarios}</h1>
                 <h2 className="text-danger">¡No tenés permiso para ver esto!</h2>

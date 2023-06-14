@@ -112,7 +112,7 @@ export const ListProveedoreRaW = () => {
     return (
 
         <>
-        <NavBarRaW/>
+        
         {
                 isLoading ?
                 <Loading/>

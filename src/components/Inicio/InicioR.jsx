@@ -4,7 +4,7 @@ import { UserContext } from "../../UserContext/UserContext"
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 
-import { NavBarR } from "../NavBar/NavBarR";
+
 
 
 
@@ -14,7 +14,7 @@ const { permisos, setPermisos } = useContext(UserContext)
 
     return (
         <>
-        <NavBarR/>
+        
         <div className="contenedorInicio">
         <h2 className="text-center"> DIGESTIÓN </h2>
         <h5 className='text-center'> Visible para <b>{permisos}</b></h5>

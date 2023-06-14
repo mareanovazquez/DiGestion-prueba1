@@ -29,8 +29,7 @@ export const ItemRemito = () => {
     return (
 
             <>
-
-            <NavBar/>
+            
                 <div className="card cardRemito" >
                     <div className="card-body">
                         

@@ -187,6 +187,8 @@ function App() {
 
             <UserContextProvider>
 
+                <NavBar/>
+
                 <Routes>
                     <Route path='/' element={<LogIn />} />
 

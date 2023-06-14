@@ -27,7 +27,7 @@ export const AddRemito = () => {
     return (
 
         <>
-        <NavBar/>
+        
             <div className="contenedorAltaRemito">
 
                 <div className="row altaRemito">

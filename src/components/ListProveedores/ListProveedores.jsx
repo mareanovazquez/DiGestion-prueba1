@@ -110,7 +110,7 @@ export const ListProveedores = () => {
     return (
 
         <>
-        <NavBar/>
+        
         {
                 isLoading ?
                 <Loading/>
