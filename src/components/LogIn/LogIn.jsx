@@ -9,7 +9,7 @@ import Form from 'react-bootstrap/Form';
 export const LogIn = () => {
 
 
-    const {  handleLogin, username,setUsername, password, setPassword, error, usuarios, setUsuario, permisos, setPermisos, handleButtonClick } = useContext(UserContext);
+    const {  handleLogin, username,setUsername, password, setPassword, error, usuarios, setUsuario, permisos, setPermisos, handleButtonLogIn } = useContext(UserContext);
     
 
     return (
@@ -29,7 +29,7 @@ export const LogIn = () => {
                     <Form.Control type="password" placeholder="CONTRASEÑA" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </Form.Group>
 
-                <Button onClick={handleButtonClick} variant="primary" type="submit">
+                <Button onClick={handleButtonLogIn} variant="primary" type="submit">
                     Ingresar
                 </Button>
                 {error && <p>{error}</p>}

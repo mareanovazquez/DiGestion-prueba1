@@ -29,7 +29,8 @@ export const UserContextProvider = ({ children }) => {
             id: 1,
             nombre: 'Mariano',
             contraseña: '1234',
-            permiso: 'Admin'
+            permiso: 'Admin',
+            departamento: 'Todos los departamentos'
         },
         {
             id: 2,
@@ -88,7 +89,7 @@ export const UserContextProvider = ({ children }) => {
 
     };
 
-    const handleButtonClick = () => {
+    const handleButtonLogIn = () => {
         setUsuarios(username);
         setPermisos(permisos)
         setDepartamento(departamento)
@@ -100,7 +101,7 @@ export const UserContextProvider = ({ children }) => {
                 value={{
 
                     handleLogin,
-                    handleButtonClick,
+                    handleButtonLogIn,
                     
                     username,
                     setUsername,

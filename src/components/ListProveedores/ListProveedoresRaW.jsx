@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Filter } from "../Filter/Filters";
 import { Link } from "react-router-dom";
 import descargaProveedor from '../../assets/download.svg'
-import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
-import { NavBar } from "../NavBar/NavBar";
+
+
 import { Loading } from "../Loading/Loading";
-import { NavBarRaW } from "../NavBar/NavBarRaW";
+
 
 export const ListProveedoreRaW = () => {
 

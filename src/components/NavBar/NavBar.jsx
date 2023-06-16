@@ -30,6 +30,7 @@ export const NavBar = () => {
                     {permisos === 'Admin' && <Nav className="me-auto">
                         <NavLink to='/proveedores' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>PROVEEDORES</NavLink>
                         <NavLink to='/remitos' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>REMITOS</NavLink>
+                        <NavLink to='/perifericos' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>PERIFÉRICOS</NavLink>
                     </Nav>}
 
                     {/* READ AND WRITE */}
@@ -37,13 +38,15 @@ export const NavBar = () => {
                     {permisos === 'ReadAndWrite' && <Nav className="me-auto">
                         <NavLink to='/proveedoresRaW' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>PROVEEDORES</NavLink>
                         <NavLink to='/remitosRaW' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>REMITOS</NavLink>
+                        <NavLink to='/perifericosRaW' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>PERIFÉRICOS</NavLink>
                     </Nav>}
 
                     {/* READ */}
                     {permisos === 'Read' && <NavLink className='text-white' to='/inicioR'>DIGESTIÓN |  </NavLink>}
                     {permisos === 'Read' && <Nav className="me-auto">
-                        <NavLink to='/proveedoresR' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>PROVEEDORES</NavLink>
+                        {/* <NavLink to='/proveedoresR' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>PROVEEDORES</NavLink> */}
                         <NavLink to='/remitosR' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>REMITOS</NavLink>
+                        <NavLink to='/perifericosR' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>PERIFÉRICOS</NavLink>
                     </Nav>}
 
                     {/* Botón de cerrar sesión definido por permisos de usuario */}

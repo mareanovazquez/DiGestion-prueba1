@@ -21,19 +21,29 @@ const { permisos, setPermisos } = useContext(UserContext)
     
             <div className="contenedorInicioCards">
                 
-                <Link to='/proveedoresR' replace>
+             {/*    <Link to='/proveedoresR' replace>
                     <Card className="p-1" style={{ width: '18rem' }}>
-                    {/* <Card.Img variant="top" src=''/> */}
+                    
                     <Card.Body>
                         <Card.Title><h2 className="text-center">PROVEEDORES</h2></Card.Title>
                                                 
                     </Card.Body>
                 </Card>
-                </Link>
+                </Link> */ }
+
                 <Link to='/remitosR' replace><Card className='p-1' style={{ width: '18rem' }}>
-                    {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+                    
                     <Card.Body>
                         <Card.Title><h2 className="text-center">REMITOS</h2></Card.Title>
+                        
+                    </Card.Body>
+                </Card>
+                </Link>
+
+                <Link to='/perifericosR' replace><Card className='p-1' style={{ width: '18rem' }}>
+                    
+                    <Card.Body>
+                        <Card.Title><h2 className="text-center">PERIFÉRICOS</h2></Card.Title>
                         
                     </Card.Body>
                 </Card>

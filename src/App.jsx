@@ -168,9 +168,13 @@ import { NotAllowedR } from './components/NotAllowed/NotAllowedR';
 import { InicioRaW } from './components/Inicio/InicioRaW';
 import { InicioR } from './components/Inicio/InicioR';
 import { ItemListRemitoR } from './components/ItemListRemito/ItemListRemitoR';
-import { ListProveedoresR } from './components/ListProveedores/ListProveedoresR';
+
 import { ItemListRemitoRaW } from './components/ItemListRemito/ItemListRemitoRaW';
 import { ListProveedoreRaW } from './components/ListProveedores/ListProveedoresRaW';
+import { ItemListPerifericos } from './components/ItemListPerifericos/ItemListPerifericos';
+import { ItemListPerifericosR } from './components/ItemListPerifericos/ItemListPerifericosR';
+import { ItemListPerifericosRaW } from './components/ItemListPerifericos/ItemListPerifericosRaW';
+
 
 
 
@@ -222,6 +226,16 @@ function App() {
                             </PrivateRouteAdm>
                         </PrivateRoute>} />
 
+                    <Route path='/remito/:rid' element={
+                        <PrivateRoute>
+                            <ItemRemito />
+                        </PrivateRoute>} />
+
+                        <Route path='/perifericos' element={
+                        <PrivateRoute>
+                            <ItemListPerifericos/>
+                        </PrivateRoute>} />
+
                     {/* INICIO Read and Write */}
                     <Route path="/inicioRaW" element={
                         <PrivateRoute>
@@ -238,34 +252,35 @@ function App() {
                             <ListProveedoreRaW />
                         </PrivateRoute>} />
 
+                        <Route path='/perifericosRaW' element={
+                        <PrivateRoute>
+                            <ItemListPerifericosRaW/>
+                        </PrivateRoute>} />
+
                     {/* INICIO solo Read */}
                     <Route path="/inicioR" element={
                         <PrivateRoute>
                             <InicioR />
                         </PrivateRoute>} />
 
-                    <Route path='/proveedoresR' element={
+                    {/* Usuarios de solo READ no pueden ver el compomente Proveedores */}
+                    {/* <Route path='/proveedoresR' element={
                         <PrivateRoute>
                             <ListProveedoresR />
-                        </PrivateRoute>} />
+                        </PrivateRoute>} / */}
 
                     <Route path='/remitosR' element={
                         <PrivateRoute>
                             <ItemListRemitoR />
                         </PrivateRoute>} />
 
-
-                    <Route path='/remito/:rid' element={
+                        <Route path='/perifericosR' element={
                         <PrivateRoute>
-                            <ItemRemito />
+                            <ItemListPerifericosR/>
                         </PrivateRoute>} />
 
-                    <Route path='/remito/addRemito' element={
-                        <PrivateRoute>
-                            <PrivateRouteAdm>
-                                <AddRemito />
-                            </PrivateRouteAdm>
-                        </PrivateRoute>} />
+
+                   
 
                     <Route path='/notAllowed' element={
                         <PrivateRoute>

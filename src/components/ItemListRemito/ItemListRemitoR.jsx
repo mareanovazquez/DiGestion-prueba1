@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import descargaRemito from '../../assets/download.svg'
 import agregar from '../../assets/agregar.svg'
 import { UserContext } from "../../UserContext/UserContext";
-import { NavBarR } from "../NavBar/NavBarR";
+
 
 export const ItemListRemitoR = () => {
     const [remitos, setRemitos] = useState([]);
@@ -50,7 +50,7 @@ export const ItemListRemitoR = () => {
                 <h2 className="text-center"> Lista de Remitos</h2>
                 <h3> Permisos de solo {permisos}</h3>
                 <h3> Departamento {departamento}</h3>
-               
+            
 
 
 {/* Los filtros de fecha no funcionan porque en la API los filtros están definidos como String y el 
@@ -112,10 +112,7 @@ para que ese filtro también funcione */}
             {handleRemitosFiltered()}
             
         </div>
-        <div>
-            
-        <Link /* onClick={handleAddRemito} */ to='/remito/addRemito' className='card-link addRemito'><img src={agregar} alt="agregar remito" /></Link>
-        </div>
+        
         </>
         )
 

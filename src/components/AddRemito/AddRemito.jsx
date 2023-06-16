@@ -1,8 +1,12 @@
 import { useContext, useEffect, useState } from "react"
-import { NavBar } from "../NavBar/NavBar";
+
 import { UserContext } from "../../UserContext/UserContext";
+import { Link } from "react-router-dom";
+import { ModalAddPerifericos } from "../ModalAddPerifericos/ModalAddPerifericos";
+
 
 export const AddRemito = () => {
+
 
     const [proveedores, setProveedores] = useState([]);
     const { usuarios, setUsuarios, permisos, setPermisos } = useContext(UserContext)
@@ -22,25 +26,33 @@ export const AddRemito = () => {
 
     }, []);
 
-  
+    const handleAddRemito = (e) => {
+        e.preventDefault();
+
+    }
+
+
+
+    
+
 
     return (
 
         <>
-        
+
             <div className="contenedorAltaRemito">
 
                 <div className="row altaRemito">
                     <h2 className="text-left"> Alta de Remito</h2>
                     <div className="col">
                         <label>Departamento</label>
-                        <input type="text" className="form-control" placeholder="Departamento" aria-label="Departamento" />
+                        <input type="text" className="form-control" placeholder="Aca debería haber una lista precargada de departamentos" aria-label="Departamento" />
                     </div>
                     <div className="col">
                         <label htmlFor='proveedores' >Proveedores</label>
                         <div>
                             <select className="form-control" name="opciones" defaultValue='1'>
-                                <option value='1' disabled  className="text-muted">Proveedores</option>
+                                <option value='1' disabled className="text-muted">Proveedores</option>
                                 {proveedores.map((proveedor) => (
                                     <option key={proveedor.id} value="" >{proveedor.nombre}</option>
                                 ))}
@@ -96,13 +108,14 @@ export const AddRemito = () => {
                 </div>
                 <div className="row altaRemito">
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                        {/* <button class="btn btn-primary me-md-2" type="button">Button</button> */}
-                        <button className="btn btn-primary" type="button">Guardar</button>
+                        
+                        <button onSubmit={handleAddRemito} className="btn btn-primary" type="button">Guardar</button>
+                        <ModalAddPerifericos/>
                     </div>
-
-
                 </div>
             </div>
+
+            
         </>
     )
 }

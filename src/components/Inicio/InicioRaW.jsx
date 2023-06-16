@@ -37,6 +37,15 @@ const { permisos, setPermisos } = useContext(UserContext)
                     </Card.Body>
                 </Card>
                 </Link>
+
+                <Link to='/perifericosRaW' replace><Card className='p-1' style={{ width: '18rem' }}>
+                
+                <Card.Body>
+                    <Card.Title><h2 className="text-center">PERIFÉRICOS</h2></Card.Title>
+                    
+                </Card.Body>
+            </Card>
+            </Link>
             </div>
             </div>
         </>
