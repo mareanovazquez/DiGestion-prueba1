@@ -116,8 +116,10 @@ export const ItemRemito = () => {
                                 </tbody>
                             </table>
                             <div className="card-footer ">
-                                <Link to='/remito/addRemito' className='card-link'><img src={agregar} alt="agregar remito" /></Link>
-                                <Link to='/' className='card-link'><img src={volver} alt="volver a la lista de remitos" /></Link>
+                                <Link to='/remito/addRemito' className='card-link '><button className="btn btn-primary p-2">Nuevo Remito</button></Link>
+                                <Link to='/remitos' className='card-link'><button className="btn btn-primary p-2">Volver</button></Link>
+                                <button className=" card-link btn btn-primary p-2">Imprimir</button>
+                                <button className="card-link btn btn-primary p-2">Descargar</button>
                                 
                             </div>
                         </div>

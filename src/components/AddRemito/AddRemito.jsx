@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { ModalAddPerifericos } from "../ModalAddPerifericos/ModalAddPerifericos";
 
 
+
+
 export const AddRemito = () => {
 
 
@@ -108,8 +110,8 @@ export const AddRemito = () => {
                 </div>
                 <div className="row altaRemito">
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                        
-                        <button onSubmit={handleAddRemito} className="btn btn-primary" type="button">Guardar</button>
+                        <Link to='/remitos'><button className="btn btn-primary" type="button">Volver</button> </Link>
+                        <button onSubmit={handleAddRemito} className="btn btn-primary" type="button">Crear remito</button>
                         <ModalAddPerifericos/>
                     </div>
                 </div>

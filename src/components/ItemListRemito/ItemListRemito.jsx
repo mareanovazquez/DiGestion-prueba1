@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import descargaRemito from '../../assets/download.svg'
+import CSV from '../../assets/CSV.svg'
+import PDF from '../../assets/PDF.svg'
+import imprimir from '../../assets/print.svg'
 import agregar from '../../assets/agregar.svg'
-import { NavBar } from "../NavBar/NavBar";
+import verRemito from '../../assets/Ver.svg'
+
 
 export const ItemListRemito = () => {
     const [remitos, setRemitos] = useState([]);
@@ -54,7 +57,7 @@ para que ese filtro también funcione */}
                             <th scope='col'> Fecha recepción</th>
                             <th scope='col'> Remito</th>
                             <th scope='col'> Fecha recepción DTI</th>
-                            <th scope="col">Descarga</th>
+                            <th scope="col">Ver remito</th>
                         </tr>
                         <tr>
                             <th className="text-center" scope='col'></th>
@@ -75,7 +78,7 @@ para que ese filtro también funcione */}
                                 <td className="border-bottom">{remito.fecha_recepcion}</td>
                                 <td className="border-bottom">{remito.remito}</td>
                                 <td className="border-bottom">{remito.fecha_recepcion_dti}</td>
-                                <td className="border-bottom"><Link to={`/remito/${remito.id}`}><img src={descargaRemito} alt="" /></Link></td>
+                                <td className="border-bottom"><Link to={`/remito/${remito.id}`}><img src={verRemito} alt="" /></Link><img src={CSV} alt="" /> <img src={PDF} alt="" /> <img src={imprimir} alt=""/> </td>
                             </tr>
 
                         )
