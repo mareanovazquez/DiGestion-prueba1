@@ -1,18 +1,21 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Select from "react-select"
+import { UserContext } from "../../UserContext/UserContext"
 
-export const SelectProveedores = () => {
+export const SelectProveedores = ({onChange}) => {
+
+    
 
     const [proveedores, setProveedores] = useState([])
+   
+    
 
-  
 
     useEffect(() => {
         axios.get('http://10.10.49.124/api/proveedores')
             .then(response => {
                 
-
                 const proveedores = response.data.data.map(proveedor => ({
                     value: proveedor.nombre,
                     label: proveedor.nombre
@@ -28,17 +31,19 @@ export const SelectProveedores = () => {
 
     }, [])
 
-    const handleSelectAxios = ({value}) => {
-        console.log( value)
+    const handleSelected = (proveedorSeleccionado) => {        
+        onChange(proveedorSeleccionado.value)
 
- 
+
     }
+
     return (
         <>
+        
             <Select
                 defaultValue={ {label: 'Proveedores', value: ' '}}
                 options={proveedores}
-                onChange={handleSelectAxios}
+                onChange={handleSelected}
             />
 
          </>

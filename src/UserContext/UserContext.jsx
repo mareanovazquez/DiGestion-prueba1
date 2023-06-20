@@ -24,6 +24,8 @@ export const UserContextProvider = ({ children }) => {
     const [permisos, setPermisos] = useState('')
     const [departamento, setDepartamento] = useState('')
     
+
+    
         const dataUsuarios = [
         {
             id: 1,
@@ -95,6 +97,8 @@ export const UserContextProvider = ({ children }) => {
         setDepartamento(departamento)
     };
 
+  
+
     return (
         <>
             <UserContext.Provider
@@ -102,6 +106,7 @@ export const UserContextProvider = ({ children }) => {
 
                     handleLogin,
                     handleButtonLogIn,
+                  
                     
                     username,
                     setUsername,
@@ -114,7 +119,8 @@ export const UserContextProvider = ({ children }) => {
                     permisos,
                     setPermisos,
                     departamento,
-                    setDepartamento,        
+                    setDepartamento, 
+                          
                     
 
                 }}
