@@ -183,6 +183,7 @@ import { ItemListPerifericosRaW } from './components/ItemListPerifericos/ItemLis
 
 
 
+
 function App() {
 
 
@@ -190,8 +191,10 @@ function App() {
         <>
 
             <UserContextProvider>
+               
 
                 <NavBar/>
+                
 
                 <Routes>
                     <Route path='/' element={<LogIn />} />

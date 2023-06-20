@@ -3,6 +3,9 @@ import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../UserContext/UserContext";
 import { Link } from "react-router-dom";
 import { ModalAddPerifericos } from "../ModalAddPerifericos/ModalAddPerifericos";
+import Select from "react-select";
+import axios from "axios";
+import { SelectProveedores } from "../SelectProveedores/SelectProveedores";
 
 
 
@@ -10,7 +13,9 @@ import { ModalAddPerifericos } from "../ModalAddPerifericos/ModalAddPerifericos"
 export const AddRemito = () => {
 
 
-    const [proveedores, setProveedores] = useState([]);
+    /* const [proveedores, setProveedores] = useState([]);
+    
+    
     const { usuarios, setUsuarios, permisos, setPermisos } = useContext(UserContext)
 
     //este useEffect hace un fetch a la lista de proveedores
@@ -21,18 +26,21 @@ export const AddRemito = () => {
             const proveedores = result.data
 
             setProveedores(proveedores);
+            console.log(proveedores);
 
         }
 
         FetchProveedores()
+        
 
-    }, []);
+        
+
+    }, []); */
 
     const handleAddRemito = (e) => {
         e.preventDefault();
 
     }
-
 
 
     
@@ -52,14 +60,16 @@ export const AddRemito = () => {
                     </div>
                     <div className="col">
                         <label htmlFor='proveedores' >Proveedores</label>
-                        <div>
+                        <SelectProveedores/>
+                          {/*   
+                            <div>
                             <select className="form-control" name="opciones" defaultValue='1'>
                                 <option value='1' disabled className="text-muted">Proveedores</option>
                                 {proveedores.map((proveedor) => (
-                                    <option key={proveedor.id} value="" >{proveedor.nombre}</option>
+                                    <option key={proveedor.id} value=''>{proveedor.nombre}</option>
                                 ))}
                             </select>
-                        </div>
+                        </div> */}
 
                     </div>
                     <div className="col">

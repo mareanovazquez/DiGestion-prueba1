@@ -58,7 +58,7 @@ para que ese filtro también funcione */}
                             <th scope='col'> Fecha recepción</th>
                             <th scope='col'> Remito</th>
                             <th scope='col'> Fecha recepción DTI</th>
-                            <th scope="col">Ver remito</th>
+                            <th scope="col" className="text-center">Ver remito</th>
                         </tr>
                         <tr>
                             <th className="text-center" scope='col'></th>
