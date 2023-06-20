@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import CSV from '../../assets/CSV.svg'
 import PDF from '../../assets/PDF.svg'
 import imprimir from '../../assets/print.svg'
-import agregar from '../../assets/agregar.svg'
-import verRemito from '../../assets/Ver.svg'
+import verRemito from '../../assets/ver.svg'
+import { Agregar } from "../Iconos/Agregar";
+import { Ver } from "../Iconos/Ver";
 
 
 export const ItemListRemito = () => {
@@ -78,7 +79,7 @@ para que ese filtro también funcione */}
                                 <td className="border-bottom">{remito.fecha_recepcion}</td>
                                 <td className="border-bottom">{remito.remito}</td>
                                 <td className="border-bottom">{remito.fecha_recepcion_dti}</td>
-                                <td className="border-bottom"><Link to={`/remito/${remito.id}`}><img src={verRemito} alt="" /></Link><img src={CSV} alt="" /> <img src={PDF} alt="" /> <img src={imprimir} alt=""/> </td>
+                                <td className="border-bottom"><Link to={`/remito/${remito.id}`}><Ver/></Link> </td>
                             </tr>
 
                         )
@@ -104,7 +105,7 @@ para que ese filtro también funcione */}
         </div>
         <div>
             
-        <Link /* onClick={handleAddRemito} */ to='/remito/addRemito' className='card-link addRemito'><img src={agregar} alt="agregar remito" /></Link>
+        <Link /* onClick={handleAddRemito} */ to='/remito/addRemito' className='card-link addRemito'><Agregar/></Link>
         </div>
         </>
         )
