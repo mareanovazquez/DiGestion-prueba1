@@ -218,9 +218,9 @@ function App() {
                         </PrivateRoute>} />
 
                     <Route path='/remito/:rid' element={
-                        <PrivateRoute>
-                            <ItemRemito />
-                        </PrivateRoute>} />
+                        
+                            <ItemRemito /> }
+                         />
 
                     <Route path='/remito/addRemito' element={
                         <PrivateRoute>

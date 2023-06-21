@@ -95,10 +95,7 @@ li {
   
 }
 
-svg path,
-svg rect{
-  fill: #000000;
-}
+
 
 .custom-input {
   display: flex;
