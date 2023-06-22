@@ -29,34 +29,34 @@ export const UserContextProvider = ({ children }) => {
         const dataUsuarios = [
         {
             id: 1,
-            nombre: 'Mariano',
+            nombre: 'mariano',
             contraseña: '1234',
             permiso: 'Admin',
             departamento: 'Todos los departamentos'
         },
         {
             id: 2,
-            nombre: 'Matías',
+            nombre: 'matias',
             contraseña: '1234',
             permiso: 'Admin'
         },
         {
             id: 3,
-            nombre: 'Ayelén',
+            nombre: 'ayelen',
             contraseña: '1234',
             permiso: 'ReadAndWrite',
             departamento: '23'
         },
         {
             id: 4,
-            nombre: 'Pingo',
+            nombre: 'pingo',
             contraseña: '1234',
             permiso: 'Read',
             departamento: '31'
         },
         {
             id: 5,
-            nombre: 'Pongo',
+            nombre: 'pongo',
             contraseña: '1234',
             permiso: 'Read',
             departamento: '2'
