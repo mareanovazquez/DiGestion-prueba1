@@ -79,7 +79,7 @@ export function ModalAddPerifericos({data}) {
                     <Button variant="secondary" onClick={handleClose}>
                         Cerrar
                     </Button>
-                    <Button variant="primary" >Guardar</Button>
+                    
                 </Modal.Footer>
             </Modal>
         </>
