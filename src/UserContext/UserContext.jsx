@@ -1,5 +1,6 @@
 
 
+import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +11,7 @@ export const UserContext = createContext([]);
 
 export const UserContextProvider = ({ children }) => {
 
-    
+
 
     const navigate = useNavigate();
     //estados y funciones globales para INYECTAR
@@ -18,15 +19,16 @@ export const UserContextProvider = ({ children }) => {
     //estados 
 
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [usuarios, setUsuarios] = useState('');
     const [permisos, setPermisos] = useState('')
     const [departamento, setDepartamento] = useState('')
-    
 
-    
-        const dataUsuarios = [
+
+    //Usuarios creados para probar las rutas protegidas (ESTO DEBE ELIMINARSE)
+    const dataUsuarios = [
         {
             id: 1,
             nombre: 'mariano',
@@ -63,41 +65,82 @@ export const UserContextProvider = ({ children }) => {
         }
     ];
 
-    
+    // handleLogin creado para manejar los usuarios de prueba (ESTO DEBE ELIMINARSE)
+    /*  const handleLogin = (e) => {
+         e.preventDefault();
+ 
+         // Verifica las credenciales del usuario (ESTO DEBE ELIMINARSE)
+         const usuario = dataUsuarios.find(user => user.nombre === username && user.contraseña === password);
+ 
+         if (usuario) {
+             // Iniciar sesión exitosamente
+             //ELIMINAR ESTE CONSOLE.LOG CUANDO TODO FUNCIONE
+             console.log('Inicio de sesión exitoso | ' + usuario.nombre + ' ' + usuario.permiso + ' ' + usuario.departamento);
+             navigate('/inicio')
+             setPermisos(usuario.permiso)
+             setDepartamento(usuario.departamento)
+             setUsername('')
+             setPassword('')
+             // Aquí puedes redirigir al usuario a la página de inicio o realizar otras acciones necesarias
+ 
+         } else {
+             // Credenciales inválidas
+             setError('Usuario o contraseña incorrectos');
+             setPassword('')
+             setUsername('')
+ 
+         }
+ 
+     }; */
+
+    //handleButtonLogin para manejar el botón del componente LogIn (ESTO DEBE ELIMINARSE Y CAMBIAR POR UNO NUEVO)
+    /* const handleButtonLogIn = () => {
+        setUsuarios(username);
+        
+        setPermisos(permisos)
+        setDepartamento(departamento)
+    }; */
+
     const handleLogin = (e) => {
         e.preventDefault();
 
-        // Verificar las credenciales del usuario
-        const usuario = dataUsuarios.find(user => user.nombre === username && user.contraseña === password);
+        axios.get('http://10.10.49.124/login', {
+            email,
+            password
+        }, {
+            headers: {
+                'Autorization': 'Bearer eyJ0e',
+            }
 
-        if (usuario) {
-            // Iniciar sesión exitosamente
-            //ELIMINAR ESTE CONSOLE.LOG CUANDO TODO FUNCIONE
-            console.log('Inicio de sesión exitoso | ' + usuario.nombre + ' ' + usuario.permiso +' '+ usuario.departamento);
-            navigate('/inicio')
-            setPermisos(usuario.permiso)
-            setDepartamento(usuario.departamento)
-            setUsername('')
-            setPassword('')
-            // Aquí puedes redirigir al usuario a la página de inicio o realizar otras acciones necesarias
-        
-        } else {
-            // Credenciales inválidas
-            setError('Usuario o contraseña incorrectos');
-            setPassword('')
-            setUsername('')
+        })
 
-        }
+            .then(res => {
+                    console.log(res),
+                    console.log(res.data)
+            })
 
-    };
+
+    }
+
+
+
+
+
+
+
 
     const handleButtonLogIn = () => {
-        setUsuarios(username);
-        setPermisos(permisos)
-        setDepartamento(departamento)
+
+        setEmail(email)
+        setPassword(password)
+
     };
 
-  
+
+
+
+
+
 
     return (
         <>
@@ -106,22 +149,24 @@ export const UserContextProvider = ({ children }) => {
 
                     handleLogin,
                     handleButtonLogIn,
-                  
-                    
+
+
                     username,
                     setUsername,
+                    email,
+                    setEmail,
                     password,
                     setPassword,
                     error,
                     setError,
                     usuarios,
-                    setUsuarios,   
+                    setUsuarios,
                     permisos,
                     setPermisos,
                     departamento,
-                    setDepartamento, 
-                          
-                    
+                    setDepartamento,
+
+
 
                 }}
             >

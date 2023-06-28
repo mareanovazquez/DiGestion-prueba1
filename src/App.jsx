@@ -192,104 +192,75 @@ function App() {
         <>
 
             <UserContextProvider>
-               
 
-                <NavBar/>
-                
+
+                <NavBar />
+
 
                 <Routes>
                     <Route path='/' element={<LogIn />} />
 
                     {/* INICIO ADMINISTRADOR */}
-                    <Route path="/inicio" element={
-                        <PrivateRoute>
-                            <PrivateRouteAdm>
-                                <Inicio />
-                            </PrivateRouteAdm>
-                        </PrivateRoute>} />
+                    
+                    <Route path="/inicio" element={<Inicio />} />
 
-                    <Route path='/proveedores' element={
-                        <PrivateRoute>
-                            <ListProveedores />
-                        </PrivateRoute>} />
+                    <Route path='/proveedores' element={<ListProveedores />} />
+                    <Route path='/remitos' element={<ItemListRemito />}/>
 
-                    <Route path='/remitos' element={
-                        <PrivateRoute>
-                            <ItemListRemito />
-                        </PrivateRoute>} />
+                    <Route path='/remito/:rid' element={<ItemRemito />}/>
 
-                    <Route path='/remito/:rid' element={
-                        
-                            <ItemRemito /> }
-                         />
+                    <Route path='/remito/addRemito' element={<AddRemito />}/>
 
-                    <Route path='/remito/addRemito' element={
-                        <PrivateRoute>
-                            <PrivateRouteAdm>
-                                <AddRemito />
-                            </PrivateRouteAdm>
-                        </PrivateRoute>} />
+                    <Route path='/remito/:rid' element={<ItemRemito />}/>
 
-                    <Route path='/remito/:rid' element={
-                        <PrivateRoute>
-                            <ItemRemito />
-                        </PrivateRoute>} />
-
-                        <Route path='/perifericos' element={
-                        <PrivateRoute>
-                            <ItemListPerifericos/>
-                        </PrivateRoute>} />
+                    <Route path='/perifericos' element={<ItemListPerifericos />}/>
 
                     {/* INICIO Read and Write */}
                     <Route path="/inicioRaW" element={
-                        <PrivateRoute>
-                            <InicioRaW />
-                        </PrivateRoute>} />
+
+                        <InicioRaW />}
+                    />
 
                     <Route path='/remitosRaW' element={
-                        <PrivateRoute>
-                            <ItemListRemitoRaW />
-                        </PrivateRoute>} />
+
+                        <ItemListRemitoRaW />}
+                    />
 
                     <Route path='/proveedoresRaW' element={
-                        <PrivateRoute>
-                            <ListProveedoreRaW />
-                        </PrivateRoute>} />
 
-                        <Route path='/perifericosRaW' element={
-                        <PrivateRoute>
-                            <ItemListPerifericosRaW/>
-                        </PrivateRoute>} />
+                        <ListProveedoreRaW />}
+                    />
+
+                    <Route path='/perifericosRaW' element={
+
+                        <ItemListPerifericosRaW />}
+                    />
 
                     {/* INICIO solo Read */}
                     <Route path="/inicioR" element={
-                        <PrivateRoute>
-                            <InicioR />
-                        </PrivateRoute>} />
 
-                    {/* Usuarios de solo READ no pueden ver el compomente Proveedores */}
-                    {/* <Route path='/proveedoresR' element={
-                        <PrivateRoute>
-                            <ListProveedoresR />
-                        </PrivateRoute>} / */}
+                        <InicioR />}
+                    />
+
+
 
                     <Route path='/remitosR' element={
-                        <PrivateRoute>
-                            <ItemListRemitoR />
-                        </PrivateRoute>} />
 
-                        <Route path='/perifericosR' element={
-                        <PrivateRoute>
-                            <ItemListPerifericosR/>
-                        </PrivateRoute>} />
+                        <ItemListRemitoR />}
+                    />
+
+                    <Route path='/perifericosR' element={
+
+                        <ItemListPerifericosR />}
+                    />
 
 
-                   
+
 
                     <Route path='/notAllowed' element={
-                        <PrivateRoute>
-                            <NotAllowedR />
-                        </PrivateRoute>} />
+
+                        <NotAllowedR />}
+                    />
 
 
 
