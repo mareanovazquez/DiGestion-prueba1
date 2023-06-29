@@ -109,24 +109,29 @@ export const UserContextProvider = ({ children }) => {
             password
         }, {
             headers: {
-                'Autorization': 'Bearer eyJ0e',
+                
+                'Autorization': 'Bearer eyJ0e....',
+                
             }
 
         })
 
-            .then(res => {
-                    console.log(res),
-                    console.log(res.data)
+            .then(response => {
+
+                navigate('/inicio')
+                
+                console.log(response),
+                console.log(response.headers)
+                
+
+            })
+            .catch(error => {
+            console.log(error)
             })
 
+            .finally ()
 
     }
-
-
-
-
-
-
 
 
     const handleButtonLogIn = () => {
@@ -137,7 +142,12 @@ export const UserContextProvider = ({ children }) => {
     };
 
 
+    useEffect(() => {
+        localStorage.setItem ('username', username)
+        localStorage.setItem('email', email);
+        localStorage.setItem('password', password)
 
+    }, [username,email, password])
 
 
 

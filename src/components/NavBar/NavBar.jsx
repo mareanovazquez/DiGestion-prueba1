@@ -11,11 +11,12 @@ export const NavBar = () => {
 
     const handleUsuario = () => {
         setUsuarios('')
+        setEmail('')
         setPermisos('')
 
     }
 
-    const { usuarios, setUsuarios, permisos, setPermisos } = useContext(UserContext);
+    const { usuarios, setUsuarios, email, setEmail, permisos, setPermisos } = useContext(UserContext);
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -23,15 +24,15 @@ export const NavBar = () => {
                 {/* Menú de opciones definido por permisos de usuario */}
 
                 {/* ADMIN */}
-                {permisos === 'Admin' && <NavLink className='text-white' to='/inicio'>DIGESTIÓN | </NavLink>}
+                 <NavLink className='text-white' to='/inicio'>DIGESTIÓN | </NavLink>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    {permisos === 'Admin' && <Nav className="me-auto">
+                     && <Nav className="me-auto">
                         <NavLink to='/proveedores' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>PROVEEDORES</NavLink>
                         <NavLink to='/remitos' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>REMITOS</NavLink>
                         <NavLink to='/perifericos' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>PERIFÉRICOS</NavLink>
-                    </Nav>}
+                    </Nav>
 
                     {/* READ AND WRITE */}
                     {permisos === 'ReadAndWrite' && <NavLink className='text-white' to='/inicioRaW'>DIGESTIÓN | </NavLink>}
@@ -50,12 +51,12 @@ export const NavBar = () => {
                     </Nav>}
 
                     {/* Botón de cerrar sesión definido por permisos de usuario */}
-                    {permisos === 'Admin' && <Nav>
-                        <NavDropdown title={usuarios} id="basic-nav-dropdown">
+                     <Nav>
+                        <NavDropdown title={email} id="basic-nav-dropdown">
                             <NavLink to='/' replace><button onClick={handleUsuario} >Cerrar sesión</button></NavLink>
                         </NavDropdown>
                     </Nav>
-                    }
+                    
                     {permisos === 'ReadAndWrite' && <Nav>
                         <NavDropdown title={usuarios} id="basic-nav-dropdown">
                             <NavLink to='/' replace><button onClick={handleUsuario} >Cerrar sesión</button></NavLink>

@@ -205,8 +205,24 @@ export const ListadoPerifericos = () => {
 
     console.log(itemsPerifericos)
 
-    // Función para eliminar items de la lista de periféricos
-    const EliminarItem = () => {
+    //Función para eliminar un solo item de la lista de perifericos 
+    const DeleteItem = (id)=> {
+
+        
+        setPerifericoSeleccionado('');
+        setMarcaSeleccionada('');
+        setModeloSeleccionado('');
+        setGarantiaSeleccionada('');
+        setComentarioPeriferico('');
+        setCounter(0)
+
+        setItemsPerifericos(itemsPerifericos.filter ( item => item.id !==id))
+        console.log(itemsPerifericos)
+
+    }
+
+    // Función para eliminar todos los items de la lista de periféricos
+    const EliminarTodo = () => {
 
         setItemsPerifericos([])
         setId(1)
@@ -367,13 +383,12 @@ export const ListadoPerifericos = () => {
                                     <table className="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th className="text-center" scope="col">ID</th>
+                                                <th className="text-center" scope="col">ID</th> {/* Eliminar */}
                                                 <th className="text-center" scope="col">Periférico</th>
                                                 <th className="text-center" scope="col">Marca</th>
                                                 <th className="text-center" scope="col">Modelo</th>
                                                 <th className="text-center" scope="col">Garantía</th>
                                                 <th className="text-center" scope="col">Cantidad</th>
-                                                {/* <th scope="col">Disponible</th> */}
                                                 <th scope="col">Comentarios</th>
                                                 <th className="text-center" scope="col">Añadir</th>
                                                 <th className="text-center" scope="col">Eliminar</th>
@@ -388,7 +403,7 @@ export const ListadoPerifericos = () => {
 
                                                 itemsPerifericos.map((item) => (
                                                     <tr key={item.id}>
-                                                        <th className="text-center" scope="row">{item.id}</th>
+                                                        <th className="text-center" scope="row">{item.id}</th> {/* Eliminar */}
                                                         <th className="text-center">{item.periferico}</th>
                                                         <td className="text-center">{item.marca}</td>
                                                         <td className="text-center">{item.modelo}</td>
@@ -404,7 +419,7 @@ export const ListadoPerifericos = () => {
                                                             </button>
                                                         </td>
                                                         <td className="text-center">
-                                                            <button className="btn" onClick={EliminarItem}>
+                                                            <button className="btn" onClick={()=> DeleteItem(item.id)} >
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash trashIcon" viewBox="0 0 16 16">
                                                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                                                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
@@ -416,19 +431,19 @@ export const ListadoPerifericos = () => {
                                             }
 
                                             <tr className="table-info" >
-                                                <th className="text-center" scope="row">{id}</th>
+                                                <th className="text-center" scope="row">{id}</th> {/* Eliminar */}
                                                 <th className="text-center" >{perifericoSeleccionado}</th>
                                                 <td className="text-center" >{marcaSeleccionada}</td>
                                                 <td className="text-center" >{modeloSeleccionado}</td>
                                                 <td className="text-center" >{garantiaSeleccionada}</td>
                                                 <td className="text-center" >{counter}</td>
-                                                {/* <td>8</td> */}
+                                                
                                                 <td className="text-center" >{comentarioPeriferico}</td>
                                                 <td className="text-center"> <button className="btn" onClick={AñadirItem}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-check2-square" viewBox="0 0 16 16">
                                                     <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
                                                     <path d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
                                                 </svg></button></td>
-                                                <td className="text-center"> <button className="btn" onClick={EliminarItem}> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash trashIcon" viewBox="0 0 16 16">
+                                                <td className="text-center"> <button className="btn" onClick={()=> DeleteItem(id)} > <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash trashIcon" viewBox="0 0 16 16">
                                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                                 </svg></button></td>
@@ -440,7 +455,7 @@ export const ListadoPerifericos = () => {
                                     <div>
                                         <p>Total de periféricos cargados: <b>{totalCantidad}</b></p>
                                         <Button variant="primary" >Enviar</Button>
-                                        <Button variant="secondary" onClick={EliminarItem}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash trashIcon" viewBox="0 0 16 16">
+                                        <Button variant="secondary" onClick={EliminarTodo}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash trashIcon" viewBox="0 0 16 16">
                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                         </svg></Button>
