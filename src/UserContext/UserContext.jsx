@@ -109,8 +109,8 @@ export const UserContextProvider = ({ children }) => {
             password
         }, {
             headers: {
-                
-                'Autorization': 'Bearer eyJ0e....',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer eyJ0e',
                 
             }
 
