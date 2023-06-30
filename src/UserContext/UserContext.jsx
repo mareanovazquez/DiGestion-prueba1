@@ -3,7 +3,7 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import HttpService from "../services/HttpService";
 
 
 export const UserContext = createContext([]);
@@ -25,6 +25,7 @@ export const UserContextProvider = ({ children }) => {
     const [usuarios, setUsuarios] = useState('');
     const [permisos, setPermisos] = useState('')
     const [departamento, setDepartamento] = useState('')
+    const [token, setToken] = useState('')
 
 
     //Usuarios creados para probar las rutas protegidas (ESTO DEBE ELIMINARSE)
@@ -85,7 +86,7 @@ export const UserContextProvider = ({ children }) => {
  
          } else {
              // Credenciales inválidas
-             setError('Usuario o contraseña incorrectos');
+             ;
              setPassword('')
              setUsername('')
  
@@ -104,32 +105,23 @@ export const UserContextProvider = ({ children }) => {
     const handleLogin = (e) => {
         e.preventDefault();
 
-        axios.get('http://10.10.49.124/login', {
-            email,
-            password
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer eyJ0e',
-                
-            }
+        const http = new HttpService();
 
-        })
+        http.postData('/login', { email, password })
 
             .then(response => {
-
-                navigate('/inicio')
+                 if (response.data.success) {
+                    setToken(response.data.token)
+                    navigate('/inicio')  
+                } 
                 
-                console.log(response),
-                console.log(response.headers)
-                
-
+                console.log(response.data.token)
             })
             .catch(error => {
-            console.log(error)
+                setError(error.response.data.message)
+                console.log(error)
             })
-
-            .finally ()
+            .finally()
 
     }
 
@@ -143,11 +135,11 @@ export const UserContextProvider = ({ children }) => {
 
 
     useEffect(() => {
-        localStorage.setItem ('username', username)
+        localStorage.setItem('username', username)
         localStorage.setItem('email', email);
-        localStorage.setItem('password', password)
+        localStorage.setItem('token',token)
 
-    }, [username,email, password])
+    }, [username, email, password])
 
 
 
@@ -175,6 +167,8 @@ export const UserContextProvider = ({ children }) => {
                     setPermisos,
                     departamento,
                     setDepartamento,
+                    token,
+                    setToken
 
 
 

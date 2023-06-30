@@ -16,14 +16,36 @@ export const ItemListRemito = () => {
     const [filterFechaRecepcionDTI, setFilterFechaRecepcionDTI] = useState('');
 
 
-    const FetchRemitos = async () => {
+   /*  const FetchRemitos = async () => {
         const response = await fetch('http://10.10.49.124/api/remitos');
         const results = await response.json()
         const remitos = results.data
 
         setRemitos(remitos)
 
-    }
+    } */
+
+    const http = new HttpService();
+
+    http.getData('/remitos')
+
+        .then(response => {
+             if (response.data.success) {
+                
+                  
+            } 
+            
+            console.log(response.data.token)
+        })
+        .catch(error => {
+            setError(error.response.data.message)
+            console.log(error)
+        })
+        .finally()
+
+
+
+
 
 
     useEffect(() => {
