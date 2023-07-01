@@ -112,13 +112,18 @@ export const UserContextProvider = ({ children }) => {
             .then(response => {
                  if (response.data.success) {
                     setToken(response.data.token)
+                    setUsername(response.data.data.username)
                     navigate('/inicio')  
-                } 
-                
-                console.log(response.data.token)
+                    
+                    } 
+
+                    
+               
+                console.log(response.data)
+               
             })
             .catch(error => {
-                setError(error.response.data.message)
+                setError(error.response.message)
                 console.log(error)
             })
             .finally()
@@ -133,13 +138,14 @@ export const UserContextProvider = ({ children }) => {
 
     };
 
+   
 
     useEffect(() => {
         localStorage.setItem('username', username)
         localStorage.setItem('email', email);
         localStorage.setItem('token',token)
 
-    }, [username, email, password])
+    }, [username, email, token])
 
 
 

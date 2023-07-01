@@ -9,14 +9,14 @@ import { Link } from "react-router-dom";
 
 export const Inicio = () => {
 
-const { permisos, setPermisos } = useContext(UserContext)
+const { permisos, setPermisos, username, setUsername } = useContext(UserContext)
 
     return (
         <>
     
         <div className="contenedorInicio">
         <h2 className="text-center"> DIGESTIÓN </h2>
-        <h5 className='text-center'> Visible para <b>{permisos}</b></h5>
+        <h5 className='text-center'> Visible para <b>{username}</b></h5>
     
             <div className="contenedorInicioCards">
                 

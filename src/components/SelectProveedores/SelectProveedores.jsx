@@ -39,13 +39,11 @@ export const SelectProveedores = ({onChange}) => {
 
     return (
         <>
-        
             <Select
                 defaultValue={ {label: 'Proveedores', value: ' '}}
                 options={proveedores}
                 onChange={handleSelected}
             />
-
-         </>
+        </>
     )
 }

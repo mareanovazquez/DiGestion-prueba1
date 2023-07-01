@@ -6,6 +6,9 @@ import imprimir from '../../assets/print.svg'
 import verRemito from '../../assets/ver.svg'
 import { Agregar } from "../Iconos/Agregar";
 import { Ver } from "../Iconos/Ver";
+import HttpService from "../../services/HttpService";
+import { useContext } from "react";
+import { UserContext } from "../../UserContext/UserContext";
 
 
 export const ItemListRemito = () => {
@@ -15,42 +18,46 @@ export const ItemListRemito = () => {
     const [filterRemito, setFilterRemito] = useState('');
     const [filterFechaRecepcionDTI, setFilterFechaRecepcionDTI] = useState('');
 
+    const { error, setError, token, setToken } = useContext(UserContext)
 
-   /*  const FetchRemitos = async () => {
-        const response = await fetch('http://10.10.49.124/api/remitos');
-        const results = await response.json()
-        const remitos = results.data
+    //Si pongo el valor token que traigo desde el context puedo validar el GET hecho con el Fetch
+      /* const FetchRemitos = async () => {
+         const response = await fetch('http://10.10.49.124/api/remitos', {
+            headers: {
+                'Authorization' : 'Bearer ' + token, 
+            }
+            })
+         const results = await response.json()
+         const remitos = results.data
+ 
+         setRemitos(remitos)
+ 
+     } 
 
-        setRemitos(remitos)
+     useEffect(() => {
+        FetchRemitos();
+    }, [])  */
 
-    } */
 
     const http = new HttpService();
 
-    http.getData('/remitos')
-
+    useEffect (()=>{
+        http.getData('/remitos', token)
         .then(response => {
-             if (response.data.success) {
+            if (response.data.data) {
+                setRemitos(response.data.data)
                 
-                  
-            } 
-            
-            console.log(response.data.token)
+            }
         })
         .catch(error => {
-            setError(error.response.data.message)
-            console.log(error)
+            setError(error.statusText)
+            
         })
         .finally()
+ 
+    },[])
+    
 
-
-
-
-
-
-    useEffect(() => {
-        FetchRemitos();
-    }, [])
 
     const handleRemitosFiltered = () => {
 
@@ -66,12 +73,12 @@ export const ItemListRemito = () => {
                 <h2 className="text-center"> Lista de Remitos</h2>
 
 
-{/* Los filtros de fecha no funcionan porque en la API los filtros están definidos como String y el 
+                {/* Los filtros de fecha no funcionan porque en la API los filtros están definidos como String y el 
 input que los llama es type=date, Si ya está definido que van a tener ese formato, después los paso a string para 
 para que ese filtro también funcione */}
 
                 <br></br>
-                
+
                 <table className="table tablaRemitos">
                     <thead>
                         <tr>
@@ -101,7 +108,7 @@ para que ese filtro también funcione */}
                                 <td className="border-bottom">{remito.fecha_recepcion}</td>
                                 <td className="border-bottom">{remito.remito}</td>
                                 <td className="border-bottom">{remito.fecha_recepcion_dti}</td>
-                                <td className="border-bottom"><Link to={`/remito/${remito.id}`}><Ver/></Link> </td>
+                                <td className="border-bottom"><Link to={`/remito/${remito.id}`}><Ver /></Link> </td>
                             </tr>
 
                         )
@@ -118,18 +125,18 @@ para que ese filtro también funcione */}
         )
     }
 
-    return( 
+    return (
         <>
-        
-        <div>
-            {handleRemitosFiltered()}
-            
-        </div>
-        <div>
-            
-        <Link /* onClick={handleAddRemito} */ to='/remito/addRemito' className='card-link addRemito'><Agregar/></Link>
-        </div>
+
+            <div>
+                {handleRemitosFiltered()}
+
+            </div>
+            <div>
+
+                <Link /* onClick={handleAddRemito} */ to='/remito/addRemito' className='card-link addRemito'><Agregar /></Link>
+            </div>
         </>
-        )
+    )
 
 }
