@@ -13,7 +13,7 @@ export function ModalAddPerifericos({data}) {
         console.log(data)
     };
 
-    const { usuarios }= useContext(UserContext)
+    const { name }= useContext(UserContext)
 
     return (
         <>
@@ -43,8 +43,8 @@ export function ModalAddPerifericos({data}) {
                                 <ul>
                                     <li><b>Departamento:</b> {data.departamento}</li>
                                     <li><b>Remito:</b> {data.remito}</li>
-                                    <li><b>Usuario alta:</b> {usuarios}</li>
-                                    <li><b>Orden provisión:</b></li>
+                                    <li><b>Usuario alta:</b> {name}</li>
+                                    <li><b>Orden provisión:</b> {data.ordenProvision}</li>
                                 </ul>
                             </div>
                             <div className="col">
@@ -52,14 +52,14 @@ export function ModalAddPerifericos({data}) {
                                     <li><b>Proveedor:</b>{data.proveedor}</li>
                                     <li><b>Expediente:</b>{data.expediente}</li>
                                     <li><b>Orden compra:</b>{data.ordenCompra}</li>
-                                    <li><b>Orden entrega:</b></li>
+                                    <li><b>Orden entrega:</b> {data.ordenEntrega}</li>
                                 </ul>
                             </div>
                             <div className="col">
                                 <ul>
                                     <li><b>Fecha recepción:</b> {data.fechaRecepcionSTI}</li>
                                     <li><b>Fecha recepción DTI:</b> {data.fechaRecepcionDTI}</li>
-                                    <li><b>Legajo compra:</b></li>
+                                    <li><b>Legajo compra:</b> {data.legajoCompra}</li>
 
                                 </ul>
                             </div>
@@ -73,7 +73,6 @@ export function ModalAddPerifericos({data}) {
                 {/* LISTADO DE PERIFÉRICOS  */}
                 <Modal.Body>
                     <ListadoPerifericos/>
-                    
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

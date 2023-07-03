@@ -3,19 +3,14 @@ import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../UserContext/UserContext";
 import { Link } from "react-router-dom";
 import { ModalAddPerifericos } from "../ModalAddPerifericos/ModalAddPerifericos";
-
-import { SelectProveedores } from "../SelectProveedores/SelectProveedores";
-import { ListadoPerifericos } from "../ListadoPerifericos/ListadoPerifericos";
-
-
-
-
+import { SelectProveedores } from "../Select/SelectProveedores";
+import { SelectDepartamentos } from "../Select/SelectDepartamentos";
 
 export const AddRemito = () => {
 
     const [dataAddRemito, setDataAddRemito] = useState({
         departamento: "",
-        proveedor: '',
+        proveedor: "",
         fechaRecepcionSTI: "",
         remito: "",
         expediente: "",
@@ -24,32 +19,29 @@ export const AddRemito = () => {
         legajoCompra: "",
         ordenProvision: "",
         ordenEntrega: "",
-        comentarios: ""
+        comentarios: "",
+        usuarioAlta: ""
+
     });
 
-    const { usuarios } = useContext(UserContext)
+    const { name } = useContext(UserContext)
 
-
-    /* const handleAddRemito = (e) => {
-
-        console.log(dataAddRemito);
-
-
-    } */
+    const handleDepartamentoChange = (selectedDepartamento) => {
+        setDataAddRemito({ ...dataAddRemito, departamento: selectedDepartamento })
+    }
 
     const handleProveedorChange = (selectedProveedor) => {
         setDataAddRemito({ ...dataAddRemito, proveedor: selectedProveedor })
     }
- 
+
     useEffect(() => {
-        setDataAddRemito({ ...dataAddRemito, usuarioAlta: usuarios })
-    }, [usuarios])
+        setDataAddRemito({ ...dataAddRemito, usuarioAlta: name })
+    }, [name])
 
     const handleCamposRemito = () => {
-
         setDataAddRemito({
             departamento: "",
-            proveedor: '',
+            proveedor: "",
             fechaRecepcionSTI: "",
             remito: "",
             expediente: "",
@@ -59,19 +51,12 @@ export const AddRemito = () => {
             ordenProvision: "",
             ordenEntrega: "",
             comentarios: "",
-            usuarioAlta: ''
-
+            
         })
-
-
     }
 
-
-
     return (
-
         <>
-
             <div className="contenedorAltaRemito">
 
                 <div className="row altaRemito">
@@ -83,20 +68,15 @@ export const AddRemito = () => {
                             placeholder="Usuario"
                             disabled
                             aria-label="Usuario Ata"
-                            value={usuarios}
+                            value={name}
                         />
                     </div>
+
                     <div className="col">
-                        <label>Departamento</label>
-                        <input type="text"
-                            className="form-control"
-                            placeholder="Lista precargada de departamentos"
-                            aria-label="Departamento"
-                            value={dataAddRemito.departamento}
-                            onChange={(e) =>
-                                setDataAddRemito({ ...dataAddRemito, departamento: e.target.value })
-                            } />
+                        <label htmlFor='departamentos' >Departamentos</label>
+                        <SelectDepartamentos onChange={handleDepartamentoChange} />
                     </div>
+
                     <div className="col">
                         <label htmlFor='proveedores' >Proveedores</label>
                         <SelectProveedores onChange={handleProveedorChange} />
@@ -130,6 +110,7 @@ export const AddRemito = () => {
                             }
                         />
                     </div>
+
                     <div className="col">
                         <label>Expediente</label>
                         <input type="text"
@@ -157,6 +138,7 @@ export const AddRemito = () => {
                             }
                         />
                     </div>
+
                 </div>
                 <div className="row altaRemito">
                     <div className="col">
@@ -171,6 +153,7 @@ export const AddRemito = () => {
                             }
                         />
                     </div>
+
                     <div className="col">
                         <label>Legajo compra</label>
                         <input type="text"
@@ -183,6 +166,7 @@ export const AddRemito = () => {
                             }
                         />
                     </div>
+
                     <div className="col">
                         <label>Orden provisión</label>
                         <input type="text"
@@ -193,9 +177,9 @@ export const AddRemito = () => {
                             onChange={(e) =>
                                 setDataAddRemito({ ...dataAddRemito, ordenProvision: e.target.value })
                             }
-
                         />
                     </div>
+
                     <div className="col">
                         <label>Orden entrega</label>
                         <input type="text"
@@ -206,12 +190,10 @@ export const AddRemito = () => {
                             onChange={(e) =>
                                 setDataAddRemito({ ...dataAddRemito, ordenEntrega: e.target.value })
                             }
-
                         />
                     </div>
 
-                </div>
-
+            </div>
                 <div className="row altaRemito">
                     <div className="col">
                         <label htmlFor="comentarios">COMENTARIOS</label>
@@ -238,13 +220,9 @@ export const AddRemito = () => {
                                 <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                             </svg>
                         </button>
-
-
                     </div>
                 </div>
             </div>
-
-
 
         </>
     )

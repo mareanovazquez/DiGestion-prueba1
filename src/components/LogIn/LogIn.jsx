@@ -16,13 +16,13 @@ export const LogIn = () => {
         <div className='contenedorLogIn'>
             <Form className='formLogIn' onSubmit={handleLogin}>
                 <h2 className='text-center'>DIGESTIÓN</h2>
-                <Form.Group className="mb-3" controlId="formBasicUsername">
+              {/*   <Form.Group className="mb-3" controlId="formBasicUsername">
                     <Form.Label>Usuario</Form.Label>
                     <Form.Control type="text" placeholder="USUARIO" value={username} onChange={(e) => setUsername(e.target.value)} />
                     <Form.Text className="text-muted">
 
                     </Form.Text>
-                </Form.Group>
+                </Form.Group> */}
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
@@ -45,5 +45,5 @@ export const LogIn = () => {
         </div>
     );
 
-   
+
 }

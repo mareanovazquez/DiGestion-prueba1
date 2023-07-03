@@ -19,13 +19,15 @@ export const UserContextProvider = ({ children }) => {
     //estados 
 
     const [username, setUsername] = useState('');
+    const [name, setName ] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [usuarios, setUsuarios] = useState('');
-    const [permisos, setPermisos] = useState('')
-    const [departamento, setDepartamento] = useState('')
-    const [token, setToken] = useState('')
+    const [permisos, setPermisos] = useState('');
+    const [departamento, setDepartamento] = useState('');
+    const [token, setToken] = useState('');
+    const [loggedIn, setLoggedIn] = useState(false);
 
 
     //Usuarios creados para probar las rutas protegidas (ESTO DEBE ELIMINARSE)
@@ -110,17 +112,16 @@ export const UserContextProvider = ({ children }) => {
         http.postData('/login', { email, password })
 
             .then(response => {
-                 if (response.data.success) {
+                if (response.data.success) {
                     setToken(response.data.token)
                     setUsername(response.data.data.username)
+                    setName(response.data.data.name)
+                    setLoggedIn(true)
                     navigate('/inicio')  
                     
                     } 
-
-                    
-               
                 console.log(response.data)
-               
+                
             })
             .catch(error => {
                 setError(error.response.message)
@@ -135,15 +136,16 @@ export const UserContextProvider = ({ children }) => {
 
         setEmail(email)
         setPassword(password)
+        setName(name)
+        console.log(name)
 
     };
 
-   
 
     useEffect(() => {
         localStorage.setItem('username', username)
         localStorage.setItem('email', email);
-        localStorage.setItem('token',token)
+        localStorage.setItem('token', token)
 
     }, [username, email, token])
 
@@ -161,6 +163,8 @@ export const UserContextProvider = ({ children }) => {
 
                     username,
                     setUsername,
+                    name,
+                    setName,
                     email,
                     setEmail,
                     password,
@@ -174,8 +178,9 @@ export const UserContextProvider = ({ children }) => {
                     departamento,
                     setDepartamento,
                     token,
-                    setToken
-
+                    setToken,
+                    loggedIn,
+                    setLoggedIn
 
 
                 }}

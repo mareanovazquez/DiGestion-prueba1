@@ -15,7 +15,7 @@ import { compareIssuingPolicy } from './utils/claimUtils';
  import { FooterNav } from './components/FooterNav/FooterNav';
  import { BrowserRouter, Route, Routes } from 'react-router-dom';
  import { ItemListRemito } from './components/ItemListRemito/ItemListRemito.jsx';
- import { ListaRemitos2 } from './components/ListaRemitos2/ListaRemitos2';
+ 
  import { ItemRemito } from './components/ItemRemito/ItemRemito';
  import { AddRemito } from './components/AddRemito/AddRemito';
 
@@ -158,7 +158,7 @@ import { FooterNav } from './components/FooterNav/FooterNav';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { LogIn } from './components/LogIn/LogIn';
 import { ItemListRemito } from './components/ItemListRemito/ItemListRemito.jsx';
-import { ListaRemitos2 } from './components/ListaRemitos2/ListaRemitos2';
+
 import { ItemRemito } from './components/ItemRemito/ItemRemito';
 import { AddRemito } from './components/AddRemito/AddRemito';
 import { UserContextProvider } from './UserContext/UserContext';

@@ -1,16 +1,10 @@
 import axios from "axios"
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import Select from "react-select"
-import { UserContext } from "../../UserContext/UserContext"
+
 
 export const SelectProveedores = ({onChange}) => {
-
-    
-
     const [proveedores, setProveedores] = useState([])
-   
-    
-
 
     useEffect(() => {
         axios.get('http://10.10.49.124/api/proveedores')
@@ -20,21 +14,16 @@ export const SelectProveedores = ({onChange}) => {
                     value: proveedor.nombre,
                     label: proveedor.nombre
                 }
-                
                 ))
-
                 setProveedores(proveedores)
             })
             .catch(error => {
                 console.log(error)
             })
-
     }, [])
 
     const handleSelected = (proveedorSeleccionado) => {        
         onChange(proveedorSeleccionado.value)
-
-
     }
 
     return (

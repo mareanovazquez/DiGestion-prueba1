@@ -112,8 +112,6 @@ export const ListadoPerifericos = () => {
         setMarcaSeleccionada('');
         setModeloSeleccionado('');
 
-
-
     };
 
     // Función para manejar el cambio en la selección de la marca
@@ -391,7 +389,6 @@ export const ListadoPerifericos = () => {
                                                 <th scope="col">Comentarios</th>
                                                 <th className="text-center" scope="col">Añadir</th>
                                                 <th className="text-center" scope="col">Eliminar</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
