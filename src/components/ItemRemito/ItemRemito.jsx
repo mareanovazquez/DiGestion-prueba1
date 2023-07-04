@@ -1,32 +1,32 @@
 
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-
 import Nav from 'react-bootstrap/Nav';
-
-
-
+import { UserContext } from '../../UserContext/UserContext';
+import HttpService from '../../services/HttpService';
 
 export const ItemRemito = () => {
 
 
-    const [remitos, setRemitos] = useState({})
-    const { rid } = useParams()
+    const [remitos, setRemitos] = useState({});
+    const { rid } = useParams();
+    const { token } = useContext(UserContext);
 
-    const FetchRemitos = async () => {
-        const response = await fetch(`http://10.10.49.124/api/remito/${rid}`);
-        const results = await response.json()
-        const remitos = results.data
-
-        setRemitos(remitos)
-    }
+    const http = new HttpService();
 
     useEffect(() => {
-        FetchRemitos(rid);
+        http.getData(`/remito/${rid}`, token)
+
+            .then(response => {
+                const remitos = response.data.data;
+                setRemitos(remitos);
+            })
+
+            .catch(error => {
+                console.log(error)
+            })
     }, [])
-
-
 
     return (
 
@@ -41,7 +41,7 @@ export const ItemRemito = () => {
                         <div className="row align-items-start">
                             <div className="col">
                                 <ul>
-                                    <li><b>Departamento:</b>{remitos.departamento_id}</li>
+                                    <li><b>Departamento:</b>{remitos.departamento}</li>
                                     <li><b>Remito:</b> {remitos.remito}</li>
                                     <li><b>Usuario alta:</b></li>
                                     <li><b>Orden provisión:</b></li>
@@ -49,7 +49,7 @@ export const ItemRemito = () => {
                             </div>
                             <div className="col">
                                 <ul>
-                                    <li><b>Proveedor:</b></li>
+                                    <li><b>Proveedor:</b> {remitos.proveedor}</li>
                                     <li><b>Expediente:</b></li>
                                     <li><b>Orden compra:</b></li>
                                     <li><b>Orden entrega:</b></li>
@@ -117,22 +117,17 @@ export const ItemRemito = () => {
                             </tr>
                         </tbody>
                     </table>
-                    
+
 
                     <Nav className="justify-content-end" activeKey="/home">
                         <Nav.Item>
-                        <Link className='card-link' to='/remitos' ><button className="btn btn-primary m-2">Volver</button></Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                        <Link className='card-link' to='/remito/addRemito'><button className="btn btn-primary m-2">Nuevo remito</button></Link>
+                            <Link className='card-link' to='/remitos' ><button className="btn btn-primary m-2">Volver</button></Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Link className='card-link'><button className="btn btn-primary m-2">Descargar</button></Link>
                         </Nav.Item>
                         <Nav.Item>
-                           
                             <Link className='card-link'><button className="btn btn-primary m-2">Imprimir</button></Link>
-                            
                         </Nav.Item>
                     </Nav>
                 </div>

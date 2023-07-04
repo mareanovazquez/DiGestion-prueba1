@@ -1,12 +1,17 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Select from "react-select"
+import { UserContext } from "../../UserContext/UserContext"
+import HttpService from "../../services/HttpService"
 
 export const SelectDepartamentos = ({onChange}) => {
     const [departamentos, setDepartamentos] = useState([])
+    const { token } = useContext(UserContext)
+
+    const http = new HttpService();
 
     useEffect(() => {
-        axios.get('http://10.10.49.124/api/departamentos')
+        http.getData('/departamentos', token)
+        
             .then(response => {
                 
                 const departamentos = response.data.data.map(departamento => ({
@@ -20,6 +25,7 @@ export const SelectDepartamentos = ({onChange}) => {
                 console.log(error)
             })
     }, [])
+    
     const handleSelected = (departamentoSeleccionado) => {        
         onChange(departamentoSeleccionado.value)
     }

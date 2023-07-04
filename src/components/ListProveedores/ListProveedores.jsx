@@ -1,41 +1,35 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Filter } from "../Filter/Filters";
 import { Link } from "react-router-dom";
 import descargaProveedor from '../../assets/download.svg'
-import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
-import { NavBar } from "../NavBar/NavBar";
 import { Loading } from "../Loading/Loading";
+import { UserContext } from "../../UserContext/UserContext";
+import HttpService from "../../services/HttpService";
 export const ListProveedores = () => {
 
     const [proveedores, setProveedores] = useState([]);
     const [isLoading, setIsLoading] = useState (true);
-
+    const {token} = useContext (UserContext)
+    const http = new HttpService ();
 
     useEffect(() => {
-        const FetchProveedores = async () => {
-            const response = await fetch('http://10.10.49.124/api/proveedores');
-            const result = await response.json();
-            const proveedores = result.data
-
+        http.getData('/proveedores', token)
+        .then (response => {
+            const proveedores = response.data.data
             setProveedores(proveedores);
             setIsLoading (false)
-
-        }
-
-        FetchProveedores()
-
+        })
+        .catch(error => {
+            console.log (error)
+        })
     }, []);
 
     const handleProductFiltered = ({ filterState, handleFilterChange }) => {
-
-
         return (
             <>
                 <div className="contenedorRemitos">
                     <hr></hr>
                     <h2 className="text-center"> Lista de Proveedores</h2>
-
-
 
                     <br></br>
                     <input type='text' value={filterState} placeholder="Filtrar" onChange={handleFilterChange} />
@@ -55,10 +49,7 @@ export const ListProveedores = () => {
 
                         <tbody>
                             {filterState === ''
-
                                 ? proveedores.map((proveedor) => (
-
-
                                     <tr className="border-bottom my-2" key={proveedor.id} scope="row">
                                         <td className="border-bottom">{proveedor.id}</td>
                                         <td className="border-bottom">{proveedor.nombre}</td>
@@ -69,16 +60,10 @@ export const ListProveedores = () => {
                                         <td className="border-bottom">{proveedor.updated_at}</td>
                                         <td className="border-bottom"><Link to={`/proveedor/${proveedor.id}`}><img src={descargaProveedor} alt="" /></Link></td>
                                     </tr>
-
-
-
-                                )
-
-                                )
+                                ))
                                 : proveedores.filter(proveedor => proveedor.nombre.toString().toLowerCase().includes(filterState.toLowerCase()) ||
                                     proveedor.estado.toString().toLowerCase().includes(filterState.toLowerCase()))
                                     .map((proveedor) => (
-
 
                                         <tr className="border-bottom my-2" key={proveedor.id} scope="row">
                                             <td className="border-bottom">{proveedor.id}</td>
@@ -90,12 +75,7 @@ export const ListProveedores = () => {
                                             <td className="border-bottom">{proveedor.updated_at}</td>
                                             <td className="border-bottom"><Link to={`/proveedor/${proveedor.id}`}><img src={descargaProveedor} alt="" /></Link></td>
                                         </tr>
-
-
                                     )
-
-
-
                                     )}
                         </tbody>
                     </table>
@@ -104,9 +84,6 @@ export const ListProveedores = () => {
             </>
         )
     }
-
-
-
     return (
 
         <>
