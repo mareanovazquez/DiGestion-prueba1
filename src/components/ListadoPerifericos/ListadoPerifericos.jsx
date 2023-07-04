@@ -107,25 +107,33 @@ export const ListadoPerifericos = () => {
     // Función para manejar el cambio en la selección del periférico
     const handlePerifericoChange = (e) => {
         setPerifericoSeleccionado(e.target.value);
-        setMarcaSeleccionada('');
-        setModeloSeleccionado('');
+        
     };
 
     // Función para manejar el cambio en la selección de la marca
     const handleMarcaChange = (e) => {
         setMarcaSeleccionada(e.target.value);
-        setModeloSeleccionado('');
+        
     };
 
     // Función para manejar el cambio en la selección del modelo
     const handleModeloChange = (e) => {
         setModeloSeleccionado(e.target.value);
     };
+
+    //Estado para almancenar la garantía seleccionada
     const [garantiaSeleccionada, setGarantiaSeleccionada] = useState('')
     // Función para manejar el cambio en la garantía
     const handleGarantiaChange = (e) => {
         setGarantiaSeleccionada(e.target.value);
     };
+
+    //Estado para almacenar la cantidad seleccionada
+    const [cantidadSeleccionada, setCantidadSeleccionada] = useState('');
+    // Función para manejar el cambio en la cantidad seleccionada
+    const handleCantidad = (e) => {
+        setCantidadSeleccionada(e.target.value)
+    }
 
     //Estado para almacenar y añadir el comentario al remito
     const [comentarioPeriferico, setComentarioPeriferico] = useState('')
@@ -170,7 +178,7 @@ export const ListadoPerifericos = () => {
                 marca: marcaSeleccionada,
                 modelo: modeloSeleccionado,
                 garantia: garantiaSeleccionada,
-                cantidad: counter,
+                cantidad: cantidadSeleccionada,
                 comentarios: comentarioPeriferico
             }
         ]);
@@ -181,7 +189,7 @@ export const ListadoPerifericos = () => {
         setModeloSeleccionado('');
         setGarantiaSeleccionada('');
         setComentarioPeriferico('');
-        setCounter(0)
+        setCantidadSeleccionada('')
     }
 
     console.log(itemsPerifericos)
@@ -194,7 +202,8 @@ export const ListadoPerifericos = () => {
         setModeloSeleccionado('');
         setGarantiaSeleccionada('');
         setComentarioPeriferico('');
-        setCounter(0)
+        setCantidadSeleccionada('');
+
 
         setItemsPerifericos(itemsPerifericos.filter(item => item.id !== id))
         console.log(itemsPerifericos)
@@ -211,7 +220,7 @@ export const ListadoPerifericos = () => {
         setModeloSeleccionado('');
         setGarantiaSeleccionada('');
         setComentarioPeriferico('');
-        setCounter(0)
+        setCantidadSeleccionada('');
 
         setShowTable(false)
     }
@@ -221,7 +230,7 @@ export const ListadoPerifericos = () => {
     let totalCantidad = 0;
 
     for (let i = 0; i < itemsPerifericos.length; i++) {
-        totalCantidad += itemsPerifericos[i].cantidad;
+        totalCantidad += parseInt(itemsPerifericos[i].cantidad);
     }
 
 
@@ -231,8 +240,8 @@ export const ListadoPerifericos = () => {
             <div >
                 <div className="row justify-content-start ">
                     <h3>Seleccione los periféricos</h3>
-                    <div className="col-3">
-                        <label>Periférico</label>
+                    <div className="col-4">
+                        <label > Periférico</label>
                         <br></br>
                         <Form.Select
                             value={perifericoSeleccionado}
@@ -247,8 +256,8 @@ export const ListadoPerifericos = () => {
                     </div>
 
                     {perifericoSeleccionado && (
-                        <div className="col-3">
-                            <label>Marca:</label>
+                        <div className="col-4">
+                            <label>Marca</label>
                             <br></br>
                             <Form.Select
                                 value={marcaSeleccionada}
@@ -266,33 +275,40 @@ export const ListadoPerifericos = () => {
                     )}
 
                     {marcaSeleccionada && (
-                            <div className="col-3">
-                                <label>Modelo:</label>
-                                <br></br>
-                                <Form.Select
-                                    value={modeloSeleccionado}
-                                    onChange={handleModeloChange}>
-                                    <option value="">Modelo</option>
-                                    {perifericos
-                                        .find((periferico) => periferico.nombre === perifericoSeleccionado)
-                                        .marca.find((marca) => marca.nombre === marcaSeleccionada)
-                                        .modelo.map((modelo) => (
-                                            <option key={modelo.id} value={modelo.nombre}>
-                                                {modelo.nombre}
-                                            </option>
-                                        ))}
-                                </Form.Select>
-                            </div>
-                        )}
+                        <div className="col-4">
+                            <label>Modelo</label>
+                            <br></br>
+                            <Form.Select
+                                value={modeloSeleccionado}
+                                onChange={handleModeloChange}>
+                                <option value="">Modelo</option>
+                                {perifericos
+                                    .find((periferico) => periferico.nombre === perifericoSeleccionado)
+                                    .marca.find((marca) => marca.nombre === marcaSeleccionada)
+                                    .modelo.map((modelo) => (
+                                        <option key={modelo.id} value={modelo.nombre}>
+                                            {modelo.nombre}
+                                        </option>
+                                    ))}
+                            </Form.Select>
+                        </div>
+                    )}
                 </div>
 
                 <div>
-                    <div className="row">
-                        
-                            <div className="col-3">
-                                <label>Garantía en meses</label>
-                                <Form.Select name="meses"
-
+                    <div className="row justify-content-center">
+                        <div className="col-3">
+                            <label>Garantía</label>
+                            <input
+                                placeholder="Garantía en meses"
+                                className="form-control"
+                                value={garantiaSeleccionada}
+                                type="number"
+                                onChange={handleGarantiaChange}
+                            />
+                        </div>
+                        {/* Select de meses de garantía para eliminar */}
+                        {/*  <Form.Select name="meses"
                                     value={garantiaSeleccionada}
                                     onChange={handleGarantiaChange}>
                                     <option value="" disabled defaultValue>Garantía</option>
@@ -314,11 +330,36 @@ export const ListadoPerifericos = () => {
                                     <option value="16 meses">16 meses</option>
                                     <option value="17 meses">17 meses</option>
                                     <option value="18 meses">18 meses</option>
-                                </Form.Select>
+                                </Form.Select> */}
 
-                            </div>
-                            <br></br>
-                            <div>
+
+                        <div className="col-3">
+                            <label>Cantidad</label>
+                            <input 
+                                placeholder="Cantidad de periféricos"
+                                type="number"
+                                className="form-control"
+                                value={cantidadSeleccionada}
+                                onChange={handleCantidad}
+                            />
+                        </div>
+                        <div className="col-6">
+                            <label htmlFor="comentarios">COMENTARIOS</label>
+                            <textarea id="comentarios"
+                                className="form-control"
+                                placeholder="El comentario no debe superar los 50 caracteres"
+                                name="comentarios"
+                                rows="1"
+                                cols="50"
+                                maxLength='50'
+                                value={comentarioPeriferico}
+                                onChange={handleComentarioChange}
+                            ></textarea>
+                        </div>
+                        <br></br>
+
+                        {/* Botón Counter para eliminar */}
+                        {/*  <div>
                                 <button className="btn" onClick={sumarCount}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-plus-square" viewBox="0 0 16 16">
                                     <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
@@ -328,32 +369,20 @@ export const ListadoPerifericos = () => {
                                     <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                                     <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
                                 </svg></button>
-                            </div>
-                            <br></br>
-                            <div className="row altaRemito">
-                                <div className="col">
-                                    <label htmlFor="comentarios">COMENTARIOS</label>
-                                    <textarea id="comentarios"
-                                        className="form-control"
-                                        placeholder="El comentario no debe superar los 50 caracteres"
-                                        name="comentarios"
-                                        rows="2"
-                                        cols="50"
-                                        maxLength='50'
-                                        value={comentarioPeriferico}
-                                        onChange={handleComentarioChange}
-                                    ></textarea>
-                                </div>
-                            </div>
-                            <div>
-                                <button
-                                    onClick={DesplegarListPerifericos}
-                                    type="button"
-                                    className="btn btn-secondary">
-                                    Agregar
-                                </button>
-                            </div>
-                        
+                            </div> */}
+                        <br></br>
+                        <div className="row altaRemito">
+
+                        </div>
+                        <div>
+                            <button
+                                onClick={DesplegarListPerifericos}
+                                type="button"
+                                className="btn btn-secondary">
+                                Agregar
+                            </button>
+                        </div>
+
 
 
 
@@ -390,7 +419,7 @@ export const ListadoPerifericos = () => {
                                                         <th className="text-center">{item.periferico}</th>
                                                         <td className="text-center">{item.marca}</td>
                                                         <td className="text-center">{item.modelo}</td>
-                                                        <td className="text-center">{item.garantia}</td>
+                                                        <td className="text-center">{item.garantia} meses</td>
                                                         <td className="text-center">{item.cantidad}</td>
                                                         <td className="text-center">{item.comentarios}</td>
                                                         <td className="text-center">
@@ -419,7 +448,7 @@ export const ListadoPerifericos = () => {
                                                 <td className="text-center" >{marcaSeleccionada}</td>
                                                 <td className="text-center" >{modeloSeleccionado}</td>
                                                 <td className="text-center" >{garantiaSeleccionada}</td>
-                                                <td className="text-center" >{counter}</td>
+                                                <td className="text-center" >{cantidadSeleccionada}</td>
                                                 <td className="text-center" >{comentarioPeriferico}</td>
                                                 <td className="text-center"> <button className="btn" onClick={AñadirItem}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-check2-square" viewBox="0 0 16 16">
                                                     <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
@@ -429,7 +458,6 @@ export const ListadoPerifericos = () => {
                                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                                 </svg></button></td>
-
                                             </tr>
 
                                         </tbody>
