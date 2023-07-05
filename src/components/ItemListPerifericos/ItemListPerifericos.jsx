@@ -24,6 +24,8 @@ export const ItemListPerifericos = () => {
                 const perifericos = response.data.data
                 setPerifericos(perifericos)
                 setIsLoading(false)
+                console.log(perifericos)
+                
             })
     }, [])
 

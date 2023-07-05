@@ -21,11 +21,9 @@ export const AddRemito = () => {
         ordenEntrega: "",
         comentarios: "",
         usuarioAlta: ""
-
     });
 
-    const { name } = useContext(UserContext)
-
+    const { name } = useContext(UserContext);
     const handleDepartamentoChange = (selectedDepartamento) => {
         setDataAddRemito({ ...dataAddRemito, departamento: selectedDepartamento })
     }
@@ -58,7 +56,6 @@ export const AddRemito = () => {
     return (
         <>
             <div className="contenedorAltaRemito">
-
                 <div className="row altaRemito">
                     <h2 className="text-left"> Alta de Remito</h2>
                     <div className="col">

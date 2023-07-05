@@ -1,103 +1,34 @@
+import { useContext } from "react";
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { UserContext } from "../../UserContext/UserContext";
+import HttpService from "../../services/HttpService";
 
 
 export const ListadoPerifericos = () => {
 
-    const perifericos = [
-        {
-            id: 1,
-            nombre: 'Impresora',
-            marca: [
-                {
-                    id: 1,
-                    nombre: 'HP',
-                    modelo: [
-                        {
-                            id: 1,
-                            nombre: 'HP DeskJet 2130'
-                        },
-                        {
-                            id: 2,
-                            nombre: 'HP LaserJet Pro M15w'
-                        },
-                    ]
-                },
-                {
-                    id: 2,
-                    nombre: 'Samsung',
-                    modelo: [
-                        { id: 1, nombre: 'Samsung XYZ Printer' },
-                        { id: 2, nombre: 'Samsung ABC Printer' },
-                    ]
-                }
-            ]
-        },
-        {
-            id: 2,
-            nombre: 'Monitor',
-            marca: [
-                {
-                    id: 1,
-                    nombre: 'HP',
-                    modelo: [
-                        { id: 1, nombre: 'HP Ultrasharp U2719D' },
-                        { id: 2, nombre: 'HP XYZ Monitor' }
-                    ]
-                },
-                {
-                    id: 2,
-                    nombre: 'Samsung',
-                    modelo: [
-                        { id: 1, nombre: 'Samsung S34J550WQ' },
-                        { id: 2, nombre: 'Samsung S40000WQ' },
-                    ]
-                },
-                {
-                    id: 3,
-                    nombre: 'Lenovo',
-                    modelo: [
-                        { id: 1, nombre: 'Lenovo L24q-30' },
-                        { id: 2, nombre: 'Lenovo zw543' }
 
-                    ]
-                }
+    //recuperar token para validar el HTTP request
+    const { token } = useContext(UserContext)
 
-            ]
-        },
-        {
-            id: 3,
-            nombre: 'Teclado',
-            marca: [
-                {
-                    id: 1,
-                    nombre: 'Dell',
-                    modelo: [
-                        { id: 1, nombre: 'Dell Pro Mechanical Keyboard' },
-                        { id: 2, nombre: 'Dell Huntsman Elite' },
-                        { id: 3, nombre: 'Dell K70 RGB MK.2' }
-                    ]
-                },
-                {
-                    id: 2,
-                    nombre: 'Logitech',
-                    modelo: [
-                        { id: 1, nombre: 'Logigech Super Gaming Teclado 200' },
-                        { id: 2, nombre: 'Logitech MX Master 3' },
-                        { id: 3, nombre: 'SteelSeries Rival 650 Wireless' },
-                        { id: 4, nombre: 'LogitechABC Teclado' },
+    // Request para traer el listado de periféricos
+    const http = new HttpService();
+    const [perifericos, setPerifericos] = useState([]);
+    const [perifId, setPerifId] = useState('');
 
-                    ]
-                }
-            ]
+    useEffect(() => {
+        http.getData('/perifericos', token)
+            .then(response => {
+                const ListPerifericos = response.data.data
+                setPerifericos(ListPerifericos)
+                
 
-        },
+            })
+    }, [])
+
+    const [marcas, setMarcas] = useState([]);
 
 
-    ];
-
-    //Estado para mostrar la tabla renderizando la lista de periféricos
-    const [showTable, setShowTable] = useState(false)
 
     //Estados para mostrar Periférico, Marca y Modelo como string vacío
     const [perifericoSeleccionado, setPerifericoSeleccionado] = useState('');
@@ -107,13 +38,27 @@ export const ListadoPerifericos = () => {
     // Función para manejar el cambio en la selección del periférico
     const handlePerifericoChange = (e) => {
         setPerifericoSeleccionado(e.target.value);
+        setPerifId(e.target.options[e.target.selectedIndex].getAttribute('data-key'))
+        console.log (perifId)
         
+        http.getData(`/remitos/get-marcas/${perifId}`, token)
+        .then(response => {
+            const ListMarcas = response.data;
+            setMarcas(ListMarcas);
+            console.log(marcas)
+        })
+        .catch(error => {
+            console.log(error)
+        });
     };
+
+    
+
 
     // Función para manejar el cambio en la selección de la marca
     const handleMarcaChange = (e) => {
         setMarcaSeleccionada(e.target.value);
-        
+
     };
 
     // Función para manejar el cambio en la selección del modelo
@@ -143,19 +88,8 @@ export const ListadoPerifericos = () => {
         setComentarioPeriferico(e.target.value);
     };
 
-    // Función para manejar el contador  (AÑADIR & QUITAR)
-    const [counter, setCounter] = useState(0)
-    const sumarCount = () => {
-        if (counter < 5) {
-            setCounter(counter + 1)
-        }
-    }
-
-    const restarCount = () => {
-        if (counter > 0) {
-            setCounter(counter - 1)
-        }
-    }
+    //Estado para mostrar la tabla renderizando la lista de periféricos
+    const [showTable, setShowTable] = useState(false)
 
     //Función para añadir el valor del contador a la planilla del remito
     const DesplegarListPerifericos = () => {
@@ -196,7 +130,6 @@ export const ListadoPerifericos = () => {
 
     //Función para eliminar un solo item de la lista de perifericos 
     const DeleteItem = (id) => {
-
         setPerifericoSeleccionado('');
         setMarcaSeleccionada('');
         setModeloSeleccionado('');
@@ -248,7 +181,7 @@ export const ListadoPerifericos = () => {
                             onChange={handlePerifericoChange}>
                             <option value="">Periférico</option>
                             {perifericos.map((periferico) => (
-                                <option key={periferico.id} value={periferico.nombre}>
+                                <option key={periferico.id} value={periferico.nombre} data-key={periferico.id}>
                                     {periferico.nombre}
                                 </option>
                             ))}
@@ -263,9 +196,8 @@ export const ListadoPerifericos = () => {
                                 value={marcaSeleccionada}
                                 onChange={handleMarcaChange}>
                                 <option value="">Marca</option>
-                                {perifericos
-                                    .find((periferico) => periferico.nombre === perifericoSeleccionado)
-                                    .marca.map((marca) => (
+                                {perifericos.find((periferico) => periferico.nombre === perifericoSeleccionado) && 
+                                Array.isArray(marcas)&& marcas.map((marca) => (
                                         <option key={marca.id} value={marca.nombre}>
                                             {marca.nombre}
                                         </option>
@@ -284,7 +216,7 @@ export const ListadoPerifericos = () => {
                                 <option value="">Modelo</option>
                                 {perifericos
                                     .find((periferico) => periferico.nombre === perifericoSeleccionado)
-                                    .marca.find((marca) => marca.nombre === marcaSeleccionada)
+                                    .marcas.find((marca) => marca.nombre === marcaSeleccionada)
                                     .modelo.map((modelo) => (
                                         <option key={modelo.id} value={modelo.nombre}>
                                             {modelo.nombre}
@@ -297,7 +229,7 @@ export const ListadoPerifericos = () => {
 
                 <div>
                     <div className="row justify-content-center">
-                        <div className="col-3">
+                        <div className="col-2">
                             <label>Garantía</label>
                             <input
                                 placeholder="Garantía en meses"
@@ -305,45 +237,21 @@ export const ListadoPerifericos = () => {
                                 value={garantiaSeleccionada}
                                 type="number"
                                 onChange={handleGarantiaChange}
+
                             />
                         </div>
-                        {/* Select de meses de garantía para eliminar */}
-                        {/*  <Form.Select name="meses"
-                                    value={garantiaSeleccionada}
-                                    onChange={handleGarantiaChange}>
-                                    <option value="" disabled defaultValue>Garantía</option>
-                                    <option value="1 mes">1 mes</option>
-                                    <option value="2 meses">2 meses</option>
-                                    <option value="3 meses">3 meses</option>
-                                    <option value="4 meses">4 meses</option>
-                                    <option value="5 meses">5 meses</option>
-                                    <option value="6 meses">6 meses</option>
-                                    <option value="7 meses">7 meses</option>
-                                    <option value="8 meses">8 meses</option>
-                                    <option value="9 meses">9 meses</option>
-                                    <option value="10 meses">10 meses</option>
-                                    <option value="11 meses">11 meses</option>
-                                    <option value="12 meses">12 meses</option>
-                                    <option value="13 meses">13 meses</option>
-                                    <option value="14 meses">14 meses</option>
-                                    <option value="15 meses">15 meses</option>
-                                    <option value="16 meses">16 meses</option>
-                                    <option value="17 meses">17 meses</option>
-                                    <option value="18 meses">18 meses</option>
-                                </Form.Select> */}
 
-
-                        <div className="col-3">
+                        <div className="col-2">
                             <label>Cantidad</label>
-                            <input 
-                                placeholder="Cantidad de periféricos"
+                            <input
+                                placeholder="Unidades seleccionadas"
                                 type="number"
                                 className="form-control"
                                 value={cantidadSeleccionada}
                                 onChange={handleCantidad}
                             />
                         </div>
-                        <div className="col-6">
+                        <div className="col-8">
                             <label htmlFor="comentarios">COMENTARIOS</label>
                             <textarea id="comentarios"
                                 className="form-control"
@@ -356,20 +264,7 @@ export const ListadoPerifericos = () => {
                                 onChange={handleComentarioChange}
                             ></textarea>
                         </div>
-                        <br></br>
 
-                        {/* Botón Counter para eliminar */}
-                        {/*  <div>
-                                <button className="btn" onClick={sumarCount}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-plus-square" viewBox="0 0 16 16">
-                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                                </svg></button>
-                                <button className="btn btn-primary">{counter}</button>
-                                <button className="btn" onClick={restarCount}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-dash-square" viewBox="0 0 16 16">
-                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
-                                </svg></button>
-                            </div> */}
                         <br></br>
                         <div className="row altaRemito">
 
@@ -382,10 +277,6 @@ export const ListadoPerifericos = () => {
                                 Agregar
                             </button>
                         </div>
-
-
-
-
 
                         {showTable &&
 

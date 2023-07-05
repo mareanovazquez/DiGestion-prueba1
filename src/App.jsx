@@ -171,10 +171,9 @@ import { InicioR } from './components/Inicio/InicioR';
 import { ItemListRemitoR } from './components/ItemListRemito/ItemListRemitoR';
 
 import { ItemListRemitoRaW } from './components/ItemListRemito/ItemListRemitoRaW';
-import { ListProveedoreRaW } from './components/ListProveedores/ListProveedoresRaW';
+
 import { ItemListPerifericos } from './components/ItemListPerifericos/ItemListPerifericos';
-import { ItemListPerifericosR } from './components/ItemListPerifericos/ItemListPerifericosR';
-import { ItemListPerifericosRaW } from './components/ItemListPerifericos/ItemListPerifericosRaW';
+
 
 
 
@@ -206,65 +205,22 @@ function App() {
 
                     <Route path='/proveedores' element={<ListProveedores />} />
                     <Route path='/remitos' element={<ItemListRemito />}/>
-
                     <Route path='/remito/:rid' element={<ItemRemito />}/>
-
                     <Route path='/remito/addRemito' element={<AddRemito />}/>
-
                     <Route path='/remito/:rid' element={<ItemRemito />}/>
-
                     <Route path='/perifericos' element={<ItemListPerifericos />}/>
 
                     {/* INICIO Read and Write */}
-                    <Route path="/inicioRaW" element={
-
-                        <InicioRaW />}
-                    />
-
-                    <Route path='/remitosRaW' element={
-
-                        <ItemListRemitoRaW />}
-                    />
-
-                    <Route path='/proveedoresRaW' element={
-
-                        <ListProveedoreRaW />}
-                    />
-
-                    <Route path='/perifericosRaW' element={
-
-                        <ItemListPerifericosRaW />}
-                    />
+                    <Route path="/inicioRaW" element={<InicioRaW />}/>
+                    <Route path='/remitosRaW' element={<ItemListRemitoRaW />}/>
 
                     {/* INICIO solo Read */}
-                    <Route path="/inicioR" element={
-
-                        <InicioR />}
-                    />
-
-
-
-                    <Route path='/remitosR' element={
-
-                        <ItemListRemitoR />}
-                    />
-
-                    <Route path='/perifericosR' element={
-
-                        <ItemListPerifericosR />}
-                    />
-
-
-
-
-                    <Route path='/notAllowed' element={
-
-                        <NotAllowedR />}
-                    />
-
-
-
-                </Routes>
+                    <Route path="/inicioR" element={<InicioR />}/>
+                    <Route path='/remitosR' element={<ItemListRemitoR />}/>
+                    <Route path='/notAllowed' element={<NotAllowedR />}/>
+    
+                </Routes>    
+                
                 {/* <FooterNav /> */}
 
             </UserContextProvider>
