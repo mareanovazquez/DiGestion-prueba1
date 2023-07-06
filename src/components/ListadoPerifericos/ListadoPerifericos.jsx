@@ -39,8 +39,9 @@ export const ListadoPerifericos = () => {
     const handlePerifericoChange = (e) => {
         setPerifericoSeleccionado(e.target.value);
         setPerifId(e.target.options[e.target.selectedIndex].getAttribute('data-key'))
-        console.log (perifId)
-        
+    };
+
+    useEffect(() => {
         http.getData(`/remitos/get-marcas/${perifId}`, token)
         .then(response => {
             const ListMarcas = response.data;
@@ -50,7 +51,7 @@ export const ListadoPerifericos = () => {
         .catch(error => {
             console.log(error)
         });
-    };
+    }, [perifId])
 
     
 
@@ -179,7 +180,7 @@ export const ListadoPerifericos = () => {
                         <Form.Select
                             value={perifericoSeleccionado}
                             onChange={handlePerifericoChange}>
-                            <option value="">Periférico</option>
+                            <option value="">Periferico</option>
                             {perifericos.map((periferico) => (
                                 <option key={periferico.id} value={periferico.nombre} data-key={periferico.id}>
                                     {periferico.nombre}
@@ -196,12 +197,11 @@ export const ListadoPerifericos = () => {
                                 value={marcaSeleccionada}
                                 onChange={handleMarcaChange}>
                                 <option value="">Marca</option>
-                                {perifericos.find((periferico) => periferico.nombre === perifericoSeleccionado) && 
-                                Array.isArray(marcas)&& marcas.map((marca) => (
+                                {Array.isArray(marcas) ? marcas.map((marca) => (
                                         <option key={marca.id} value={marca.nombre}>
                                             {marca.nombre}
                                         </option>
-                                    ))}
+                                    )) : <option key="sarlanga" value="sarlanga">  sarlanga</option>}
                             </Form.Select>
                         </div>
                     )}
