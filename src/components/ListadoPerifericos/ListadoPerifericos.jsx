@@ -11,23 +11,22 @@ export const ListadoPerifericos = () => {
     //recuperar token para validar el HTTP request
     const { token } = useContext(UserContext)
 
+
+    const [perifericos, setPerifericos] = useState([]);
+    const [marcas, setMarcas] = useState([]);
+    const [modelos, setModelos] = useState([]);
+    const [perifId, setPerifId] = useState('');
+    const [marcaId, setMarcaId] = useState('');
+
     // Request para traer el listado de periféricos
     const http = new HttpService();
-    const [perifericos, setPerifericos] = useState([]);
-    const [perifId, setPerifId] = useState('');
-
     useEffect(() => {
         http.getData('/perifericos', token)
             .then(response => {
                 const ListPerifericos = response.data.data
                 setPerifericos(ListPerifericos)
-                
-
             })
     }, [])
-
-    const [marcas, setMarcas] = useState([]);
-
 
 
     //Estados para mostrar Periférico, Marca y Modelo como string vacío
@@ -41,24 +40,40 @@ export const ListadoPerifericos = () => {
         setPerifId(e.target.options[e.target.selectedIndex].getAttribute('data-key'))
     };
 
+    //useEffect para habilitar la selección de marcas
     useEffect(() => {
-        http.getData(`/remitos/get-marcas/${perifId}`, token)
-        .then(response => {
-            const ListMarcas = response.data;
-            setMarcas(ListMarcas);
-            console.log(marcas)
-        })
-        .catch(error => {
-            console.log(error)
-        });
+        if (perifId) {
+            http.getData(`/remitos/get-marcas/${perifId}`, token)
+                .then(response => {
+                    const ListMarcas = response.data;
+                    setMarcas(ListMarcas);
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        }
     }, [perifId])
 
-    
+    //useEffect para habilitar la selección de modelos
+    useEffect(() => {
+        if (marcaId) {
+            http.getData(`/remitos/get-modelos/${marcaId}/${perifId}`, token)
+                .then(response => {
+                    const ListModelos = response.data;
+                    setModelos(ListModelos);
+                    console.log(modelos)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        }
+    }, [marcaId])
 
 
     // Función para manejar el cambio en la selección de la marca
     const handleMarcaChange = (e) => {
         setMarcaSeleccionada(e.target.value);
+        setMarcaId(e.target.options[e.target.selectedIndex].getAttribute('data-key'))
 
     };
 
@@ -180,7 +195,7 @@ export const ListadoPerifericos = () => {
                         <Form.Select
                             value={perifericoSeleccionado}
                             onChange={handlePerifericoChange}>
-                            <option value="">Periferico</option>
+                            <option value="">Perifericos</option>
                             {perifericos.map((periferico) => (
                                 <option key={periferico.id} value={periferico.nombre} data-key={periferico.id}>
                                     {periferico.nombre}
@@ -189,44 +204,37 @@ export const ListadoPerifericos = () => {
                         </Form.Select>
                     </div>
 
-                    {perifericoSeleccionado && (
-                        <div className="col-4">
-                            <label>Marca</label>
-                            <br></br>
-                            <Form.Select
-                                value={marcaSeleccionada}
-                                onChange={handleMarcaChange}>
-                                <option value="">Marca</option>
-                                {Array.isArray(marcas) ? marcas.map((marca) => (
-                                        <option key={marca.id} value={marca.nombre}>
-                                            {marca.nombre}
-                                        </option>
-                                    )) : <option key="sarlanga" value="sarlanga">  sarlanga</option>}
-                            </Form.Select>
-                        </div>
-                    )}
+                    <div className="col-4">
+                        <label>Marca</label>
+                        <br></br>
+                        <Form.Select
+                            value={marcaSeleccionada}
+                            onChange={handleMarcaChange}>
+                            <option value="">Marcas</option>
+                            {Object.values(marcas).map((marca) => (
+                                <option key={marca.id} value={marca.nombre} data-key={marca.id}>
+                                    {marca.nombre}
+                                </option>
+                            ))}
+                        </Form.Select>
+                    </div>
 
-                    {marcaSeleccionada && (
-                        <div className="col-4">
-                            <label>Modelo</label>
-                            <br></br>
-                            <Form.Select
-                                value={modeloSeleccionado}
-                                onChange={handleModeloChange}>
-                                <option value="">Modelo</option>
-                                {perifericos
-                                    .find((periferico) => periferico.nombre === perifericoSeleccionado)
-                                    .marcas.find((marca) => marca.nombre === marcaSeleccionada)
-                                    .modelo.map((modelo) => (
-                                        <option key={modelo.id} value={modelo.nombre}>
-                                            {modelo.nombre}
-                                        </option>
-                                    ))}
-                            </Form.Select>
-                        </div>
-                    )}
+                    <div className="col-4">
+                        <label>Modelo</label>
+                        <br></br>
+                        <Form.Select
+                            value={modeloSeleccionado}
+                            onChange={handleModeloChange}>
+                            <option value="">Modelo</option>
+                            {Object.values(modelos).map((modelo) => (
+                                <option key={modelo.id} value={modelo.nombre}>
+                                    {modelo.nombre}
+                                </option>
+                            ))}
+                        </Form.Select>
+                    </div>
+
                 </div>
-
                 <div>
                     <div className="row justify-content-center">
                         <div className="col-2">
@@ -237,10 +245,8 @@ export const ListadoPerifericos = () => {
                                 value={garantiaSeleccionada}
                                 type="number"
                                 onChange={handleGarantiaChange}
-
                             />
                         </div>
-
                         <div className="col-2">
                             <label>Cantidad</label>
                             <input
@@ -264,10 +270,8 @@ export const ListadoPerifericos = () => {
                                 onChange={handleComentarioChange}
                             ></textarea>
                         </div>
-
                         <br></br>
                         <div className="row altaRemito">
-
                         </div>
                         <div>
                             <button
@@ -277,9 +281,7 @@ export const ListadoPerifericos = () => {
                                 Agregar
                             </button>
                         </div>
-
                         {showTable &&
-
                             (
                                 <div>
                                     <hr></hr>
@@ -299,11 +301,7 @@ export const ListadoPerifericos = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-
-
                                             {itemsPerifericos.length > 0 &&
-
-
                                                 itemsPerifericos.map((item) => (
                                                     <tr key={item.id}>
                                                         <th className="text-center" scope="row">{item.id}</th> {/* Eliminar */}
@@ -332,7 +330,6 @@ export const ListadoPerifericos = () => {
                                                     </tr>
                                                 ))
                                             }
-
                                             <tr className="table-info" >
                                                 <th className="text-center" scope="row">{id}</th> {/* Eliminar */}
                                                 <th className="text-center" >{perifericoSeleccionado}</th>
@@ -350,7 +347,6 @@ export const ListadoPerifericos = () => {
                                                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                                 </svg></button></td>
                                             </tr>
-
                                         </tbody>
                                     </table>
                                     <div>
