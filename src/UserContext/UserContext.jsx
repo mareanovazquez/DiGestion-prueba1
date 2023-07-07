@@ -1,17 +1,11 @@
-
-
-import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HttpService from "../services/HttpService";
-
 
 export const UserContext = createContext([]);
 
 
 export const UserContextProvider = ({ children }) => {
-
-
 
     const navigate = useNavigate();
     //estados y funciones globales para INYECTAR
@@ -19,7 +13,7 @@ export const UserContextProvider = ({ children }) => {
     //estados 
 
     const [username, setUsername] = useState('');
-    const [name, setName ] = useState('');
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -108,45 +102,34 @@ export const UserContextProvider = ({ children }) => {
         e.preventDefault();
 
         const http = new HttpService();
-
         http.postData('/login', { email, password })
-
             .then(response => {
                 if (response.data.success) {
                     setToken(response.data.token)
                     setUsername(response.data.data.username)
                     setName(response.data.data.name)
                     setLoggedIn(true)
-                    navigate('/inicio')  
-                    
-                    } 
-                console.log(response.data)
-                
+                    navigate('/inicio')
+
+                }
             })
             .catch(error => {
                 setError(error.response.message)
                 console.log(error)
             })
             .finally()
-
     }
 
-
     const handleButtonLogIn = () => {
-
         setEmail(email)
         setPassword(password)
         setName(name)
-        console.log(name)
-
     };
-
 
     useEffect(() => {
         localStorage.setItem('username', username)
         localStorage.setItem('email', email);
         localStorage.setItem('token', token)
-
     }, [username, email, token])
 
 
@@ -159,7 +142,6 @@ export const UserContextProvider = ({ children }) => {
 
                     handleLogin,
                     handleButtonLogIn,
-
 
                     username,
                     setUsername,
@@ -181,15 +163,10 @@ export const UserContextProvider = ({ children }) => {
                     setToken,
                     loggedIn,
                     setLoggedIn
-
-
                 }}
             >
-
                 {children}
             </UserContext.Provider>
-
-
         </>
     )
 }

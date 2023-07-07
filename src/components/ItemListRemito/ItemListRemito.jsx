@@ -26,7 +26,6 @@ export const ItemListRemito = () => {
             .then(response => {
                 if (response.data.data) {
                     setRemitos(response.data.data)
-                    console.log(remitos)
                     setIsLoading(false)
                 }
             })
@@ -37,7 +36,6 @@ export const ItemListRemito = () => {
     }, [])
 
     const handleRemitosFiltered = () => {
-
         const filteredRemitos = remitos.filter((remito) =>
             remito.departamento.toString().toLowerCase().includes(filterDepartamento.toLowerCase())
             && remito.proveedor.toString().toLowerCase().includes(filterProveedor.toLowerCase())
@@ -51,9 +49,7 @@ export const ItemListRemito = () => {
             <div className="contenedorRemitos">
                 <hr></hr>
                 <h2 className="text-center"> Lista de Remitos</h2>
-
                 <br></br>
-
                 <table className="table tablaRemitos">
                     <thead>
                         <tr>
@@ -75,7 +71,6 @@ export const ItemListRemito = () => {
                             <th scope="col"></th>
                         </tr>
                     </thead>
-
                     <tbody>
                         {filteredRemitos.map((remito) =>
                         (
@@ -91,11 +86,8 @@ export const ItemListRemito = () => {
                         ))}
                     </tbody>
                 </table>
-
             </div >
-
         )
-
     }
 
     return (
@@ -106,7 +98,6 @@ export const ItemListRemito = () => {
                     <div>
                         {handleRemitosFiltered()}
                     </div>
-
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end addRemito">
                         <Link /* onClick={handleAddRemito} */ to='/remito/addRemito' >
                             <button className="btn btn-primary" type="button">

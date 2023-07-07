@@ -16,28 +16,22 @@ export const ItemListPerifericos = () => {
 
 
     const http = new HttpService();
-
     useEffect(() => {
         http.getData('/perifericos', token)
-
             .then(response => {
                 const perifericos = response.data.data
                 setPerifericos(perifericos)
                 setIsLoading(false)
-                console.log(perifericos)
-                
             })
     }, [])
 
     const handlePerifericosFiltered = () => {
-
         const filteredPerifericos = perifericos.filter((periferico) =>
             periferico.nombre.toString().toLowerCase().includes(filterNombre.toLowerCase())
             && periferico.created_at.includes(filterFechaCreacion)
             && periferico.subcuenta.toLowerCase().includes(filterSubcuenta.toLowerCase()
                 && periferico.updated_at.includes(filterFechaModificacion)
             ))
-
         return (
             <>
                 <div className="contenedorRemitos">
@@ -61,7 +55,6 @@ export const ItemListPerifericos = () => {
                                 <th scope='col'> <input type="date" value={filterFechaModificacion} placeholder="filtrar" onChange={(e) => setfilterFechaModificacion(e.target.value)} /></th>
                             </tr>
                         </thead>
-
                         <tbody>
                             {filteredPerifericos.map((periferico) =>
                             (
@@ -81,7 +74,6 @@ export const ItemListPerifericos = () => {
             </>
         )
     }
-
 
     return (
         <>

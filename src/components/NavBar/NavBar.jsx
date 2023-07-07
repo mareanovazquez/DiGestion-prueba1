@@ -11,14 +11,12 @@ import { Link } from 'react-router-dom';
 export const NavBar = () => {
 
     const handleCloseUser = () => {
-
         setEmail('')
         setLoggedIn(false)
         setToken('')
         localStorage.removeItem('token')
         localStorage.removeItem('username')
         localStorage.removeItem('email');
-
     }
 
 
@@ -33,14 +31,16 @@ export const NavBar = () => {
                 {/* ADMIN */}
 
                 {loggedIn ? <NavLink className='text-white' to='/inicio'>DIGESTIÓN | </NavLink> : <NavLink className='text-white' to='/'>DIGESTIÓN | </NavLink>}
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                {loggedIn ? <Navbar.Toggle aria-controls="responsive-navbar-nav" /> : null}
 
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    {loggedIn && <Nav className="me-auto">
-                        <NavLink to='/proveedores' className={({ isActive }) => isActive ? 'nav-link btn text-white fw-bolder' : 'nav-link btn text-white'}>PROVEEDORES</NavLink>
+                    {loggedIn && 
+                    <Nav className="me-auto">
+                        <NavLink to='/proveedores' className={({ isActive }) => isActive ? 'nav-link btn text-white fw-bolder' : 'nav-link btn text-white text-left'}>PROVEEDORES</NavLink>
                         <NavLink to='/remitos' className={({ isActive }) => isActive ? 'nav-link btn text-white fw-bolder' : 'nav-link btn text-white'}>REMITOS</NavLink>
                         <NavLink to='/perifericos' className={({ isActive }) => isActive ? 'nav-link btn text-white fw-bolder' : 'nav-link btn text-white'}>PERIFÉRICOS</NavLink>
-                    </Nav>}
+                    </Nav>
+                    }
 
                     {/* READ AND WRITE */}
                     {permisos === 'ReadAndWrite' && <NavLink className='text-white' to='/inicioRaW'>DIGESTIÓN | </NavLink>}
@@ -54,7 +54,7 @@ export const NavBar = () => {
                     {permisos === 'Read' && <NavLink className='text-white' to='/inicioR'>DIGESTIÓN |  </NavLink>}
                     {permisos === 'Read' && <Nav className="me-auto">
                         {/* <NavLink to='/proveedoresR' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>PROVEEDORES</NavLink> */}
-                        <NavLink to='/remitosR' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>REMITOS</NavLink>
+                        <NavLink to='/remitosR' className={({ isActive }) => isActive ? 'nav-link btn text-white ' : 'nav-link btn text-primary'}>REMITOS</NavLink>
                         <NavLink to='/perifericosR' className={({ isActive }) => isActive ? 'nav-link btn text-white' : 'nav-link btn text-primary'}>PERIFÉRICOS</NavLink>
                     </Nav>}
 
@@ -62,7 +62,7 @@ export const NavBar = () => {
                     {loggedIn &&
                         <Nav>
                             <NavDropdown className='text-white' title={name} id="basic-nav-dropdown">
-                                <NavLink to='/' replace >
+                                <NavLink to='/' >
                                     <button className="btn" onClick={handleCloseUser}>
                                         Cerrar sesión
                                     </button>
@@ -81,7 +81,6 @@ export const NavBar = () => {
                     {permisos === 'Read' && <Nav>
                         <NavDropdown title={usuarios} id="basic-nav-dropdown">
                             <NavLink to='/' replace><button onClick={handleCloseUser} >Cerrar sesión</button></NavLink>
-
                         </NavDropdown>
                     </Nav>
                     }

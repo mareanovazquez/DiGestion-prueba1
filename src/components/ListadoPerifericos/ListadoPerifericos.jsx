@@ -10,8 +10,6 @@ export const ListadoPerifericos = () => {
 
     //recuperar token para validar el HTTP request
     const { token } = useContext(UserContext)
-
-
     const [perifericos, setPerifericos] = useState([]);
     const [marcas, setMarcas] = useState([]);
     const [modelos, setModelos] = useState([]);
@@ -61,7 +59,6 @@ export const ListadoPerifericos = () => {
                 .then(response => {
                     const ListModelos = response.data;
                     setModelos(ListModelos);
-                    console.log(modelos)
                 })
                 .catch(error => {
                     console.log(error)
@@ -90,7 +87,7 @@ export const ListadoPerifericos = () => {
     };
 
     //Estado para almacenar la cantidad seleccionada
-    const [cantidadSeleccionada, setCantidadSeleccionada] = useState('');
+    const [cantidadSeleccionada, setCantidadSeleccionada] = useState('1');
     // Función para manejar el cambio en la cantidad seleccionada
     const handleCantidad = (e) => {
         setCantidadSeleccionada(e.target.value)
@@ -132,16 +129,13 @@ export const ListadoPerifericos = () => {
                 comentarios: comentarioPeriferico
             }
         ]);
-
-
         setPerifericoSeleccionado('');
         setMarcaSeleccionada('');
         setModeloSeleccionado('');
         setGarantiaSeleccionada('');
         setComentarioPeriferico('');
-        setCantidadSeleccionada('')
+        setCantidadSeleccionada('1')
     }
-
     console.log(itemsPerifericos)
 
     //Función para eliminar un solo item de la lista de perifericos 
@@ -151,17 +145,13 @@ export const ListadoPerifericos = () => {
         setModeloSeleccionado('');
         setGarantiaSeleccionada('');
         setComentarioPeriferico('');
-        setCantidadSeleccionada('');
-
-
+        setCantidadSeleccionada('1');
         setItemsPerifericos(itemsPerifericos.filter(item => item.id !== id))
         console.log(itemsPerifericos)
-
     }
 
     // Función para eliminar todos los items de la lista de periféricos
     const EliminarTodo = () => {
-
         setItemsPerifericos([])
         setId(1)
         setPerifericoSeleccionado('');
@@ -170,10 +160,8 @@ export const ListadoPerifericos = () => {
         setGarantiaSeleccionada('');
         setComentarioPeriferico('');
         setCantidadSeleccionada('');
-
         setShowTable(false)
     }
-
 
     //Función para mostrar la cantidad total de periféricos cargados
     let totalCantidad = 0;
@@ -182,9 +170,7 @@ export const ListadoPerifericos = () => {
         totalCantidad += parseInt(itemsPerifericos[i].cantidad);
     }
 
-
     return (
-
         <>
             <div >
                 <div className="row justify-content-start ">
@@ -304,8 +290,8 @@ export const ListadoPerifericos = () => {
                                             {itemsPerifericos.length > 0 &&
                                                 itemsPerifericos.map((item) => (
                                                     <tr key={item.id}>
-                                                        <th className="text-center" scope="row">{item.id}</th> {/* Eliminar */}
-                                                        <th className="text-center">{item.periferico}</th>
+                                                        <td className="text-center" scope="row">{item.id}</td> {/* Eliminar */}
+                                                        <td className="text-center">{item.periferico}</td>
                                                         <td className="text-center">{item.marca}</td>
                                                         <td className="text-center">{item.modelo}</td>
                                                         <td className="text-center">{item.garantia} meses</td>
@@ -331,8 +317,8 @@ export const ListadoPerifericos = () => {
                                                 ))
                                             }
                                             <tr className="table-info" >
-                                                <th className="text-center" scope="row">{id}</th> {/* Eliminar */}
-                                                <th className="text-center" >{perifericoSeleccionado}</th>
+                                                <td className="text-center" scope="row">{id}</td> {/* Eliminar */}
+                                                <td className="text-center" >{perifericoSeleccionado}</td>
                                                 <td className="text-center" >{marcaSeleccionada}</td>
                                                 <td className="text-center" >{modeloSeleccionado}</td>
                                                 <td className="text-center" >{garantiaSeleccionada}</td>
