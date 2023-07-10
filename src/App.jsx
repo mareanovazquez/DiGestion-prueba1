@@ -147,12 +147,11 @@ export default App;
 
 import viteLogo from '/vite.svg'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import './App.css'
+import './assets/css/react-paginate.css';
+import './App.css';
 
 
 import { ListProveedores } from './components/ListProveedores/ListProveedores'
-
 import { NavBar } from './components/NavBar/NavBar';
 import { FooterNav } from './components/FooterNav/FooterNav';
 import { Navigate, Route, Routes } from 'react-router-dom';
@@ -174,6 +173,7 @@ import { ItemListRemitoRaW } from './components/ItemListRemito/ItemListRemitoRaW
 
 import { ItemListPerifericos } from './components/ItemListPerifericos/ItemListPerifericos';
 import { ItemProveedor } from './components/ItemProveedor/ItemProveedor';
+import { ListProveedoresPagi } from './components/ListProveedores/ListProveedoresPagi';
 
 
 
@@ -204,6 +204,7 @@ function App() {
                     
                     <Route path="/inicio" element={<Inicio />} />
                     <Route path='/proveedores' element={<ListProveedores />} />
+                    <Route path='/proveedoresPagi' element={<ListProveedoresPagi/>}/>
                     <Route path='/proveedor/:pid' element={<ItemProveedor/>}/>
                     <Route path='/remitos' element={<ItemListRemito />}/>
                     <Route path='/remito/:rid' element={<ItemRemito />}/>

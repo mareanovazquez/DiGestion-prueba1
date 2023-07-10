@@ -1,11 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { Filter } from "../Filter/Filters";
 import { Link } from "react-router-dom";
-
 import { Loading } from "../Loading/Loading";
 import { UserContext } from "../../UserContext/UserContext";
+
 import HttpService from "../../services/HttpService";
+
+
 export const ListProveedores = () => {
+
 
     const [proveedores, setProveedores] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -24,13 +27,14 @@ export const ListProveedores = () => {
             })
     }, []);
 
+    
+
     const handleProductFiltered = ({ filterState, handleFilterChange }) => {
         return (
             <>
                 <div className="contenedorRemitos">
                     <hr></hr>
                     <h2 className="text-center"> Lista de Proveedores</h2>
-
                     <br></br>
                     <input type='text' value={filterState} placeholder="Filtrar" onChange={handleFilterChange} />
                     <table className="table tablaRemitos">
@@ -104,10 +108,13 @@ export const ListProveedores = () => {
             {
                 isLoading ?
                     <Loading />
-                    : <Filter>
+                    : 
+                    
+                    <Filter>
                         {handleProductFiltered}
                     </Filter>
             }
+            
         </>
     )
 }
