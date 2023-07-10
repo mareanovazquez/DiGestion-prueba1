@@ -114,7 +114,7 @@ export const UserContextProvider = ({ children }) => {
                 }
             })
             .catch(error => {
-                setError(error.response.message)
+                setError(error.response.data.error || error.message)
                 console.log(error)
             })
             .finally()

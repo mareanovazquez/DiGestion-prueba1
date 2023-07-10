@@ -40,7 +40,7 @@ export const LogIn = () => {
                 <Button onClick={handleButtonLogIn} variant="primary" type="submit">
                     Ingresar
                 </Button>
-                {error && <p>{error}</p>}
+                {error === 'Request failed with status code 500' ? <p>Invalid username or password </p>: <p>{error}</p>}
             </Form>
         </div>
     );
