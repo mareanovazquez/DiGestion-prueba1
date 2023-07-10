@@ -1,48 +1,39 @@
-import { useState } from "react";
-import { DataProveedor } from "../DataProveedor/DataProveedor";
+import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { UserContext } from "../../UserContext/UserContext";
+import HttpService from "../../services/HttpService";
+import { Card } from "react-bootstrap";
 
 export const ItemProveedor = () => {
 
-    const [id, setId] = useState('')
-    const [proveedor, setProveedor] = useState(null);
+    const [proveedor, setProveedor] = useState('')
+    const { pid } = useParams();
+    const { token } = useContext(UserContext)
 
-    async function fetchProveedor() {
+    const http = new HttpService();
 
-        const response = await fetch(`http://10.10.49.124/api/proveedores/${'id'}`)
-        const data = await response.json()
+    useEffect(() => {
+        http.getData(`/proveedor/${pid}`, token)
+            .then(response => {
+                const ListProveedores = response.data.data.nombre;
+                setProveedor(ListProveedores)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+    }, [])
 
 
-        setProveedor(data.data)
-        setId('')
-    }
-
-    function handleInputChange(e) {
-        setId(e.target.value);
-    }
-
-    
 
     return (
         <>
-            <div>
-                <input
-                    className="text-muted"
-                    type="text"
-                    value={id}
-                    name="usuario"
-                    placeholder="Proveedor"
-                    onChange={handleInputChange}
-                />
-                <br></br>
-                <br></br>
-                <button className="btn btn-success" onClick={fetchProveedor}>Buscar</button>
-
-                <DataProveedor proveedor={proveedor} /> 
-
-                
-
-
+       
+            <div className="p-3">
+                <h2 className="text-center"> PROVEEDOR </h2>
+                <h5 className="text-center">{proveedor}</h5>
             </div>
+        
         </>
     )
 }

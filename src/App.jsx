@@ -173,6 +173,7 @@ import { ItemListRemitoR } from './components/ItemListRemito/ItemListRemitoR';
 import { ItemListRemitoRaW } from './components/ItemListRemito/ItemListRemitoRaW';
 
 import { ItemListPerifericos } from './components/ItemListPerifericos/ItemListPerifericos';
+import { ItemProveedor } from './components/ItemProveedor/ItemProveedor';
 
 
 
@@ -202,12 +203,11 @@ function App() {
                     {/* INICIO ADMINISTRADOR */}
                     
                     <Route path="/inicio" element={<Inicio />} />
-
                     <Route path='/proveedores' element={<ListProveedores />} />
+                    <Route path='/proveedor/:pid' element={<ItemProveedor/>}/>
                     <Route path='/remitos' element={<ItemListRemito />}/>
                     <Route path='/remito/:rid' element={<ItemRemito />}/>
                     <Route path='/remito/addRemito' element={<AddRemito />}/>
-                    <Route path='/remito/:rid' element={<ItemRemito />}/>
                     <Route path='/perifericos' element={<ItemListPerifericos />}/>
 
                     {/* INICIO Read and Write */}
