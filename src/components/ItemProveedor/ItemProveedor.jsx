@@ -28,7 +28,6 @@ export const ItemProveedor = () => {
 
     return (
         <>
-       
             <div className="p-3">
                 <h2 className="text-center"> PROVEEDOR </h2>
                 <h5 className="text-center">{proveedor}</h5>
