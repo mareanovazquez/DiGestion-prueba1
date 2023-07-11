@@ -10,7 +10,7 @@ export const ListProveedoresPagi = () => {
 
     const [proveedores, setProveedores] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [filterProveedor, setFilterProveedor] = useState()
+    const [filterProveedor, setFilterProveedor] = useState('')
     const { token } = useContext(UserContext)
     const http = new HttpService();
 
@@ -27,6 +27,7 @@ export const ListProveedoresPagi = () => {
             })
     }, []);
 
+    
 
     /* const filteredProveedores = proveedores.length > 0 ? proveedores.filter((proveedor) =>
     proveedor.nombre.toString().toLowerCase().includes(filterProveedor.toLowerCase())) : [];
@@ -51,7 +52,7 @@ export const ListProveedoresPagi = () => {
                             </tr>
                             <tr>
                                 <th scope="col"></th>
-                                <th scope="col"><input type="text" value={filterProveedor} placeholder="buscar" onChange={(e) => setFilterProveedor(e.target.value)} /></th>
+                                <th colSpan="7"><input className="form-control" type="text" value={filterProveedor} placeholder="Este filtro todavía no funciona" onChange={(e) => setFilterProveedor(e.target.value)} /></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,13 +84,11 @@ export const ListProveedoresPagi = () => {
     }
 
     function PaginatedItems({ itemsPerPage }) {
-
         const [itemOffset, setItemOffset] = useState(0);
         const endOffset = itemOffset + itemsPerPage;
         console.log(`Loading items from ${itemOffset} to ${endOffset}`);
         const items =  proveedores.slice(itemOffset, endOffset);
         const pageCount = Math.ceil(proveedores.length / itemsPerPage);
-
         const handlePageClick = (event) => {
             const newOffset = (event.selected * itemsPerPage) % proveedores.length;
             console.log(
@@ -117,7 +116,7 @@ export const ListProveedoresPagi = () => {
                         />
                     </div>
                 }
-                               
+
             </>
         )
 

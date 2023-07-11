@@ -17,12 +17,10 @@ export const ItemRemito = () => {
 
     useEffect(() => {
         http.getData(`/remito/${rid}`, token)
-
             .then(response => {
                 const remitos = response.data.data;
                 setRemitos(remitos);
             })
-
             .catch(error => {
                 console.log(error)
             })
@@ -31,11 +29,8 @@ export const ItemRemito = () => {
     return (
 
         <>
-
             <div className="card cardRemito" >
                 <div className="card-body">
-
-
                     <h5 className="card-title">Remito N° {remitos.id}</h5>
                     <div className="container">
                         <div className="row align-items-start">
@@ -60,15 +55,12 @@ export const ItemRemito = () => {
                                     <li><b>Fecha recepción:</b> {remitos.fecha_recepcion}</li>
                                     <li><b>Fecha recepción DTI:</b>{remitos.fecha_recepcion_dti}</li>
                                     <li><b>Legajo compra:</b></li>
-
                                 </ul>
                             </div>
                             <hr></hr>
                             <p><b>COMENTARIOS:</b> {remitos.comentarios}</p>
                         </div>
                     </div>
-
-
                     <hr></hr>
                     <h6 className="card-subtitle text-muted">PERIFÉRICOS</h6>
                     <table className="table table-striped">
@@ -124,10 +116,10 @@ export const ItemRemito = () => {
                             <Link className='card-link' to='/remitos' ><button className="btn btn-primary m-2">Volver</button></Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Link className='card-link'><button className="btn btn-primary m-2">Descargar</button></Link>
+                            <Link className='card-link'><button className="btn btn-success m-2">CSV</button></Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Link className='card-link'><button className="btn btn-primary m-2">Imprimir</button></Link>
+                            <Link className='card-link'><button className="btn btn-danger m-2">PDF</button></Link>
                         </Nav.Item>
                     </Nav>
                 </div>
