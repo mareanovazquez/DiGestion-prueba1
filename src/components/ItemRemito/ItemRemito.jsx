@@ -3,8 +3,10 @@ import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav';
+import ReactHMTLTableToExcel from 'react-html-table-to-excel'
 import { UserContext } from '../../UserContext/UserContext';
 import HttpService from '../../services/HttpService';
+import { NavLink } from 'react-router-dom';
 
 export const ItemRemito = () => {
 
@@ -12,6 +14,7 @@ export const ItemRemito = () => {
     const [remitos, setRemitos] = useState({});
     const { rid } = useParams();
     const { token } = useContext(UserContext);
+    const {showEncabezado, setShowEncabezado} = useState (true)
 
     const http = new HttpService();
 
@@ -63,8 +66,26 @@ export const ItemRemito = () => {
                     </div>
                     <hr></hr>
                     <h6 className="card-subtitle text-muted">PERIFÉRICOS</h6>
-                    <table className="table table-striped">
+                    <table className="table table-striped" id='tablaPerifericos'>
                         <thead>
+                        <tr>
+                                <th>Remito</th>
+                                <th>Departamento</th>
+                                <th>Usuario</th>
+                                <th>Proveedor</th>
+                                <th>Comentarios</th>
+                                <th>Fecha Recepción</th>
+                                <th>Fecha Recepción DTI</th>
+                            </tr>
+                            <tr>
+                                <td>{remitos.remito}</td>
+                                <td>{remitos.departamento}</td>
+                                <td>{remitos.usuario}</td>
+                                <td>{remitos.proveedor}</td>
+                                <td>{remitos.comentarios}</td>
+                                <td>{remitos.fecha_recepcion}</td>
+                                <td>{remitos.fecha_recepcion_dti}</td>
+                            </tr>
                             <tr>
                                 <th scope="col">Periférico</th>
                                 <th scope="col">Marca</th>
@@ -73,7 +94,6 @@ export const ItemRemito = () => {
                                 <th scope="col">Cantidad</th>
                                 <th scope="col">Disponible</th>
                                 <th scope="col">Comentarios</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -113,18 +133,28 @@ export const ItemRemito = () => {
 
                     <Nav className="justify-content-end" activeKey="/home">
                         <Nav.Item>
-                            <Link className='card-link' to='/remitos' ><button className="btn btn-primary m-2">Volver</button></Link>
+                        <NavLink to='/remitos' >
+                            <button className="btn btn-primary m-2">Volver</button>
+                        </NavLink>
+                        </Nav.Item>
+                        <Nav.Item >
+                            <div> <ReactHMTLTableToExcel
+                                id="button-exp-excel"
+                                className="btn btn-success m-2"
+                                table="tablaPerifericos"
+                                filename="tablexls"
+                                sheet="pagina1"
+                                buttonText="XLS" /></div>
                         </Nav.Item>
                         <Nav.Item>
-                            <Link className='card-link'><button className="btn btn-success m-2">CSV</button></Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Link className='card-link'><button className="btn btn-danger m-2">PDF</button></Link>
+                            <button className="btn btn-danger m-2">PDF</button>
                         </Nav.Item>
                     </Nav>
                 </div>
             </div>
+            <div>
 
+            </div>
         </>
 
     )
