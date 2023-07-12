@@ -37,7 +37,6 @@ export const NavBar = () => {
                     {loggedIn && 
                     <Nav className="me-auto">
                         <NavLink to='/proveedores' className={({ isActive }) => isActive ? 'nav-link btn text-white fw-bolder' : 'nav-link btn text-white text-left'}>PROVEEDORES</NavLink>
-                        <NavLink to='/proveedoresPagi' className={({ isActive }) => isActive ? 'nav-link btn text-white fw-bolder' : 'nav-link btn text-white text-left'}>PROVEEDORES P</NavLink>
                         <NavLink to='/remitos' className={({ isActive }) => isActive ? 'nav-link btn text-white fw-bolder' : 'nav-link btn text-white'}>REMITOS</NavLink>
                         <NavLink to='/perifericos' className={({ isActive }) => isActive ? 'nav-link btn text-white fw-bolder' : 'nav-link btn text-white'}>PERIFÉRICOS</NavLink>
                     </Nav>

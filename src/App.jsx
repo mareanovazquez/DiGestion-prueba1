@@ -204,7 +204,6 @@ function App() {
                     
                     <Route path="/inicio" element={<Inicio />} />
                     <Route path='/proveedores' element={<ListProveedores />} />
-                    <Route path='/proveedoresPagi' element={<ListProveedoresPagi/>}/>
                     <Route path='/proveedor/:pid' element={<ItemProveedor/>}/>
                     <Route path='/remitos' element={<ItemListRemito />}/>
                     <Route path='/remito/:rid' element={<ItemRemito />}/>
