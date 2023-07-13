@@ -14,7 +14,7 @@ export const ItemRemito = () => {
     const [remitos, setRemitos] = useState({});
     const { rid } = useParams();
     const { token } = useContext(UserContext);
-    const {showEncabezado, setShowEncabezado} = useState (true)
+    const { showEncabezado, setShowEncabezado } = useState(true)
 
     const http = new HttpService();
 
@@ -68,23 +68,39 @@ export const ItemRemito = () => {
                     <h6 className="card-subtitle text-muted">PERIFÉRICOS</h6>
                     <table className="table table-striped" id='tablaPerifericos'>
                         <thead>
-                        <tr>
+                            <tr className='d-none'>
                                 <th>Remito</th>
                                 <th>Departamento</th>
                                 <th>Usuario</th>
                                 <th>Proveedor</th>
                                 <th>Comentarios</th>
                                 <th>Fecha Recepción</th>
-                                <th>Fecha Recepción DTI</th>
                             </tr>
-                            <tr>
+                            <tr className='d-none'>
                                 <td>{remitos.remito}</td>
                                 <td>{remitos.departamento}</td>
                                 <td>{remitos.usuario}</td>
                                 <td>{remitos.proveedor}</td>
                                 <td>{remitos.comentarios}</td>
                                 <td>{remitos.fecha_recepcion}</td>
+                            </tr>
+                            <tr className='d-none'>
+                                <th>Expediente</th>
+                                <th>Orden de compra</th>
+                                <th>Orden de entrega</th>
+                                <th>Legajo</th>
+                                <th>Orden provisión</th>
+                                <th>Fecha Recepción DTI</th>
+                                <th>Comentarios</th>
+                            </tr>
+                            <tr className='d-none'>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td>{remitos.fecha_recepcion_dti}</td>
+                                <td>{remitos.comentarios}</td>
                             </tr>
                             <tr>
                                 <th scope="col">Periférico</th>
@@ -133,17 +149,17 @@ export const ItemRemito = () => {
 
                     <Nav className="justify-content-end" activeKey="/home">
                         <Nav.Item>
-                        <NavLink to='/remitos' >
-                            <button className="btn btn-primary m-2">Volver</button>
-                        </NavLink>
+                            <NavLink to='/remitos' >
+                                <button className="btn btn-primary m-2">Volver</button>
+                            </NavLink>
                         </Nav.Item>
                         <Nav.Item >
                             <div> <ReactHMTLTableToExcel
                                 id="button-exp-excel"
                                 className="btn btn-success m-2"
                                 table="tablaPerifericos"
-                                filename="tablexls"
-                                sheet="pagina1"
+                                filename="Remito Periféricos"
+                                sheet="Página 1"
                                 buttonText="XLS" /></div>
                         </Nav.Item>
                         <Nav.Item>
