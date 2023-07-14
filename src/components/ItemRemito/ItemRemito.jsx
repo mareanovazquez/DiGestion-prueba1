@@ -1,6 +1,6 @@
 
 import { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav';
 import { UserContext } from '../../UserContext/UserContext';
@@ -10,7 +10,8 @@ import { ItemRemitoPDF } from './ItemRemitoPDF';
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 
 export const ItemRemito = () => {
-    const [remitos, setRemitos] = useState({});
+    const [remitos, setRemitos] = useState([])
+    const [remitosPDF, setRemitosPDF] = useState([])
     const [verPDF, setVerPDF] = useState(false)
     const { rid } = useParams();
     const { token } = useContext(UserContext);
@@ -20,8 +21,9 @@ export const ItemRemito = () => {
     useEffect(() => {
         http.getData(`/remito/${rid}`, token)
             .then(response => {
-                const remitos = response.data.data;
-                setRemitos(remitos);
+                const listRemitos = response.data.data;
+                setRemitos(listRemitos);
+                console.log(remitos)
             })
             .catch(error => {
                 console.log(error)
@@ -31,7 +33,6 @@ export const ItemRemito = () => {
     return (
 
         <>
-
             <div className="card cardRemito" >
                 <div className="card-body">
                     <h5 className="card-title">Remito N° {remitos.id}</h5>
@@ -156,7 +157,8 @@ export const ItemRemito = () => {
                                     width: '100%',
                                     height: '100vh'
                                 }}>
-                                <ItemRemitoPDF />
+                                {
+                                    <ItemRemitoPDF data={remitos} rid={rid} />}
                             </PDFViewer>}
                     </>
 
@@ -166,7 +168,7 @@ export const ItemRemito = () => {
                                 <button className="btn btn-primary m-2">Volver</button>
                             </NavLink>
                         </Nav.Item>
-                      {/*   <Nav.Item >
+                        {/*   <Nav.Item >
                             <div> <ReactHMTLTableToExcel
                                 id="button-exp-excel"
                                 className="btn btn-success m-2"
@@ -178,10 +180,11 @@ export const ItemRemito = () => {
                         <Nav.Item>
                             <button onClick={() => {
                                 setVerPDF(!verPDF)
+
                             }} className="btn btn-danger m-2">{!verPDF ? "PDF" : "cerrar PDF"}</button>
                         </Nav.Item>
                         <Nav.Item>
-                            <PDFDownloadLink document={<ItemRemitoPDF />} fileName='Remito Periféricos'>
+                            <PDFDownloadLink document={<ItemRemitoPDF data={remitos} rid={rid} />} fileName='RemitoPeriféricos'>
                                 <button className='btn btn-danger m-2'> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
                                     <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
                                     <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />

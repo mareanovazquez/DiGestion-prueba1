@@ -5,22 +5,27 @@ import { UserContext } from "../../UserContext/UserContext";
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer"
 
 
-export const ItemRemitoPDF = () => {
-    const [remitos, setRemitos] = useState({})
-    const { rid } = useParams();
+export const ItemRemitoPDF = ({rid, data}) => {
+
+    const [remitos, setRemitos] = useState([])
     const { token } = useContext(UserContext);
     const http = new HttpService();
 
-    useEffect(() => {
+
+  /*   useEffect(() => {
+
         http.getData(`/remito/${rid}`, token)
             .then(response => {
-                const remitos = response.data.data;
-                setRemitos(remitos);
+                const listRemitos = response.data.data;
+                setRemitos(listRemitos);
+                console.log(remitos)
             })
             .catch(error => {
                 console.log(error)
             })
-    }, [])
+        
+    }, [rid])
+ */
 
     const styles = StyleSheet.create({
         encabezado: {
@@ -99,10 +104,10 @@ export const ItemRemitoPDF = () => {
                             <View style={styles.column}>
                                 <ul style={styles.list}>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Departamento:</Text> {remitos.departamento}
+                                        <Text style={styles.bold}>Departamento: {data.departamento}</Text> 
                                     </li>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Remito:</Text> {remitos.remito}
+                                        <Text style={styles.bold}>Remito: {data.remito}</Text> 
                                     </li>
                                     <li style={styles.listItem}>
                                         <Text style={styles.bold}>Usuario alta:</Text>
@@ -115,7 +120,7 @@ export const ItemRemitoPDF = () => {
                             <View style={styles.column}>
                                 <ul style={styles.list}>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Proveedor:</Text> {remitos.proveedor}
+                                        <Text style={styles.bold}>Proveedor:{data.proveedor}</Text> 
                                     </li>
                                     <li style={styles.listItem}>
                                         <Text style={styles.bold}>Expediente:</Text>
@@ -131,10 +136,10 @@ export const ItemRemitoPDF = () => {
                             <View style={styles.column}>
                                 <ul style={styles.list}>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Fecha recepción:</Text> {remitos.fecha_recepcion}
+                                        <Text style={styles.bold}>Fecha recepción: {data.fecha_recepcion}</Text> 
                                     </li>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Fecha recepción DTI:</Text> {remitos.fecha_recepcion_dti}
+                                        <Text style={styles.bold}>Fecha recepción DTI: {data.fecha_recepcion_dti}</Text> 
                                     </li>
                                     <li style={styles.listItem}>
                                         <Text style={styles.bold}>Legajo compra:</Text>
@@ -144,7 +149,7 @@ export const ItemRemitoPDF = () => {
                         </View>
                         <View style={styles.separator} />
                         <View style={styles.comments}>
-                            <Text style={styles.bold}>COMENTARIOS:</Text> {remitos.comentarios}
+                            <Text style={styles.bold}>COMENTARIOS: {data.comentarios}</Text> 
                         </View>
                     </View>
                     <View style={styles.table}>

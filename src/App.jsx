@@ -174,6 +174,7 @@ import { ItemListRemitoRaW } from './components/ItemListRemito/ItemListRemitoRaW
 import { ItemListPerifericos } from './components/ItemListPerifericos/ItemListPerifericos';
 import { ItemProveedor } from './components/ItemProveedor/ItemProveedor';
 import { ListProveedoresPagi } from './components/ListProveedores/ListProveedoresPagi';
+import { ItemRemitoPDF } from './components/ItemRemito/ItemRemitoPDF';
 
 
 

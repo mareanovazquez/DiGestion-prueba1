@@ -220,7 +220,6 @@ export const AddRemito = () => {
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
