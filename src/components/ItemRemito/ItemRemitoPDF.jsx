@@ -1,31 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import HttpService from "../../services/HttpService";
-import { useParams } from "react-router-dom";
 import { UserContext } from "../../UserContext/UserContext";
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer"
 
 
-export const ItemRemitoPDF = ({rid, data}) => {
+export const ItemRemitoPDF = ({data}) => {
 
     const [remitos, setRemitos] = useState([])
     const { token } = useContext(UserContext);
     const http = new HttpService();
-
-
-  /*   useEffect(() => {
-
-        http.getData(`/remito/${rid}`, token)
-            .then(response => {
-                const listRemitos = response.data.data;
-                setRemitos(listRemitos);
-                console.log(remitos)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-        
-    }, [rid])
- */
 
     const styles = StyleSheet.create({
         encabezado: {
