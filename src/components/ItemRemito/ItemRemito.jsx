@@ -9,7 +9,7 @@ import { ItemRemitoPDF } from './ItemRemitoPDF';
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import { DownloadTableExcel } from 'react-export-table-to-excel';
 
-export const ItemRemito = ({isVisible}) => {
+export const ItemRemito = () => {
     const [remitos, setRemitos] = useState([])
     const [verPDF, setVerPDF] = useState(false)
     const { rid } = useParams();
