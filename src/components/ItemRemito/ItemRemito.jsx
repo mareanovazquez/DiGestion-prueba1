@@ -1,5 +1,5 @@
 
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav';
 import { UserContext } from '../../UserContext/UserContext';
@@ -7,12 +7,15 @@ import HttpService from '../../services/HttpService';
 import { NavLink } from 'react-router-dom';
 import { ItemRemitoPDF } from './ItemRemitoPDF';
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
+import { DownloadTableExcel } from 'react-export-table-to-excel';
 
 export const ItemRemito = () => {
     const [remitos, setRemitos] = useState([])
     const [verPDF, setVerPDF] = useState(false)
     const { rid } = useParams();
     const { token } = useContext(UserContext);
+    const tableRef = useRef(null);
+    const buttonRef = useRef(null);
 
     const http = new HttpService();
 
@@ -32,10 +35,38 @@ export const ItemRemito = () => {
         <>
             <div className="card cardRemito" >
                 <div className="card-body">
+                    <Nav className=" menuDescargasRemito" activeKey="/home">
+                        <Nav.Item>
+                            <NavLink to='/remitos' >
+                                <button className="btn btn-primary m-2">Volver</button>
+                            </NavLink>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <DownloadTableExcel
+                                filename='Remito Tabla'
+                                sheet='Página 1'
+                                currentTableRef={tableRef.current}>
+                                <button className='btn btn-success m-2'>XLS</button>
+                            </DownloadTableExcel>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <button onClick={() => {
+                                setVerPDF(!verPDF)
+                            }} className="btn btn-danger m-2">{!verPDF ? "PDF" : "cerrar PDF"}</button>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <PDFDownloadLink document={<ItemRemitoPDF data={remitos} />} fileName='RemitoPeriféricos'>
+                                <button className='btn btn-danger m-2'> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
+                                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                                </svg></button>
+                            </PDFDownloadLink>
+                        </Nav.Item>
+                    </Nav>
+
                     <h5 className="card-title">Remito N° {remitos.remito}</h5>
                     <>
                         {!verPDF ?
-
                             <div className="container">
                                 <div className="row align-items-start">
                                     <div className="col">
@@ -72,7 +103,7 @@ export const ItemRemito = () => {
                             <>
                                 <hr></hr>
                                 <h6 className="card-subtitle text-muted">PERIFÉRICOS</h6>
-                                <table className="table table-striped" id='tablaPerifericos'>
+                                <table className="table table-striped" id='tablaPerifericos' ref={tableRef}>
                                     <thead>
                                         <tr className='d-none'>
                                             <th>Remito</th>
@@ -159,36 +190,8 @@ export const ItemRemito = () => {
                             </PDFViewer>}
                     </>
 
-                    <Nav className="justify-content-end" activeKey="/home">
-                        <Nav.Item>
-                            <NavLink to='/remitos' >
-                                <button className="btn btn-primary m-2">Volver</button>
-                            </NavLink>
-                        </Nav.Item>
-                        {/*   <Nav.Item >
-                            <div> <ReactHMTLTableToExcel
-                                id="button-exp-excel"
-                                className="btn btn-success m-2"
-                                table="tablaPerifericos"
-                                filename="Remito Periféricos"
-                                sheet="Página 1"
-                                buttonText="XLS" /></div>
-                        </Nav.Item> */}
-                        <Nav.Item>
-                            <button onClick={() => {
-                                setVerPDF(!verPDF)
 
-                            }} className="btn btn-danger m-2">{!verPDF ? "PDF" : "cerrar PDF"}</button>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <PDFDownloadLink document={<ItemRemitoPDF data={remitos} />} fileName='RemitoPeriféricos'>
-                                <button className='btn btn-danger m-2'> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
-                                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-                                </svg></button>
-                            </PDFDownloadLink>
-                        </Nav.Item>
-                    </Nav>
+
                 </div>
             </div>
             <div>

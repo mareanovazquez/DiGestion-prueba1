@@ -108,8 +108,18 @@ li {
 }
 
 
+.menuDescargasRemito {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin-right: 20px;
+  margin-bottom: 20px;  
+  /* display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: end; */
 
-
+}
 .custom-input input,
 .custom-input select {
   flex: 1;
