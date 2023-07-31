@@ -114,10 +114,10 @@ li {
   bottom: 0;
   margin-right: 20px;
   margin-bottom: 20px;  
-  /* display: flex;
+ /*  display: flex;
   flex-direction: column;
   justify-content: end;
-  align-items: end; */
+  align-items: end;  */
 
 }
 .custom-input input,
