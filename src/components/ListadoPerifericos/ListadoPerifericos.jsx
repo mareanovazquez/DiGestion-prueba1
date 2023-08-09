@@ -5,7 +5,7 @@ import { UserContext } from "../../UserContext/UserContext";
 import HttpService from "../../services/HttpService";
 
 
-export const ListadoPerifericos = () => {
+export const ListadoPerifericos = ({encabezadoRemito}) => {
 
 
     //recuperar token para validar el HTTP request
@@ -66,6 +66,7 @@ export const ListadoPerifericos = () => {
         }
     }, [marcaId])
 
+   
 
     // Función para manejar el cambio en la selección de la marca
     const handleMarcaChange = (e) => {
@@ -136,6 +137,9 @@ export const ListadoPerifericos = () => {
         setComentarioPeriferico('');
         setCantidadSeleccionada('1')
     }
+     /* data del encabezado del remito para enviar por http Request */
+     console.log (encabezadoRemito)
+     /* data de items del remito para enviar por http Request */
     console.log(itemsPerifericos)
 
     //Función para eliminar un solo item de la lista de perifericos 
@@ -231,7 +235,7 @@ export const ListadoPerifericos = () => {
                                 value={garantiaSeleccionada}
                                 type="number"
                                 onChange={handleGarantiaChange}
-                            />
+                                />
                         </div>
                         <div className="col-2">
                             <label>Cantidad</label>
@@ -314,8 +318,7 @@ export const ListadoPerifericos = () => {
                                                             </button>
                                                         </td>
                                                     </tr>
-                                                ))
-                                            }
+                                                ))}
                                             <tr className="table-info" >
                                                 <td className="text-center" scope="row">{id}</td> {/* Eliminar */}
                                                 <td className="text-center" >{perifericoSeleccionado}</td>

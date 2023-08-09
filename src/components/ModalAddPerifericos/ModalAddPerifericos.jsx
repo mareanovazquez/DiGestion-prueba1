@@ -10,7 +10,7 @@ export function ModalAddPerifericos({data}) {
     const handleClose = () => setShow(false);
     const handleShow = () => {
         setShow(true)
-        console.log(data)
+        
     };
 
     const { name }= useContext(UserContext)
@@ -72,7 +72,7 @@ export function ModalAddPerifericos({data}) {
                 </Modal.Body>
                 {/* LISTADO DE PERIFÉRICOS  */}
                 <Modal.Body>
-                    <ListadoPerifericos/>
+                    <ListadoPerifericos encabezadoRemito ={data} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

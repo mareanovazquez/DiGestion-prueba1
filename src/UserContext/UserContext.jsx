@@ -12,20 +12,20 @@ export const UserContextProvider = ({ children }) => {
     //funciones arriba
     //estados 
 
-    const [username, setUsername] = useState('');
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState(localStorage.getItem('username') ||'');
+    const [name, setName] = useState(localStorage.getItem('name') || '');
+    const [email, setEmail] = useState(localStorage.getItem('email') || '');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [usuarios, setUsuarios] = useState('');
     const [permisos, setPermisos] = useState('');
     const [departamento, setDepartamento] = useState('');
-    const [token, setToken] = useState('');
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [token, setToken] = useState( localStorage.getItem('token') || '');
+    const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn') === 'true');
 
 
     //Usuarios creados para probar las rutas protegidas (ESTO DEBE ELIMINARSE)
-    const dataUsuarios = [
+    /* const dataUsuarios = [
         {
             id: 1,
             nombre: 'mariano',
@@ -60,44 +60,8 @@ export const UserContextProvider = ({ children }) => {
             permiso: 'Read',
             departamento: '2'
         }
-    ];
-
-    // handleLogin creado para manejar los usuarios de prueba (ESTO DEBE ELIMINARSE)
-    /*  const handleLogin = (e) => {
-         e.preventDefault();
- 
-         // Verifica las credenciales del usuario (ESTO DEBE ELIMINARSE)
-         const usuario = dataUsuarios.find(user => user.nombre === username && user.contraseña === password);
- 
-         if (usuario) {
-             // Iniciar sesión exitosamente
-             //ELIMINAR ESTE CONSOLE.LOG CUANDO TODO FUNCIONE
-             console.log('Inicio de sesión exitoso | ' + usuario.nombre + ' ' + usuario.permiso + ' ' + usuario.departamento);
-             navigate('/inicio')
-             setPermisos(usuario.permiso)
-             setDepartamento(usuario.departamento)
-             setUsername('')
-             setPassword('')
-             // Aquí puedes redirigir al usuario a la página de inicio o realizar otras acciones necesarias
- 
-         } else {
-             // Credenciales inválidas
-             ;
-             setPassword('')
-             setUsername('')
- 
-         }
- 
-     }; */
-
-    //handleButtonLogin para manejar el botón del componente LogIn (ESTO DEBE ELIMINARSE Y CAMBIAR POR UNO NUEVO)
-    /* const handleButtonLogIn = () => {
-        setUsuarios(username);
-        
-        setPermisos(permisos)
-        setDepartamento(departamento)
-    }; */
-
+    ]; */
+    
     const handleLogin = (e) => {
         e.preventDefault();
 
@@ -128,9 +92,11 @@ export const UserContextProvider = ({ children }) => {
 
     useEffect(() => {
         localStorage.setItem('username', username)
+        localStorage.setItem('name', name)
         localStorage.setItem('email', email);
         localStorage.setItem('token', token)
-    }, [username, email, token])
+        localStorage.setItem('loggedIn', loggedIn)
+    }, [username, name, email, token, loggedIn])
 
 
 

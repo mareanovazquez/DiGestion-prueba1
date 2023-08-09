@@ -5,7 +5,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink } from 'react-router-dom';
 import { UserContext } from '../../UserContext/UserContext';
-import { Link } from 'react-router-dom';
 
 
 export const NavBar = () => {
@@ -14,14 +13,18 @@ export const NavBar = () => {
         setEmail('')
         setLoggedIn(false)
         setToken('')
-        localStorage.removeItem('token')
-        localStorage.removeItem('username')
+        setUsername ('')
+        setName('')
         localStorage.removeItem('email');
+        localStorage.removeItem('loggedIn')
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        localStorage.removeItem('name');
     }
 
 
 
-    const { name, setName, email, setEmail, permisos, setPermisos, loggedIn, setLoggedIn, token, setToken } = useContext(UserContext);
+    const { username, setUsername, name, setName, email, setEmail, permisos, setPermisos, loggedIn, setLoggedIn, token, setToken } = useContext(UserContext);
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">

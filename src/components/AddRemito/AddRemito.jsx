@@ -24,6 +24,9 @@ export const AddRemito = () => {
     });
 
     const { name } = useContext(UserContext);
+
+
+
     const handleDepartamentoChange = (selectedDepartamento) => {
         setDataAddRemito({ ...dataAddRemito, departamento: selectedDepartamento })
     }
@@ -32,16 +35,32 @@ export const AddRemito = () => {
         setDataAddRemito({ ...dataAddRemito, proveedor: selectedProveedor })
     }
 
+    const [numeroRemito, setNumeroRemito] = useState('');
+
     useEffect(() => {
-        setDataAddRemito({ ...dataAddRemito, usuarioAlta: name })
-    }, [name])
+        const numero = Math.floor(Math.random() * 100 + 1);
+        let fecha = new Date();
+        let dia = String(fecha.getDate()).padStart(2, '0');
+        let mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript empiezan desde 0 (0 = enero, 1 = febrero, etc.), así que hay que sumar 1.
+        let anio = fecha.getFullYear();
+        let hora = String(fecha.getHours()).padStart(2, '0');
+        let minutos = String(fecha.getMinutes()).padStart(2, '0');
+        let segundos = String(fecha.getSeconds()).padStart(2, '0');
+        let fechaFormatoNumerico = anio + mes + dia + hora + minutos + segundos;
+
+        const numeroAleatorio = `${fechaFormatoNumerico}` ;
+
+        setNumeroRemito(numeroAleatorio)
+        setDataAddRemito({ ...dataAddRemito, remito: numeroAleatorio })
+    }, [])
+
 
     const handleCamposRemito = () => {
         setDataAddRemito({
+
             departamento: "",
             proveedor: "",
             fechaRecepcionSTI: "",
-            remito: "",
             expediente: "",
             fechaRecepcionDTI: "",
             ordenCompra: "",
@@ -49,7 +68,6 @@ export const AddRemito = () => {
             ordenProvision: "",
             ordenEntrega: "",
             comentarios: "",
-            
         })
     }
 
@@ -63,9 +81,9 @@ export const AddRemito = () => {
                         <input type="text"
                             className="form-control"
                             placeholder="Usuario"
-                            disabled
                             aria-label="Usuario Ata"
                             value={name}
+                            disabled
                         />
                     </div>
 
@@ -101,10 +119,8 @@ export const AddRemito = () => {
                             className="form-control"
                             placeholder="Número remito"
                             aria-label="Remito"
-                            value={dataAddRemito.remito}
-                            onChange={(e) =>
-                                setDataAddRemito({ ...dataAddRemito, remito: e.target.value })
-                            }
+                            value={numeroRemito}
+                            disabled
                         />
                     </div>
 
@@ -190,7 +206,7 @@ export const AddRemito = () => {
                         />
                     </div>
 
-            </div>
+                </div>
                 <div className="row altaRemito">
                     <div className="col">
                         <label htmlFor="comentarios">COMENTARIOS</label>
@@ -210,7 +226,9 @@ export const AddRemito = () => {
                 <div className="row altaRemito">
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                         <Link to='/remitos'><button className="btn btn-primary" type="button">Volver</button> </Link>
-                        <ModalAddPerifericos data={dataAddRemito} />
+
+                        <ModalAddPerifericos data={{ ...dataAddRemito, usuarioAlta: name }} />
+
                         <button onClick={handleCamposRemito} className="btn btn-primary" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash trashIcon" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
