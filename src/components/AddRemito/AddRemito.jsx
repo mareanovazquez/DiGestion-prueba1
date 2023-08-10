@@ -35,32 +35,13 @@ export const AddRemito = () => {
         setDataAddRemito({ ...dataAddRemito, proveedor: selectedProveedor })
     }
 
-    const [numeroRemito, setNumeroRemito] = useState('');
-
-    useEffect(() => {
-        const numero = Math.floor(Math.random() * 100 + 1);
-        let fecha = new Date();
-        let dia = String(fecha.getDate()).padStart(2, '0');
-        let mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript empiezan desde 0 (0 = enero, 1 = febrero, etc.), así que hay que sumar 1.
-        let anio = fecha.getFullYear();
-        let hora = String(fecha.getHours()).padStart(2, '0');
-        let minutos = String(fecha.getMinutes()).padStart(2, '0');
-        let segundos = String(fecha.getSeconds()).padStart(2, '0');
-        let fechaFormatoNumerico = anio + mes + dia + hora + minutos + segundos;
-
-        const numeroAleatorio = `${fechaFormatoNumerico}` ;
-
-        setNumeroRemito(numeroAleatorio)
-        setDataAddRemito({ ...dataAddRemito, remito: numeroAleatorio })
-    }, [])
-
-
     const handleCamposRemito = () => {
         setDataAddRemito({
 
             departamento: "",
             proveedor: "",
             fechaRecepcionSTI: "",
+            remito: "",
             expediente: "",
             fechaRecepcionDTI: "",
             ordenCompra: "",
@@ -119,8 +100,10 @@ export const AddRemito = () => {
                             className="form-control"
                             placeholder="Número remito"
                             aria-label="Remito"
-                            value={numeroRemito}
-                            disabled
+                            value={dataAddRemito.remito}
+                            onChange={(e) =>
+                                setDataAddRemito({ ...dataAddRemito, remito: e.target.value })
+                            }
                         />
                     </div>
 
