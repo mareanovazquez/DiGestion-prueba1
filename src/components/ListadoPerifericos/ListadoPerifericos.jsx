@@ -5,7 +5,7 @@ import { UserContext } from "../../UserContext/UserContext";
 import HttpService from "../../services/HttpService";
 
 
-export const ListadoPerifericos = ({encabezadoRemito}) => {
+export const ListadoPerifericos = ({ encabezadoRemito }) => {
 
 
     //recuperar token para validar el HTTP request
@@ -66,7 +66,20 @@ export const ListadoPerifericos = ({encabezadoRemito}) => {
         }
     }, [marcaId])
 
-   
+    // función onClick para enviar el remito
+    const HandleSendRemito = () => {
+        const dataBody = JSON.stringify(encabezadoRemito)
+
+        http.postData2('/remitos-create', dataBody, token)
+            .then(response => {
+                const respuesta = response.data
+                console.log(respuesta)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
 
     // Función para manejar el cambio en la selección de la marca
     const handleMarcaChange = (e) => {
@@ -137,9 +150,9 @@ export const ListadoPerifericos = ({encabezadoRemito}) => {
         setComentarioPeriferico('');
         setCantidadSeleccionada('1')
     }
-     /* data del encabezado del remito para enviar por http Request */
-     console.log (encabezadoRemito)
-     /* data de items del remito para enviar por http Request */
+    /* data del encabezado del remito para enviar por http Request */
+    console.log(encabezadoRemito)
+    /* data de items del remito para enviar por http Request */
     console.log(itemsPerifericos)
 
     //Función para eliminar un solo item de la lista de perifericos 
@@ -235,7 +248,7 @@ export const ListadoPerifericos = ({encabezadoRemito}) => {
                                 value={garantiaSeleccionada}
                                 type="number"
                                 onChange={handleGarantiaChange}
-                                />
+                            />
                         </div>
                         <div className="col-2">
                             <label>Cantidad</label>
@@ -340,7 +353,7 @@ export const ListadoPerifericos = ({encabezadoRemito}) => {
                                     </table>
                                     <div>
                                         <p>Total de periféricos cargados: <b>{totalCantidad}</b></p>
-                                        <div className="d-inline"><Button variant="primary" >Enviar</Button></div>
+                                        <div className="d-inline"><Button variant="primary" onClick={HandleSendRemito} >Enviar</Button></div>
                                         <div className="d-inline ps-3"><Button variant="secondary" onClick={EliminarTodo}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash trashIcon" viewBox="0 0 16 16">
                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
