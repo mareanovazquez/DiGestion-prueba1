@@ -16,6 +16,33 @@ export const ListadoPerifericos = ({ encabezadoRemito }) => {
     const [perifId, setPerifId] = useState('');
     const [marcaId, setMarcaId] = useState('');
 
+    /* useState que crea el almacenamiento de los datos del remito */
+    const [dataRemito, setDataRemito] = useState([{
+
+        "remito": {
+            "departamento_id": '',
+            "proveedor_id": '',
+            "fecha_recepcion": '',
+            "remito": '',
+            "expediente": '',
+            "comentarios": '',
+            "fecha_recepcion_dti": '',
+            "orden_compra": '',
+            "legajo_compra": '',
+            "orden_provision": '',
+            "orden_entrega": '',
+        },
+
+        "perifericos": {
+            "perifericoId": {
+                "modelo_id": '',
+                "garantia": '',
+                "cantidad": '',
+                "comentarios": ''
+            }
+        }
+    }])
+
     // Request para traer el listado de periféricos
     const http = new HttpService();
     useEffect(() => {
@@ -68,6 +95,34 @@ export const ListadoPerifericos = ({ encabezadoRemito }) => {
 
     // función onClick para enviar el remito
     const HandleSendRemito = () => {
+        /* useState donde se cargan los datos del remito */
+        setDataRemito ([{
+
+            "remito": {
+                "departamento_id": '',
+                "proveedor_id": '',
+                "fecha_recepcion": '',
+                "remito": '',
+                "expediente": '',
+                "comentarios": '',
+                "fecha_recepcion_dti": '',
+                "orden_compra": '',
+                "legajo_compra": '',
+                "orden_provision": '',
+                "orden_entrega": '',
+            },
+    
+            "perifericos": {
+                "perifericoId": {
+                    "modelo_id": '',
+                    "garantia": '',
+                    "cantidad": '',
+                    "comentarios": ''
+                }
+            }
+        }]
+
+        )
         const dataBody = JSON.stringify(encabezadoRemito)
 
         http.postData2('/remitos-create', dataBody, token)

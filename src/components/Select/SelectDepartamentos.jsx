@@ -16,10 +16,12 @@ export const SelectDepartamentos = ({onChange}) => {
                 
                 const departamentos = response.data.data.map(departamento => ({
                     value: departamento.nombre,
-                    label: departamento.nombre
+                    label: departamento.nombre                  
+                    
                 }
                 ))
                 setDepartamentos(departamentos)
+                console.log(departamentos)
             })
             .catch(error => {
                 console.log(error)
@@ -27,7 +29,7 @@ export const SelectDepartamentos = ({onChange}) => {
     }, [])
     
     const handleSelected = (departamentoSeleccionado) => {        
-        onChange(departamentoSeleccionado.value)
+        onChange(departamentoSeleccionado.value  )
     }
 
     return (
@@ -40,3 +42,21 @@ export const SelectDepartamentos = ({onChange}) => {
         </>
     )
 }
+
+/* Esto es lo que debe modificarse para extraer el ID de la selección
+
+const departamentos = response.data.data.map(departamento => ({
+    value: departamento.nombre,
+    label: departamento.nombre,
+    segundoValor: departamento.otroValor, // Cambia "otroValor" al nombre correcto
+}));
+
+
+const handleSelected = (departamentoSeleccionado) => {
+    onChange({
+        value: departamentoSeleccionado.value,
+        segundoValor: departamentoSeleccionado.segundoValor, // Cambia "segundoValor" al nombre correcto
+    });
+};
+
+*/
