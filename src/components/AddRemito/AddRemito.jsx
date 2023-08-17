@@ -10,7 +10,6 @@ export const AddRemito = () => {
 
     const [dataAddRemito, setDataAddRemito] = useState({
         departamento: "",
-        departamento_id: "",
         proveedor: "",
         fechaRecepcionSTI: "",
         remito: "",
@@ -25,8 +24,6 @@ export const AddRemito = () => {
     });
 
     const { name } = useContext(UserContext);
-
-
 
     const handleDepartamentoChange = (selectedDepartamento) => {
         setDataAddRemito({ ...dataAddRemito, departamento: selectedDepartamento })
@@ -54,7 +51,6 @@ export const AddRemito = () => {
         })
     }
 
-console.log(dataAddRemito)
     return (
         <>
             <div className="contenedorAltaRemito">

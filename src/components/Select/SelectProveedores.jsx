@@ -16,7 +16,8 @@ export const SelectProveedores = ({onChange}) => {
                 
                 const proveedores = response.data.data.map(proveedor => ({
                     value: proveedor.nombre,
-                    label: proveedor.nombre
+                    label: proveedor.nombre,
+                    proveedor_id: proveedor.id,
                 }
                 ))
                 setProveedores(proveedores)
@@ -26,7 +27,8 @@ export const SelectProveedores = ({onChange}) => {
             })
     }, [])
     const handleSelected = (proveedorSeleccionado) => {        
-        onChange(proveedorSeleccionado.value)
+        onChange({value: proveedorSeleccionado.value,
+        proveedor_id: proveedorSeleccionado.proveedor_id})
     }
     return (
         <>
