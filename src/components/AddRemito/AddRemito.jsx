@@ -209,7 +209,7 @@ export const AddRemito = () => {
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                         <Link to='/remitos'><button className="btn btn-primary" type="button">Volver</button> </Link>
 
-                        <ModalAddPerifericos data={{ ...dataAddRemito, usuarioAlta: name }} />
+                        <ModalAddPerifericos data={{ ...dataAddRemito, usuarioAlta: name }} deleteCamposRemito={deleteCamposRemito} />
 
                         <button onClick={deleteCamposRemito} className="btn btn-primary" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash trashIcon" viewBox="0 0 16 16">

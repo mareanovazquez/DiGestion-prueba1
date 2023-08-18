@@ -6,7 +6,7 @@ import HttpService from "../../services/HttpService";
 import { useNavigate } from "react-router-dom";
 
 
-export const ListadoPerifericos = ({ encabezadoRemito }) => {
+export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCamposRemito }) => {
 
 
     //recuperar token para validar el HTTP request
@@ -103,9 +103,10 @@ export const ListadoPerifericos = ({ encabezadoRemito }) => {
             .then(response => {
                 const respuesta = response.data
                 console.log(respuesta)
-
-              
-                navigate('/remito/addRemito')
+                /*Función que cierra el Modal de periféricos después de enviar el POST */
+                handleClose()
+                /*Función que borra los campos del remito anterior */
+                deleteCamposRemito ()
             })
             .catch(error => {
                 console.log(error)
