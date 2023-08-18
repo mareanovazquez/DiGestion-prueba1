@@ -14,6 +14,7 @@ export function ModalAddPerifericos({ data }) {
     };
 
     const { name } = useContext(UserContext)
+    
     console.log('ID departamento: ' + data.departamento.departamento_id)
     console.log('ID proveedor: ' + data.proveedor.proveedor_id)
     return (

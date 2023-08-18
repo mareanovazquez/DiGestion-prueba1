@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { UserContext } from "../../UserContext/UserContext";
 import HttpService from "../../services/HttpService";
+import { useNavigate } from "react-router-dom";
 
 
 export const ListadoPerifericos = ({ encabezadoRemito }) => {
@@ -16,6 +17,8 @@ export const ListadoPerifericos = ({ encabezadoRemito }) => {
     const [perifId, setPerifId] = useState('');
     const [marcaId, setMarcaId] = useState('');
     const [modeloId, setModeloId] = useState('')
+
+    const navigate = useNavigate();
 
 
     /* useState que crea el almacenamiento de los datos del remito */
@@ -83,9 +86,7 @@ export const ListadoPerifericos = ({ encabezadoRemito }) => {
                 .then(response => {
                     const ListModelos = response.data;
                     setModelos(ListModelos);
-                    console.log(ListModelos)
-                    
-                    })
+                })
                 .catch(error => {
                     console.log(error)
                 });
@@ -102,10 +103,19 @@ export const ListadoPerifericos = ({ encabezadoRemito }) => {
             .then(response => {
                 const respuesta = response.data
                 console.log(respuesta)
+
+              
+                navigate('/remito/addRemito')
             })
             .catch(error => {
                 console.log(error)
             })
+
+
+        /*Vacía los inputs para que se pueda seleccionar un periferico nuevo */
+
+
+
     }
 
 
@@ -119,9 +129,19 @@ export const ListadoPerifericos = ({ encabezadoRemito }) => {
     // Función para manejar el cambio en la selección del modelo
     const handleModeloChange = (e) => {
         setModeloSeleccionado(e.target.value);
-        setModeloId(e.target.value)
-        console.log(modeloSeleccionado)
-    };
+
+        //captura del valor de modelo_id para enviar a través del POST
+        const selectedOption = e.target.options[e.target.selectedIndex];
+        const selectedId = selectedOption.getAttribute('data-id');
+        setModeloId(selectedId)
+    }
+    // useEffect para actualizar el valor de modeloId cada vez que cambia
+    useEffect(() => {
+        if (modeloId) {
+            setModeloId(modeloId)
+
+        }
+    }, [modeloId])
 
     //Estado para almancenar la garantía seleccionada
     const [garantiaSeleccionada, setGarantiaSeleccionada] = useState('')
@@ -176,7 +196,7 @@ export const ListadoPerifericos = ({ encabezadoRemito }) => {
         const addPerifericoRemito = [...dataRemito];
         addPerifericoRemito[0].perifericos.push({
 
-            modelo_id: '',
+            modelo_id: modeloId,
             garantia: garantiaSeleccionada,
             cantidad: cantidadSeleccionada,
             comentarios: comentarioPeriferico,
@@ -207,7 +227,6 @@ export const ListadoPerifericos = ({ encabezadoRemito }) => {
         setComentarioPeriferico('');
         setCantidadSeleccionada('1');
         setItemsPerifericos(itemsPerifericos.filter(item => item.id !== id))
-        console.log(itemsPerifericos)
     }
 
 
@@ -235,8 +254,6 @@ export const ListadoPerifericos = ({ encabezadoRemito }) => {
     for (let i = 0; i < itemsPerifericos.length; i++) {
         totalCantidad += parseInt(itemsPerifericos[i].cantidad);
     }
-
-
 
 
     return (
@@ -282,7 +299,7 @@ export const ListadoPerifericos = ({ encabezadoRemito }) => {
                             onChange={handleModeloChange}>
                             <option value="">Modelo</option>
                             {Object.values(modelos).map((modelo) => (
-                                <option key={modelo.id} value={modelo.nombre}>
+                                <option key={modelo.id} value={modelo.nombre} data-id={modelo.id}>
                                     {modelo.nombre}
                                 </option>
                             ))}
