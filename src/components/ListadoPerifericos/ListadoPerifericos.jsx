@@ -106,7 +106,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
                 /*Función que cierra el Modal de periféricos después de enviar el POST */
                 handleClose()
                 /*Función que borra los campos del remito anterior */
-                deleteCamposRemito ()
+                deleteCamposRemito()
             })
             .catch(error => {
                 console.log(error)
@@ -176,6 +176,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
     const AgregarPerifericos = () => {
         /*Renderiza la tabla de perifericos*/
         setShowTable(true)
+        /* crea un nuevo ID para cada fila */
         const nuevoId = id + 1
         setId(nuevoId)
 
@@ -196,7 +197,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
         /* Añade cada uno de los perifericos al objeto dataRemito que se va a enviar a través del POST */
         const addPerifericoRemito = [...dataRemito];
         addPerifericoRemito[0].perifericos.push({
-
+            id: id,
             modelo_id: modeloId,
             garantia: garantiaSeleccionada,
             cantidad: cantidadSeleccionada,
@@ -221,13 +222,21 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
 
     //Función para eliminar un solo item de la lista de perifericos 
     const DeleteItem = (id) => {
+        // 1. Resetear los valores de los inputs.
         setPerifericoSeleccionado('');
         setMarcaSeleccionada('');
         setModeloSeleccionado('');
         setGarantiaSeleccionada('');
         setComentarioPeriferico('');
         setCantidadSeleccionada('1');
+
+        // 2. Eliminar el periférico de itemsPerifericos.
         setItemsPerifericos(itemsPerifericos.filter(item => item.id !== id))
+
+        // 3. Eliminar el periférico de dataRemito.
+        const updatedDataRemito = [...dataRemito];
+        updatedDataRemito[0].perifericos = updatedDataRemito[0].perifericos.filter(periferico => periferico.id !== id);
+        setDataRemito(updatedDataRemito);
     }
 
 
