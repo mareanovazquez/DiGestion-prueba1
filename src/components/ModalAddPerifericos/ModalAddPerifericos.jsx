@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { UserContext } from '../../UserContext/UserContext';
 import { ListadoPerifericos } from '../ListadoPerifericos/ListadoPerifericos';
 
-export function ModalAddPerifericos({ data, deleteCamposRemito }) {
+export function ModalAddPerifericos({ data, deleteCamposRemito, deshabilitado }) {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -19,7 +19,7 @@ export function ModalAddPerifericos({ data, deleteCamposRemito }) {
     console.log('ID proveedor: ' + data.proveedor.proveedor_id)
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
+            <Button variant={deshabilitado ? 'secondary' : 'primary'} onClick={handleShow} disabled={deshabilitado}>
                 Iniciar remito
             </Button>
 
@@ -62,7 +62,6 @@ export function ModalAddPerifericos({ data, deleteCamposRemito }) {
                                             <li><b>Fecha recepción:</b> {data.fechaRecepcionSTI}</li>
                                             <li><b>Fecha recepción DTI:</b> {data.fechaRecepcionDTI}</li>
                                             <li><b>Legajo compra:</b> {data.legajoCompra}</li>
-
                                         </ul>
                                     </div>
                                     <hr></hr>

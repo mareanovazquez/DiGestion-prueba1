@@ -113,10 +113,6 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
             })
 
 
-        /*Vacía los inputs para que se pueda seleccionar un periferico nuevo */
-
-
-
     }
 
 
@@ -140,7 +136,6 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
     useEffect(() => {
         if (modeloId) {
             setModeloId(modeloId)
-
         }
     }, [modeloId])
 
@@ -168,7 +163,6 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
 
     //Estado para mostrar la tabla renderizando la lista de periféricos
     const [showTable, setShowTable] = useState(false)
-
     const [itemsPerifericos, setItemsPerifericos] = useState([])
     const [id, setId] = useState(1)
 
@@ -265,6 +259,35 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
         totalCantidad += parseInt(itemsPerifericos[i].cantidad);
     }
 
+    const [isFormPerifValid, setIsFormPerifValid] = useState(false);
+
+    const verificarValidezFormulario = () => {
+        if (
+            perifericoSeleccionado &&
+            marcaSeleccionada &&
+            modeloSeleccionado &&
+            garantiaSeleccionada &&
+            cantidadSeleccionada&&
+            comentarioPeriferico
+            // Puedes incluir el comentarioPeriferico si es obligatorio, si no, omitelo
+        ) {
+            setIsFormPerifValid(true);
+        } else {
+            setIsFormPerifValid(false);
+        }
+    };
+
+    useEffect(() => {
+        verificarValidezFormulario();
+    }, [
+        perifericoSeleccionado,
+        marcaSeleccionada,
+        modeloSeleccionado,
+        garantiaSeleccionada,
+        cantidadSeleccionada,
+        comentarioPeriferico  // Si el comentario es obligatorio, inclúyelo; de lo contrario, omítelo.
+    ]);
+
 
     return (
         <>
@@ -359,7 +382,8 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
                             <button
                                 onClick={AgregarPerifericos}
                                 type="button"
-                                className="btn btn-primary">
+                                className={`btn ${isFormPerifValid ? 'btn btn-primary' : 'btn btn-secondary'}`}
+                                disabled={!isFormPerifValid}>
                                 Agregar
                             </button>
                         </div>

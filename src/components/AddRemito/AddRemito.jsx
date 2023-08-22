@@ -25,6 +25,7 @@ export const AddRemito = () => {
 
     const { name } = useContext(UserContext);
 
+
     const handleDepartamentoChange = (selectedDepartamento) => {
         setDataAddRemito({ ...dataAddRemito, departamento: selectedDepartamento })
     }
@@ -51,6 +52,42 @@ export const AddRemito = () => {
         })
     }
 
+    /* Estado de validez del formulario, inicia como falso  */
+    const [isFormValid, setIsFormValid] = useState(false);
+
+    /* Función para verificar la validez del formulario basada en los valores de los campos de entrada */
+
+    const handleValidezFormulario = () => {
+        const { fechaRecepcionSTI,
+            remito,
+            expediente,
+            fechaRecepcionDTI,
+            ordenCompra,
+            legajoCompra,
+            ordenProvision,
+            ordenEntrega,
+            comentarios,
+        } = dataAddRemito;
+
+        const camposValidos =
+            fechaRecepcionSTI &&
+            remito &&
+            expediente &&
+            fechaRecepcionDTI &&
+            ordenCompra &&
+            legajoCompra &&
+            ordenProvision &&
+            ordenEntrega &&
+            comentarios;
+
+        setIsFormValid(camposValidos);
+    }
+
+    /* useEffect para  handleValidezFormulario cada vez que los valores de cualquier campo de entrada cambien: */
+
+    useEffect(()=>{
+        handleValidezFormulario()
+    },[dataAddRemito])
     return (
         <>
             <div className="contenedorAltaRemito">
@@ -209,7 +246,7 @@ export const AddRemito = () => {
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                         <Link to='/remitos'><button className="btn btn-primary" type="button">Volver</button> </Link>
 
-                        <ModalAddPerifericos data={{ ...dataAddRemito, usuarioAlta: name }} deleteCamposRemito={deleteCamposRemito} />
+                        <ModalAddPerifericos data={{ ...dataAddRemito, usuarioAlta: name }} deleteCamposRemito={deleteCamposRemito} deshabilitado ={!isFormValid} />
 
                         <button onClick={deleteCamposRemito} className="btn btn-primary" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash trashIcon" viewBox="0 0 16 16">
