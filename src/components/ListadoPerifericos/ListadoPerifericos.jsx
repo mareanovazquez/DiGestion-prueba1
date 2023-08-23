@@ -54,18 +54,19 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
 
     // Función para manejar el cambio en la selección del periférico
     const handlePerifericoChange = (selectedPeriferico) => {
-        setPerifericoSeleccionado(selectedPeriferico);
+        setPerifericoSeleccionado(selectedPeriferico.value);
         console.log(selectedPeriferico)
         setPerifId(selectedPeriferico.perifId)
-        };
+        console.log(selectedPeriferico.value)
+    };
 
- /*    useEffect(()=> {
+    useEffect(() => {
         if (perifId) {
             setPerifId(perifId)
+            setPerifericoSeleccionado(perifericoSeleccionado)
             console.log(perifId)
         }
-    },[perifId])
- */console.log(perifId)
+    }, [perifId])
 
     //useEffect para habilitar la selección de marcas
     useEffect(() => {
@@ -97,9 +98,18 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
 
     // función onClick para enviar el remito
     const HandleSendRemito = () => {
-        /* useState donde se cargan los datos del remito */
+       
+        const prepareDataForPost = (data) => {
+            const updatedData = [...data];
+            updatedData[0].perifericos = updatedData[0].perifericos.map(({ id, ...rest }) => rest);
+            return updatedData;
+        };
+        
+        // Usarlo antes de enviar por POST
+        const dataToSend = prepareDataForPost(dataRemito);
+        console.log(dataToSend)
 
-        const dataBody = JSON.stringify(dataRemito)
+        const dataBody = JSON.stringify(dataToSend)
 
         http.postData2('/remitos-create', dataBody, token)
             .then(response => {
@@ -214,6 +224,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
 
     /* data del encabezado del remito para enviar por http Request */
     console.log(dataRemito)
+    
 
 
     //Función para eliminar un solo item de la lista de perifericos 
@@ -296,21 +307,6 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
             <div >
                 <div className="row justify-content-start ">
                     <h3>Seleccione los periféricos</h3>
-                    {/* <div className="col-4">
-                        <label > Periférico</label>
-                        <br></br>
-                        <Form.Select
-                            value={perifericoSeleccionado}
-                            onChange={handlePerifericoChange}>
-                            <option value="">Perifericos</option>
-                            {perifericos.map((periferico) => (
-                                <option key={periferico.id} value={periferico.nombre} data-key={periferico.id}>
-                                    {periferico.nombre}
-                                </option>
-                            ))}
-                        </Form.Select>
-                    </div> */}
-
                     <div className="col-4">
                         <label htmlFor='perifericos' >Periféricos</label>
                         <SelectPerifericos onChange={handlePerifericoChange} />
@@ -402,8 +398,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
                                     <table className="table table-primary table-striped">
                                         <thead>
                                             <tr>
-                                                <th className="text-center bg-secondary text-white" scope="col">ID</th> {/* Eliminar */}
-                                                <th className="text-center bg-secondary text-white" scope="col">Periférico</th>
+                                                <th className="text-left bg-secondary text-white" scope="col">Periférico</th>
                                                 <th className="text-center bg-secondary text-white" scope="col">Marca</th>
                                                 <th className="text-center bg-secondary text-white" scope="col">Modelo</th>
                                                 <th className="text-center bg-secondary text-white" scope="col">Garantía</th>
@@ -416,8 +411,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
                                             {itemsPerifericos.length > 0 &&
                                                 itemsPerifericos.map((item) => (
                                                     <tr key={item.id}>
-                                                        <td className="text-center" scope="row">{item.id}</td> {/* Eliminar */}
-                                                        <td className="text-center">{item.periferico}</td>
+                                                        <td className="text-left">{item.periferico}</td>
                                                         <td className="text-center">{item.marca}</td>
                                                         <td className="text-center">{item.modelo}</td>
                                                         <td className="text-center">{item.garantia} meses</td>
