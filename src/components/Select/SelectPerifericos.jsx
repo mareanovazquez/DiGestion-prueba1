@@ -36,7 +36,7 @@ export const SelectPerifericos = ({onChange}) => {
     return (
         <>
             <Select
-                value={ {label: 'Periférico', value: ''}}
+                defaultValue={ {label: 'Periférico', value: ''}}
                 options={perifericos}
                 onChange={handleSelected}
             />
