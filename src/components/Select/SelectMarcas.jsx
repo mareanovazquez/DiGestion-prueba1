@@ -42,7 +42,7 @@ export const SelectMarcas = ({ onChange, perifId }) => {
     return (
         <>
             <Select
-                defaultValue={{ label: 'Marcas', value: '' }}
+                defaultValue={{ label: 'Marca', value: '' }}
                 options={marcas}
                 onChange={handleSelected}
             />

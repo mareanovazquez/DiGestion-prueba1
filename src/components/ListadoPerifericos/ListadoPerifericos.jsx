@@ -6,6 +6,7 @@ import HttpService from "../../services/HttpService";
 import { useNavigate } from "react-router-dom";
 import { SelectPerifericos } from "../Select/SelectPerifericos";
 import { SelectMarcas } from "../Select/SelectMarcas";
+import { SelectModelos } from "../Select/SelectModelos";
 
 
 export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCamposRemito }) => {
@@ -72,28 +73,28 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
     // Función para manejar el cambio en la selección de la marca
     const handleMarcaChange = (selectedMarca) => {
         setMarcaSeleccionada(selectedMarca.value);
-        console.log(selectedMarca.value)
+        console.log(selectedMarca)
         setMarcaId(selectedMarca.marcaId)
         console.log(selectedMarca.marcaId)
         
     };
 
-    
-    //useEffect para habilitar la selección de modelos
+    // Función para manejar el cambio en la selección del modelo
+    const handleModeloChange = (selectedModelo) => {
+        setModeloSeleccionado(selectedModelo.value);
+        console.log(selectedModelo);
+        setModeloId(selectedModelo.modeloId);
+        console.log(selectedModelo.modeloId)
+      
+    }
+    // useEffect para actualizar el valor de modeloId cada vez que cambia
     useEffect(() => {
-        if (marcaId) {
-            http.getData(`/remitos/get-modelos/${marcaId}/${perifId}`, token)
-                .then(response => {
-                    const ListModelos = response.data;
-                    setModelos(ListModelos);
-                })
-                .catch(error => {
-                    console.log(error)
-                });
+        if (modeloId) {
+            setModeloId(modeloId)
         }
-    }, [marcaId])
+    }, [modeloId])
 
-    // función onClick para enviar el remito
+     // función onClick para enviar el remito
     const HandleSendRemito = () => {
 
         //elimina ID de dataRemito
@@ -123,25 +124,6 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
 
 
     }
-
-
-
-
-    // Función para manejar el cambio en la selección del modelo
-    const handleModeloChange = (e) => {
-        setModeloSeleccionado(e.target.value);
-
-        //captura del valor de modelo_id para enviar a través del POST
-        const selectedOption = e.target.options[e.target.selectedIndex];
-        const selectedId = selectedOption.getAttribute('data-id');
-        setModeloId(selectedId)
-    }
-    // useEffect para actualizar el valor de modeloId cada vez que cambia
-    useEffect(() => {
-        if (modeloId) {
-            setModeloId(modeloId)
-        }
-    }, [modeloId])
 
     //Estado para almancenar la garantía seleccionada
     const [garantiaSeleccionada, setGarantiaSeleccionada] = useState('')
@@ -214,11 +196,6 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
 
     }
 
-    /* data del encabezado del remito para enviar por http Request */
-    console.log(dataRemito)
-
-
-
     //Función para eliminar un solo item de la lista de perifericos 
     const DeleteItem = (id) => {
         // 1. Resetear los valores de los inputs.
@@ -237,7 +214,6 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
         updatedDataRemito[0].perifericos = updatedDataRemito[0].perifericos.filter(periferico => periferico.id !== id);
         setDataRemito(updatedDataRemito);
     }
-
 
     // Función para eliminar todos los items de la lista de periféricos
     const EliminarTodo = () => {
@@ -274,7 +250,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
             garantiaSeleccionada &&
             cantidadSeleccionada &&
             comentarioPeriferico
-            // Puedes incluir el comentarioPeriferico si es obligatorio, si no, omitelo
+            
         ) {
             setIsFormPerifValid(true);
         } else {
@@ -290,7 +266,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
         modeloSeleccionado,
         garantiaSeleccionada,
         cantidadSeleccionada,
-        comentarioPeriferico  // Si el comentario es obligatorio, inclúyelo; de lo contrario, omítelo.
+        comentarioPeriferico  
     ]);
 
 
@@ -303,40 +279,15 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
                         <label htmlFor='perifericos' >Periféricos</label>
                         <SelectPerifericos onChange={handlePerifericoChange} />
                     </div>
-
-                    {/*  <div className="col-4">
-                        <label>Marca</label>
-                        <br></br>
-                        <Form.Select
-                            value={marcaSeleccionada}
-                            onChange={handleMarcaChange}>
-                            <option value="">Marcas</option>
-                            {Object.values(marcas).map((marca) => (
-                                <option key={marca.id} value={marca.nombre} data-key={marca.id}>
-                                    {marca.nombre}
-                                </option>
-                            ))}
-                        </Form.Select>
-                    </div> */}
-
+                    
                     <div className="col-4">
                         <label htmlFor='perifericos' >Marcas</label>
                         <SelectMarcas onChange={handleMarcaChange} perifId={perifId} />
                     </div>
 
                     <div className="col-4">
-                        <label>Modelo</label>
-                        <br></br>
-                        <Form.Select
-                            value={modeloSeleccionado}
-                            onChange={handleModeloChange}>
-                            <option value="">Modelo</option>
-                            {Object.values(modelos).map((modelo) => (
-                                <option key={modelo.id} value={modelo.nombre} data-id={modelo.id}>
-                                    {modelo.nombre}
-                                </option>
-                            ))}
-                        </Form.Select>
+                        <label htmlFor='perifericos' >Modeloss</label>
+                        <SelectModelos onChange={handleModeloChange} perifId={perifId} marcaId={marcaId} />
                     </div>
 
                 </div>

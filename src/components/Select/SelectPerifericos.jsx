@@ -30,13 +30,13 @@ export const SelectPerifericos = ({onChange}) => {
     
     const handleSelected = (perifericoSeleccionado) => {        
         onChange({value: perifericoSeleccionado.value,
-                perifId: perifericoSeleccionado.perifId})
+                perifId: perifericoSeleccionado.perifId});
     }
 
     return (
         <>
             <Select
-                defaultValue={ {label: 'Periféricos', value: ''}}
+                value={ {label: 'Periférico', value: ''}}
                 options={perifericos}
                 onChange={handleSelected}
             />
