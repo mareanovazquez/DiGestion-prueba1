@@ -5,6 +5,7 @@ import { UserContext } from "../../UserContext/UserContext";
 import HttpService from "../../services/HttpService";
 import { useNavigate } from "react-router-dom";
 import { SelectPerifericos } from "../Select/SelectPerifericos";
+import { SelectMarcas } from "../Select/SelectMarcas";
 
 
 export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCamposRemito }) => {
@@ -66,22 +67,18 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
             setPerifericoSeleccionado(perifericoSeleccionado)
             console.log(perifId)
         }
-    }, [perifId])
+    }, [perifId]);
 
-    //useEffect para habilitar la selección de marcas
-    useEffect(() => {
-        if (perifId) {
-            http.getData(`/remitos/get-marcas/${perifId}`, token)
-                .then(response => {
-                    const ListMarcas = response.data;
-                    setMarcas(ListMarcas);
-                })
-                .catch(error => {
-                    console.log(error)
-                });
-        }
-    }, [perifId])
+    // Función para manejar el cambio en la selección de la marca
+    const handleMarcaChange = (selectedMarca) => {
+        setMarcaSeleccionada(selectedMarca.value);
+        console.log(selectedMarca.value)
+        setMarcaId(selectedMarca.marcaId)
+        console.log(selectedMarca.marcaId)
+        
+    };
 
+    
     //useEffect para habilitar la selección de modelos
     useEffect(() => {
         if (marcaId) {
@@ -98,13 +95,13 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
 
     // función onClick para enviar el remito
     const HandleSendRemito = () => {
-       
+
+        //elimina ID de dataRemito
         const prepareDataForPost = (data) => {
             const updatedData = [...data];
             updatedData[0].perifericos = updatedData[0].perifericos.map(({ id, ...rest }) => rest);
             return updatedData;
         };
-        
         // Usarlo antes de enviar por POST
         const dataToSend = prepareDataForPost(dataRemito);
         console.log(dataToSend)
@@ -128,12 +125,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
     }
 
 
-    // Función para manejar el cambio en la selección de la marca
-    const handleMarcaChange = (e) => {
-        setMarcaSeleccionada(e.target.value);
-        setMarcaId(e.target.options[e.target.selectedIndex].getAttribute('data-key'))
 
-    };
 
     // Función para manejar el cambio en la selección del modelo
     const handleModeloChange = (e) => {
@@ -224,7 +216,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
 
     /* data del encabezado del remito para enviar por http Request */
     console.log(dataRemito)
-    
+
 
 
     //Función para eliminar un solo item de la lista de perifericos 
@@ -312,7 +304,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
                         <SelectPerifericos onChange={handlePerifericoChange} />
                     </div>
 
-                    <div className="col-4">
+                    {/*  <div className="col-4">
                         <label>Marca</label>
                         <br></br>
                         <Form.Select
@@ -325,6 +317,11 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
                                 </option>
                             ))}
                         </Form.Select>
+                    </div> */}
+
+                    <div className="col-4">
+                        <label htmlFor='perifericos' >Marcas</label>
+                        <SelectMarcas onChange={handleMarcaChange} perifId={perifId} />
                     </div>
 
                     <div className="col-4">
