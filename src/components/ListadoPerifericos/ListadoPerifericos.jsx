@@ -4,6 +4,7 @@ import { Button, Form } from "react-bootstrap";
 import { UserContext } from "../../UserContext/UserContext";
 import HttpService from "../../services/HttpService";
 import { useNavigate } from "react-router-dom";
+import { SelectPerifericos } from "../Select/SelectPerifericos";
 
 
 export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCamposRemito }) => {
@@ -45,14 +46,6 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
 
     // Request para traer el listado de periféricos
     const http = new HttpService();
-    useEffect(() => {
-        http.getData('/perifericos', token)
-            .then(response => {
-                const ListPerifericos = response.data.data
-                setPerifericos(ListPerifericos)
-            })
-    }, [])
-
 
     //Estados para mostrar Periférico, Marca y Modelo como string vacío
     const [perifericoSeleccionado, setPerifericoSeleccionado] = useState('');
@@ -60,10 +53,19 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
     const [modeloSeleccionado, setModeloSeleccionado] = useState('');
 
     // Función para manejar el cambio en la selección del periférico
-    const handlePerifericoChange = (e) => {
-        setPerifericoSeleccionado(e.target.value);
-        setPerifId(e.target.options[e.target.selectedIndex].getAttribute('data-key'))
-    };
+    const handlePerifericoChange = (selectedPeriferico) => {
+        setPerifericoSeleccionado(selectedPeriferico);
+        console.log(selectedPeriferico)
+        setPerifId(selectedPeriferico.perifId)
+        };
+
+ /*    useEffect(()=> {
+        if (perifId) {
+            setPerifId(perifId)
+            console.log(perifId)
+        }
+    },[perifId])
+ */console.log(perifId)
 
     //useEffect para habilitar la selección de marcas
     useEffect(() => {
@@ -267,7 +269,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
             marcaSeleccionada &&
             modeloSeleccionado &&
             garantiaSeleccionada &&
-            cantidadSeleccionada&&
+            cantidadSeleccionada &&
             comentarioPeriferico
             // Puedes incluir el comentarioPeriferico si es obligatorio, si no, omitelo
         ) {
@@ -294,7 +296,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
             <div >
                 <div className="row justify-content-start ">
                     <h3>Seleccione los periféricos</h3>
-                    <div className="col-4">
+                    {/* <div className="col-4">
                         <label > Periférico</label>
                         <br></br>
                         <Form.Select
@@ -307,6 +309,11 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
                                 </option>
                             ))}
                         </Form.Select>
+                    </div> */}
+
+                    <div className="col-4">
+                        <label htmlFor='perifericos' >Periféricos</label>
+                        <SelectPerifericos onChange={handlePerifericoChange} />
                     </div>
 
                     <div className="col-4">

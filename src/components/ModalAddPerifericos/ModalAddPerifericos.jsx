@@ -10,13 +10,13 @@ export function ModalAddPerifericos({ data, deleteCamposRemito, deshabilitado })
     const handleClose = () => setShow(false);
     const handleShow = () => {
         setShow(true)
-
     };
 
     const { name } = useContext(UserContext)
 
     console.log('ID departamento: ' + data.departamento.departamento_id)
     console.log('ID proveedor: ' + data.proveedor.proveedor_id)
+
     return (
         <>
             <Button variant={deshabilitado ? 'secondary' : 'primary'} onClick={handleShow} disabled={deshabilitado}>

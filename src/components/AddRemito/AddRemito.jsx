@@ -88,6 +88,8 @@ export const AddRemito = () => {
     useEffect(()=>{
         handleValidezFormulario()
     },[dataAddRemito])
+
+    
     return (
         <>
             <div className="contenedorAltaRemito">

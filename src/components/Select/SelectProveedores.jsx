@@ -1,4 +1,3 @@
-import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import Select from "react-select"
 import { UserContext } from "../../UserContext/UserContext"
