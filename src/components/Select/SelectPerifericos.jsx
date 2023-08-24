@@ -3,7 +3,7 @@ import Select from "react-select"
 import { UserContext } from "../../UserContext/UserContext"
 import HttpService from "../../services/HttpService"
 
-export const SelectPerifericos = ({onChange}) => {
+export const SelectPerifericos = (props) => {
     const [perifericos, setPerifericos] = useState([])
     const { token } = useContext(UserContext)
 
@@ -11,32 +11,35 @@ export const SelectPerifericos = ({onChange}) => {
 
     useEffect(() => {
         http.getData('/perifericos', token)
-        
+
             .then(response => {
-                
+
                 const perifericos = response.data.data.map(periferico => ({
                     value: periferico.nombre,
                     label: periferico.nombre,
                     perifId: periferico.id // Cambia "otroValor" al nombre correcto                  
-                    
+
                 }
                 ))
                 setPerifericos(perifericos)
-                })
+            })
             .catch(error => {
                 console.log(error)
             })
     }, [])
-    
-    const handleSelected = (perifericoSeleccionado) => {        
-        onChange({value: perifericoSeleccionado.value,
-                perifId: perifericoSeleccionado.perifId});
+
+    const handleSelected = (perifericoSeleccionado) => {
+        props.onChange({
+            value: perifericoSeleccionado.value,
+            perifId: perifericoSeleccionado.perifId
+        });
+        props.setSelectedValuePerif(perifericoSeleccionado)
     }
 
     return (
         <>
             <Select
-                defaultValue={ {label: 'Periférico', value: ''}}
+                value={props.selectedValuePerif}
                 options={perifericos}
                 onChange={handleSelected}
             />

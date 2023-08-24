@@ -3,11 +3,14 @@ import Select from "react-select"
 import { UserContext } from "../../UserContext/UserContext"
 import HttpService from "../../services/HttpService"
 
-export const SelectModelos = ({ onChange, perifId, marcaId }) => {
+export const SelectModelos = (props) => {
     const [modelos, setModelos] = useState([])
     const { token } = useContext(UserContext)
 
     const http = new HttpService();
+
+    const perifId = props.perifId;
+    const marcaId = props.marcaId
 
     useEffect(() => {
 
@@ -33,16 +36,17 @@ export const SelectModelos = ({ onChange, perifId, marcaId }) => {
     }, [marcaId])
 
     const handleSelected = (modeloSeleccionada) => {
-        onChange({
+        props.onChange({
             value: modeloSeleccionada.value,
             modeloId: modeloSeleccionada.modeloId
-        })
+        });
+        props.setSelectedValueMod(modeloSeleccionada)
     }
 
     return (
         <>
             <Select
-                defaultValue={{ label: 'Modelo', value: '' }}
+                value={props.selectedValueMod}
                 options={modelos}
                 onChange={handleSelected}
             />

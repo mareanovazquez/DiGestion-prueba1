@@ -14,13 +14,16 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
 
     //recuperar token para validar el HTTP request
     const { token } = useContext(UserContext)
-    const [perifericos, setPerifericos] = useState([]);
-    const [marcas, setMarcas] = useState([]);
-    const [modelos, setModelos] = useState([]);
+
+    // Estado para manejar los ID de periférico, marca y modelo
     const [perifId, setPerifId] = useState('');
     const [marcaId, setMarcaId] = useState('');
     const [modeloId, setModeloId] = useState('')
 
+    // Estado para manejar los label de los select2 de periférico, marca y modelo
+    const [selectedValuePerif, setSelectedValuePerif] = useState({ label: 'Periférico', value: '' });
+    const [selectedValueMarca, setSelectedValueMarca] = useState({ label: 'Marca', value: '' });
+    const [selectedValueMod, setSelectedValueMod] = useState({ label: 'Modelo', value: '' });
     const navigate = useNavigate();
 
 
@@ -110,8 +113,6 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
             .catch(error => {
                 console.log(error)
             })
-
-
     }
 
     //Estado para almancenar la garantía seleccionada
@@ -187,6 +188,10 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
         setComentarioPeriferico('');
         setCantidadSeleccionada('1')
 
+        setSelectedValuePerif({ label: 'Periférico', value: '' });
+        setSelectedValueMarca({ label: 'Marca', value: '' });
+        setSelectedValueMod({ label: 'Modelo', value: '' });
+
     }
 
     //Función para eliminar un solo item de la lista de perifericos 
@@ -228,8 +233,11 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
             perifericos: []  // Borra todos los periféricos
         };
         setDataRemito(updatedDataRemito);
+        setSelectedValuePerif({ label: 'Periférico', value: '' });
+        setSelectedValueMarca({ label: 'Marca', value: '' });
+        setSelectedValueMod({ label: 'Modelo', value: '' });
     }
-    
+
     //Función para mostrar la cantidad total de periféricos cargados
     let totalCantidad = 0;
 
@@ -266,7 +274,6 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
         comentarioPeriferico
     ]);
 
-
     return (
         <>
             <div >
@@ -275,14 +282,18 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
                     <div className="col-4">
                         <label htmlFor='perifericos' >Periféricos</label>
                         <SelectPerifericos
-                            onChange={handlePerifericoChange} />
+                            onChange={handlePerifericoChange}
+                            selectedValuePerif={selectedValuePerif}
+                            setSelectedValuePerif={setSelectedValuePerif} />
                     </div>
 
                     <div className="col-4">
                         <label htmlFor='perifericos' >Marcas</label>
                         <SelectMarcas
                             onChange={handleMarcaChange}
-                            perifId={perifId} />
+                            perifId={perifId}
+                            selectedValueMarca={selectedValueMarca}
+                            setSelectedValueMarca={setSelectedValueMarca} />
                     </div>
 
                     <div className="col-4">
@@ -290,7 +301,9 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
                         <SelectModelos
                             onChange={handleModeloChange}
                             perifId={perifId}
-                            marcaId={marcaId} />
+                            marcaId={marcaId}
+                            selectedValueMod={selectedValueMod}
+                            setSelectedValueMod={setSelectedValueMod} />
                     </div>
 
                 </div>
@@ -350,12 +363,12 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
                                         <thead>
                                             <tr>
                                                 <th className="text-left bg-secondary text-white" scope="col">Periférico</th>
-                                                <th className="text-center bg-secondary text-white" scope="col">Marca</th>
-                                                <th className="text-center bg-secondary text-white" scope="col">Modelo</th>
-                                                <th className="text-center bg-secondary text-white" scope="col">Garantía</th>
-                                                <th className="text-center bg-secondary text-white" scope="col">Cantidad</th>
-                                                <th className="text-center bg-secondary text-white" scope="col" >Comentarios</th>
-                                                <th className="text-center bg-secondary text-white" scope="col">Eliminar</th>
+                                                <th className="text-left bg-secondary text-white" scope="col">Marca</th>
+                                                <th className="text-left bg-secondary text-white" scope="col">Modelo</th>
+                                                <th className="text-left bg-secondary text-white" scope="col">Garantía</th>
+                                                <th className="text-left bg-secondary text-white" scope="col">Cantidad</th>
+                                                <th className="text-left bg-secondary text-white" scope="col" >Comentarios</th>
+                                                <th className="text-left bg-secondary text-white" scope="col">Eliminar</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -363,12 +376,12 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
                                                 itemsPerifericos.map((item) => (
                                                     <tr key={item.id}>
                                                         <td className="text-left">{item.periferico}</td>
-                                                        <td className="text-center">{item.marca}</td>
-                                                        <td className="text-center">{item.modelo}</td>
-                                                        <td className="text-center">{item.garantia} meses</td>
-                                                        <td className="text-center">{item.cantidad}</td>
-                                                        <td className="text-center">{item.comentarios}</td>
-                                                        <td className="text-center">
+                                                        <td className="text-left">{item.marca}</td>
+                                                        <td className="text-left">{item.modelo}</td>
+                                                        <td className="text-left">{item.garantia} meses</td>
+                                                        <td className="text-left">{item.cantidad}</td>
+                                                        <td className="text-left">{item.comentarios}</td>
+                                                        <td className="text-left">
                                                             <button className="btn" onClick={() => DeleteItem(item.id)} >
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash trashIcon" viewBox="0 0 16 16">
                                                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
