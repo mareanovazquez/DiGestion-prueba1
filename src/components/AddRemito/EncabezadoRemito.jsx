@@ -1,5 +1,4 @@
-import { useContext } from "react"
-import { UserContext } from "../../UserContext/UserContext"
+d
 
 export const EncabezadoRemito = ({ data }) => {
     

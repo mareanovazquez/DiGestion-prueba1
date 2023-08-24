@@ -26,7 +26,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
 
     /* useState que crea el almacenamiento de los datos del remito */
     /* Los datos del encabeza del remito se cargan en el momento en que se inicializa el useState porque ya vienen dados por props*/
-    const [dataRemito, setDataRemito] = useState([{
+    const [dataRemito, setDataRemito] = useState({
 
         "remito": {
             "departamento_id": encabezadoRemito.departamento.departamento_id,
@@ -43,7 +43,6 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
         },
         "perifericos": [],
     }
-    ]
     )
 
     // Request para traer el listado de periféricos
@@ -57,35 +56,26 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
     // Función para manejar el cambio en la selección del periférico
     const handlePerifericoChange = (selectedPeriferico) => {
         setPerifericoSeleccionado(selectedPeriferico.value);
-        console.log(selectedPeriferico)
         setPerifId(selectedPeriferico.perifId)
-        console.log(selectedPeriferico.value)
     };
 
     useEffect(() => {
         if (perifId) {
             setPerifId(perifId)
             setPerifericoSeleccionado(perifericoSeleccionado)
-            console.log(perifId)
         }
     }, [perifId]);
 
     // Función para manejar el cambio en la selección de la marca
     const handleMarcaChange = (selectedMarca) => {
         setMarcaSeleccionada(selectedMarca.value);
-        console.log(selectedMarca)
         setMarcaId(selectedMarca.marcaId)
-        console.log(selectedMarca.marcaId)
-        
     };
 
     // Función para manejar el cambio en la selección del modelo
     const handleModeloChange = (selectedModelo) => {
         setModeloSeleccionado(selectedModelo.value);
-        console.log(selectedModelo);
         setModeloId(selectedModelo.modeloId);
-        console.log(selectedModelo.modeloId)
-      
     }
     // useEffect para actualizar el valor de modeloId cada vez que cambia
     useEffect(() => {
@@ -94,18 +84,17 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
         }
     }, [modeloId])
 
-     // función onClick para enviar el remito
+    // función onClick para enviar el remito
     const HandleSendRemito = () => {
 
-        //elimina ID de dataRemito
-        const prepareDataForPost = (data) => {
-            const updatedData = [...data];
-            updatedData[0].perifericos = updatedData[0].perifericos.map(({ id, ...rest }) => rest);
-            return updatedData;
+        // Crea una copia de dataRemito sin el id en cada periferico
+        const dataToSend = {
+            ...dataRemito,
+            perifericos: dataRemito.perifericos.map(periferico => {
+                const { id, ...rest } = periferico;
+                return rest;
+            })
         };
-        // Usarlo antes de enviar por POST
-        const dataToSend = prepareDataForPost(dataRemito);
-        console.log(dataToSend)
 
         const dataBody = JSON.stringify(dataToSend)
 
@@ -175,15 +164,19 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
         ]);
 
         /* Añade cada uno de los perifericos al objeto dataRemito que se va a enviar a través del POST */
-        const addPerifericoRemito = [...dataRemito];
-        addPerifericoRemito[0].perifericos.push({
-            id: id,
-            modelo_id: modeloId,
-            garantia: garantiaSeleccionada,
-            cantidad: cantidadSeleccionada,
-            comentarios: comentarioPeriferico,
-        },
-        )
+        const addPerifericoRemito = {
+            ...dataRemito,  // Copia superficial del objeto dataRemito
+            perifericos: [  // Actualizamos la propiedad perifericos con un nuevo array
+                ...dataRemito.perifericos, // Copiamos los elementos actuales de perifericos
+                {  // Agregamos el nuevo periferico al final
+                    id: id,
+                    modelo_id: modeloId,
+                    garantia: garantiaSeleccionada,
+                    cantidad: cantidadSeleccionada,
+                    comentarios: comentarioPeriferico,
+                }
+            ]
+        };
         setDataRemito(addPerifericoRemito)
 
         /*Vacía los inputs para que se pueda seleccionar un periferico nuevo */
@@ -210,8 +203,10 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
         setItemsPerifericos(itemsPerifericos.filter(item => item.id !== id))
 
         // 3. Eliminar el periférico de dataRemito.
-        const updatedDataRemito = [...dataRemito];
-        updatedDataRemito[0].perifericos = updatedDataRemito[0].perifericos.filter(periferico => periferico.id !== id);
+        const updatedDataRemito = {
+            ...dataRemito,
+            perifericos: dataRemito.perifericos.filter(periferico => periferico.id !== id)
+        };
         setDataRemito(updatedDataRemito);
     }
 
@@ -228,11 +223,13 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
         setShowTable(false);
 
         /* Función para eliminar todos los perifericos cargados */
-        const addPerifericoRemito = [...dataRemito];
-        addPerifericoRemito[0].perifericos = []; // Borra todos los periféricos
-        setDataRemito(addPerifericoRemito);
+        const updatedDataRemito = {
+            ...dataRemito,
+            perifericos: []  // Borra todos los periféricos
+        };
+        setDataRemito(updatedDataRemito);
     }
-
+    
     //Función para mostrar la cantidad total de periféricos cargados
     let totalCantidad = 0;
 
@@ -250,7 +247,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
             garantiaSeleccionada &&
             cantidadSeleccionada &&
             comentarioPeriferico
-            
+
         ) {
             setIsFormPerifValid(true);
         } else {
@@ -266,7 +263,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
         modeloSeleccionado,
         garantiaSeleccionada,
         cantidadSeleccionada,
-        comentarioPeriferico  
+        comentarioPeriferico
     ]);
 
 
@@ -277,17 +274,23 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
                     <h3>Seleccione los periféricos</h3>
                     <div className="col-4">
                         <label htmlFor='perifericos' >Periféricos</label>
-                        <SelectPerifericos onChange={handlePerifericoChange} />
+                        <SelectPerifericos
+                            onChange={handlePerifericoChange} />
                     </div>
-                    
+
                     <div className="col-4">
                         <label htmlFor='perifericos' >Marcas</label>
-                        <SelectMarcas onChange={handleMarcaChange} perifId={perifId} />
+                        <SelectMarcas
+                            onChange={handleMarcaChange}
+                            perifId={perifId} />
                     </div>
 
                     <div className="col-4">
                         <label htmlFor='perifericos' >Modeloss</label>
-                        <SelectModelos onChange={handleModeloChange} perifId={perifId} marcaId={marcaId} />
+                        <SelectModelos
+                            onChange={handleModeloChange}
+                            perifId={perifId}
+                            marcaId={marcaId} />
                     </div>
 
                 </div>

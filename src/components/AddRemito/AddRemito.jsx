@@ -25,6 +25,10 @@ export const AddRemito = () => {
 
     const { name } = useContext(UserContext);
 
+    // useState para controlar el estado de los Select2 después de seleccionar y borrar
+    const [selectedValueProv, setSelectedValueProv] = useState({ label: 'Proveedores', value: '' });
+    const [selectedValueDep, setSelectedValueDep] = useState({ label: 'Departamentos', value: '' });
+
 
     const handleDepartamentoChange = (selectedDepartamento) => {
         setDataAddRemito({ ...dataAddRemito, departamento: selectedDepartamento })
@@ -50,6 +54,9 @@ export const AddRemito = () => {
             ordenEntrega: "",
             comentarios: "",
         })
+
+        setSelectedValueProv({ label: 'Proveedores', value: '' });
+        setSelectedValueDep({ label: 'Departamentos', value: '' });
     }
 
     /* Estado de validez del formulario, inicia como falso  */
@@ -82,14 +89,13 @@ export const AddRemito = () => {
 
         setIsFormValid(camposValidos);
     }
-
     /* useEffect para  handleValidezFormulario cada vez que los valores de cualquier campo de entrada cambien: */
 
-    useEffect(()=>{
+    useEffect(() => {
         handleValidezFormulario()
-    },[dataAddRemito])
+    }, [dataAddRemito])
 
-    
+
     return (
         <>
             <div className="contenedorAltaRemito">
@@ -108,12 +114,18 @@ export const AddRemito = () => {
 
                     <div className="col">
                         <label htmlFor='departamentos' >Departamentos</label>
-                        <SelectDepartamentos onChange={handleDepartamentoChange} />
+                        <SelectDepartamentos 
+                        onChange={handleDepartamentoChange} 
+                        selectedValueDep={selectedValueDep} 
+                        setSelectedValueDep={setSelectedValueDep} />
                     </div>
 
                     <div className="col">
                         <label htmlFor='proveedores' >Proveedores</label>
-                        <SelectProveedores onChange={handleProveedorChange} />
+                        <SelectProveedores 
+                        onChange={handleProveedorChange} 
+                        selectedValueProv={selectedValueProv} 
+                        setSelectedValueProv={setSelectedValueProv} />
                     </div>
 
                     <div className="col">
@@ -248,7 +260,7 @@ export const AddRemito = () => {
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                         <Link to='/remitos'><button className="btn btn-primary" type="button">Volver</button> </Link>
 
-                        <ModalAddPerifericos data={{ ...dataAddRemito, usuarioAlta: name }} deleteCamposRemito={deleteCamposRemito} deshabilitado ={!isFormValid} />
+                        <ModalAddPerifericos data={{ ...dataAddRemito, usuarioAlta: name }} deleteCamposRemito={deleteCamposRemito} deshabilitado={!isFormValid} />
 
                         <button onClick={deleteCamposRemito} className="btn btn-primary" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash trashIcon" viewBox="0 0 16 16">
