@@ -23,6 +23,7 @@ export const ItemRemito = () => {
             .then(response => {
                 const listRemitos = response.data.data;
                 setRemitos(listRemitos);
+                console.log(listRemitos)
             })
             .catch(error => {
                 console.log(error)
@@ -76,23 +77,23 @@ export const ItemRemito = () => {
                                         <ul>
                                             <li><b>Departamento:</b>{remitos.departamento}</li>
                                             <li><b>Remito:</b> {remitos.remito}</li>
-                                            <li><b>Usuario alta:</b></li>
-                                            <li><b>Orden provisión:</b></li>
+                                            <li><b>Usuario alta: </b> {remitos.usuario_alta}</li>
+                                            <li><b>Orden provisión:</b> {remitos.orden_provision}</li>
                                         </ul>
                                     </div>
                                     <div className="col">
                                         <ul>
                                             <li><b>Proveedor:</b> {remitos.proveedor}</li>
-                                            <li><b>Expediente:</b></li>
-                                            <li><b>Orden compra:</b></li>
-                                            <li><b>Orden entrega:</b></li>
+                                            <li><b>Expediente:</b>{remitos.expediente}</li>
+                                            <li><b>Orden compra:</b> {remitos.orden_compra}</li>
+                                            <li><b>Orden entrega:</b>{remitos.orden_entrega}</li>
                                         </ul>
                                     </div>
                                     <div className="col">
                                         <ul>
                                             <li><b>Fecha recepción:</b> {remitos.fecha_recepcion}</li>
                                             <li><b>Fecha recepción DTI:</b>{remitos.fecha_recepcion_dti}</li>
-                                            <li><b>Legajo compra:</b></li>
+                                            <li><b>Legajo compra:</b>{remitos.legajo_compra}</li>
                                         </ul>
                                     </div>
                                     <hr></hr>
@@ -134,11 +135,11 @@ export const ItemRemito = () => {
                                             <th>Comentarios</th>
                                         </tr>
                                         <tr className='d-none'>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{remitos.expediente}</td>
+                                            <td>{remitos.orden_compra}</td>
+                                            <td>{remitos.orden_entrega}</td>
+                                            <td>{remitos.legajo}</td>
+                                            <td>{remitos.orden_provision}</td>
                                             <td>{remitos.fecha_recepcion_dti}</td>
                                             <td>{remitos.comentarios}</td>
                                         </tr>

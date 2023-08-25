@@ -93,10 +93,10 @@ export const ItemRemitoPDF = ({data}) => {
                                         <Text style={styles.bold}>Remito: {data.remito}</Text> 
                                     </li>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Usuario alta:</Text>
+                                        <Text style={styles.bold}>Usuario alta: {data.usuario_alta}</Text>
                                     </li>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Orden provisión:</Text>
+                                        <Text style={styles.bold}>Orden provisión:{data.orden_provision}</Text>
                                     </li>
                                 </ul>
                             </View>
@@ -106,13 +106,13 @@ export const ItemRemitoPDF = ({data}) => {
                                         <Text style={styles.bold}>Proveedor:{data.proveedor}</Text> 
                                     </li>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Expediente:</Text>
+                                        <Text style={styles.bold}>Expediente:{data.expediente}</Text>
                                     </li>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Orden compra:</Text>
+                                        <Text style={styles.bold}>Orden compra:{data.orden_compra}</Text>
                                     </li>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Orden entrega:</Text>
+                                        <Text style={styles.bold}>Orden entrega:{data.orden_entrega}</Text>
                                     </li>
                                 </ul>
                             </View>
@@ -125,7 +125,7 @@ export const ItemRemitoPDF = ({data}) => {
                                         <Text style={styles.bold}>Fecha recepción DTI: {data.fecha_recepcion_dti}</Text> 
                                     </li>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Legajo compra:</Text>
+                                        <Text style={styles.bold}>Legajo compra: {data.legajo_compra}</Text>
                                     </li>
                                 </ul>
                             </View>
