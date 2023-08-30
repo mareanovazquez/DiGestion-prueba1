@@ -104,9 +104,12 @@ li {
   bottom: 20px;
   right: 20px;
   z-index: 100;
-  
-}
+  }
 
+  .addRemito button {
+  width: 50px;
+  height: 50px;
+}
 
 .menuDescargasRemito {
   position: fixed;

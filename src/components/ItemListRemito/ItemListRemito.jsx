@@ -53,20 +53,18 @@ export const ItemListRemito = () => {
                 <table className="table tablaRemitos">
                     <thead>
                         <tr>
-                            <th className="text-center" scope='col'> ID</th>
+                            <th scope='col'> Remito</th>
                             <th scope='col'> Departamento</th>
                             <th scope='col'> Proveedor</th>
                             <th scope='col'> Fecha recepción</th>
-                            <th scope='col'> Remito</th>
                             <th scope='col'> Fecha recepción DTI</th>
                             <th scope="col" className="text-center">Ver remito</th>
                         </tr>
                         <tr>
-                            <th className="text-center" scope='col'></th>
+                            <th scope='col'> <input type='text' value={filterRemito} placeholder="Filtrar" onChange={(e) => setFilterRemito(e.target.value)} /></th>
                             <th scope='col'> <input type='text' value={filterDepartamento} placeholder="Filtrar" onChange={(e) => setFilterDepartamento(e.target.value)} /></th>
                             <th scope='col'> <input type='text' value={filterProveedor} placeholder="Filtrar" onChange={(e) => setFilterProveedor(e.target.value)} /></th>
                             <th scope='col'> <input type="date" value={filterFechaRecepcion} placeholder="filtrar" onChange={(e) => setFilterFechaRecepcion(e.target.value)} /></th>
-                            <th scope='col'> <input type='text' value={filterRemito} placeholder="Filtrar" onChange={(e) => setFilterRemito(e.target.value)} /></th>
                             <th scope='col'> <input type="date" value={filterFechaRecepcionDTI} placeholder="filtrar" onChange={(e) => setFilterFechaRecepcionDTI(e.target.value)} /></th>
                             <th scope="col"></th>
                         </tr>
@@ -75,11 +73,10 @@ export const ItemListRemito = () => {
                         {filteredRemitos.map((remito) =>
                         (
                             <tr className="border-bottom my-2" key={remito.id} scope="row">
-                                <td className="border-bottom">{remito.id}</td>
+                                <td className="border-bottom">{remito.remito}</td> {/* El número de remito debería pasar a la columna 1 */}
                                 <td className="border-bottom">{remito.departamento}</td>
                                 <td className="border-bottom">{remito.proveedor}</td>
                                 <td className="border-bottom">{remito.fecha_recepcion}</td>
-                                <td className="border-bottom">{remito.remito}</td>
                                 <td className="border-bottom">{remito.fecha_recepcion_dti}</td>
                                 <td className="border-bottom"><Link to={`/remito/${remito.id}`}><Ver /></Link> </td>
                             </tr>
@@ -99,11 +96,10 @@ export const ItemListRemito = () => {
                         {handleRemitosFiltered()}
                     </div>
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end addRemito">
-                        <Link /* onClick={handleAddRemito} */ to='/remito/addRemito' >
+                        <Link to='/remito/addRemito' >
                             <button className="btn btn-primary" type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-plus-square" viewBox="0 0 16 16">
-                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" />
                                 </svg>
                             </button>
                         </Link>
