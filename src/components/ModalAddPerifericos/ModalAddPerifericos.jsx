@@ -4,21 +4,25 @@ import Modal from 'react-bootstrap/Modal';
 import { UserContext } from '../../UserContext/UserContext';
 import { ListadoPerifericos } from '../ListadoPerifericos/ListadoPerifericos';
 
-export function ModalAddPerifericos({ data, deleteCamposRemito, deshabilitado }) {
+export function ModalAddPerifericos({ data, deleteCamposRemito, setShow, show }) {
 
-    const [show, setShow] = useState(false);
+    
     const handleClose = () => setShow(false);
-    const handleShow = () => {
+
+    /* Función de Bootstrap para desplegar el modal */
+    /* const handleShow = () => {
         setShow(true)
-    };
+        
+    }; */
 
     const { name } = useContext(UserContext)
 
     return (
         <>
-            <Button variant={deshabilitado ? 'secondary' : 'primary'} onClick={handleShow} disabled={deshabilitado}>
+        {/* Botón de Bootstrap para desplegar el modal */}
+           {/*  <Button variant={'primary'} onClick={handleShow}>
                 Iniciar remito
-            </Button>
+            </Button> */}
 
             <Modal
                 size='xl'

@@ -6,7 +6,6 @@ import { useContext } from "react";
 import { UserContext } from "../../UserContext/UserContext";
 import { Loading } from "../Loading/Loading";
 
-
 export const ItemListRemito = () => {
     const [remitos, setRemitos] = useState([]);
     const [filterDepartamento, setFilterDepartamento] = useState('');
@@ -70,17 +69,16 @@ export const ItemListRemito = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredRemitos.map((remito) =>
-                        (
+                        {filteredRemitos.map((remito) =>                        
                             <tr className="border-bottom my-2" key={remito.id} scope="row">
-                                <td className="border-bottom">{remito.remito}</td> {/* El número de remito debería pasar a la columna 1 */}
+                                <td className="border-bottom">{remito.remito}</td>
                                 <td className="border-bottom">{remito.departamento}</td>
                                 <td className="border-bottom">{remito.proveedor}</td>
                                 <td className="border-bottom">{remito.fecha_recepcion}</td>
                                 <td className="border-bottom">{remito.fecha_recepcion_dti}</td>
                                 <td className="border-bottom"><Link to={`/remito/${remito.id}`}><Ver /></Link> </td>
                             </tr>
-                        ))}
+                        )}
                     </tbody>
                 </table>
             </div >
