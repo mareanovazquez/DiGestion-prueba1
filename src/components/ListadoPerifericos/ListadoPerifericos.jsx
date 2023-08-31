@@ -32,8 +32,8 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose, deleteCampos
     const [dataRemito, setDataRemito] = useState({
 
         "remito": {
-            "departamento_id": encabezadoRemito.departamento.departamento_id,
-            "proveedor_id": encabezadoRemito.proveedor.proveedor_id,
+/*             "departamento_id": encabezadoRemito.departamento.departamento_id,
+            "proveedor_id": encabezadoRemito.proveedor.proveedor_id, */
             "fecha_recepcion": encabezadoRemito.fechaRecepcionSTI,
             "remito": encabezadoRemito.remito,
             "expediente": encabezadoRemito.expediente,

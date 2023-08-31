@@ -4,9 +4,9 @@ import Modal from 'react-bootstrap/Modal';
 import { UserContext } from '../../UserContext/UserContext';
 import { ListadoPerifericos } from '../ListadoPerifericos/ListadoPerifericos';
 
-export function ModalAddPerifericos({ data, deleteCamposRemito, setShow, show }) {
+export function ModalAddPerifericos({ data, values, deleteCamposRemito, setShow, show }) {
 
-    
+
     const handleClose = () => setShow(false);
 
     /* Función de Bootstrap para desplegar el modal */
@@ -16,11 +16,13 @@ export function ModalAddPerifericos({ data, deleteCamposRemito, setShow, show })
     }; */
 
     const { name } = useContext(UserContext)
+    console.log(data)
+    console.log(values)
 
     return (
         <>
-        {/* Botón de Bootstrap para desplegar el modal */}
-           {/*  <Button variant={'primary'} onClick={handleShow}>
+            {/* Botón de Bootstrap para desplegar el modal */}
+            {/*  <Button variant={'primary'} onClick={handleShow}>
                 Iniciar remito
             </Button> */}
 
@@ -44,24 +46,22 @@ export function ModalAddPerifericos({ data, deleteCamposRemito, setShow, show })
                                 <div className="row align-items-start">
                                     <div className="col">
                                         <ul>
-                                            <li><b>Departamento:</b> {data.departamento.value}</li>
-                                            <li><b>Remito:</b> {data.remito}</li>
                                             <li><b>Usuario alta:</b> {name}</li>
                                             <li><b>Orden provisión:</b> {data.ordenProvision}</li>
+                                            <li><b>Expediente:</b>{data.expediente}</li>
                                         </ul>
                                     </div>
                                     <div className="col">
                                         <ul>
-                                            <li><b>Proveedor:</b>{data.proveedor.value}</li>
-                                            <li><b>Expediente:</b>{data.expediente}</li>
+{/*                                             <li><b>Departamento:</b> {data.departamento.value}</li> */}
                                             <li><b>Orden compra:</b>{data.ordenCompra}</li>
                                             <li><b>Orden entrega:</b> {data.ordenEntrega}</li>
                                         </ul>
                                     </div>
                                     <div className="col">
                                         <ul>
+{/*                                             <li><b>Proveedor:</b>{data.proveedor.value}</li> */}
                                             <li><b>Fecha recepción:</b> {data.fechaRecepcionSTI}</li>
-                                            <li><b>Fecha recepción DTI:</b> {data.fechaRecepcionDTI}</li>
                                             <li><b>Legajo compra:</b> {data.legajoCompra}</li>
                                         </ul>
                                     </div>

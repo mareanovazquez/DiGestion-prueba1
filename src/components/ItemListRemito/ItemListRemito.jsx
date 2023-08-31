@@ -40,7 +40,7 @@ export const ItemListRemito = () => {
             && remito.proveedor.toString().toLowerCase().includes(filterProveedor.toLowerCase())
             && remito.fecha_recepcion.includes(filterFechaRecepcion)
             && remito.remito.toLowerCase().includes(filterRemito.toLowerCase())
-            && remito.fecha_recepcion_dti.includes(filterFechaRecepcionDTI))
+            )
 
 
         return (
@@ -56,7 +56,6 @@ export const ItemListRemito = () => {
                             <th scope='col'> Departamento</th>
                             <th scope='col'> Proveedor</th>
                             <th scope='col'> Fecha recepción</th>
-                            <th scope='col'> Fecha recepción DTI</th>
                             <th scope="col" className="text-center">Ver remito</th>
                         </tr>
                         <tr>
@@ -64,7 +63,6 @@ export const ItemListRemito = () => {
                             <th scope='col'> <input type='text' value={filterDepartamento} placeholder="Filtrar" onChange={(e) => setFilterDepartamento(e.target.value)} /></th>
                             <th scope='col'> <input type='text' value={filterProveedor} placeholder="Filtrar" onChange={(e) => setFilterProveedor(e.target.value)} /></th>
                             <th scope='col'> <input type="date" value={filterFechaRecepcion} placeholder="filtrar" onChange={(e) => setFilterFechaRecepcion(e.target.value)} /></th>
-                            <th scope='col'> <input type="date" value={filterFechaRecepcionDTI} placeholder="filtrar" onChange={(e) => setFilterFechaRecepcionDTI(e.target.value)} /></th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -75,7 +73,6 @@ export const ItemListRemito = () => {
                                 <td className="border-bottom">{remito.departamento}</td>
                                 <td className="border-bottom">{remito.proveedor}</td>
                                 <td className="border-bottom">{remito.fecha_recepcion}</td>
-                                <td className="border-bottom">{remito.fecha_recepcion_dti}</td>
                                 <td className="border-bottom"><Link to={`/remito/${remito.id}`}><Ver /></Link> </td>
                             </tr>
                         )}
