@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { UserContext } from '../../UserContext/UserContext';
 import { ListadoPerifericos } from '../ListadoPerifericos/ListadoPerifericos';
 
-export function ModalAddPerifericos({ data, values, deleteCamposRemito, setShow, show }) {
+export function ModalAddPerifericos({ data, deleteCamposRemito, setShow, show }) {
 
 
     const handleClose = () => setShow(false);
@@ -17,7 +17,10 @@ export function ModalAddPerifericos({ data, values, deleteCamposRemito, setShow,
 
     const { name } = useContext(UserContext)
     console.log(data)
-    console.log(values)
+    if (!data) {
+        return <p>No hay datos disponibles para mostrar.</p>;
+    }
+
 
     return (
         <>
@@ -53,14 +56,14 @@ export function ModalAddPerifericos({ data, values, deleteCamposRemito, setShow,
                                     </div>
                                     <div className="col">
                                         <ul>
-{/*                                             <li><b>Departamento:</b> {data.departamento.value}</li> */}
+                                            <li><b>Departamento:</b> {data?.departamento?.value}</li>
                                             <li><b>Orden compra:</b>{data.ordenCompra}</li>
                                             <li><b>Orden entrega:</b> {data.ordenEntrega}</li>
                                         </ul>
                                     </div>
                                     <div className="col">
                                         <ul>
-{/*                                             <li><b>Proveedor:</b>{data.proveedor.value}</li> */}
+                                            <li><b>Proveedor:</b>{data?.proveedor?.value}</li> 
                                             <li><b>Fecha recepción:</b> {data.fechaRecepcionSTI}</li>
                                             <li><b>Legajo compra:</b> {data.legajoCompra}</li>
                                         </ul>

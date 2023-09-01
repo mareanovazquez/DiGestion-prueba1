@@ -1,51 +1,22 @@
-import { useContext, useEffect, useState } from "react"
-
-import { UserContext } from "../../UserContext/UserContext";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+
 import { ModalAddPerifericos } from "../ModalAddPerifericos/ModalAddPerifericos";
 import { SelectProveedores } from "../Select/SelectProveedores";
 import { SelectDepartamentos } from "../Select/SelectDepartamentos";
 
-import { Formik } from "formik";
 
 export const AddRemito = () => {
 
     const [show, setShow] = useState(false);
 
- const [dataAddRemito, setDataAddRemito] = useState({}); 
+    const [dataAddRemito, setDataAddRemito] = useState({});
 
     // useState para controlar el estado de los Select2 después de seleccionar y borrar
     const [selectedValueProv, setSelectedValueProv] = useState({ label: 'Proveedores', value: '' });
     const [selectedValueDep, setSelectedValueDep] = useState({ label: 'Departamentos', value: '' });
 
-
-    const handleDepartamentoChange = (selectedDepartamento) => {
-        setDataAddRemito({ ...dataAddRemito, departamento: selectedDepartamento })
-    }
-
-    const handleProveedorChange = (selectedProveedor) => {
-        setDataAddRemito({ ...dataAddRemito, proveedor: selectedProveedor })
-    }
-
-/*     const deleteCamposRemito = () => {
-        setDataAddRemito({
-
-            departamento: "",
-            departamento_id: "",
-            proveedor: "",
-            fechaRecepcionSTI: "",
-            remito: "",
-            expediente: "",
-            ordenCompra: "",
-            legajoCompra: "",
-            ordenProvision: "",
-            ordenEntrega: "",
-            comentarios: "",
-        })
-
-        setSelectedValueProv({ label: 'Proveedores', value: '' });
-        setSelectedValueDep({ label: 'Departamentos', value: '' });
-    } */
 
 
     return (
@@ -54,6 +25,8 @@ export const AddRemito = () => {
                 <Formik
                     initialValues={{
                         remito: '',
+                        departamento:'',
+                        proveedor:'',
                         fechaRecepcionSTI: '',
                         expediente: '',
                         legajoCompra: '',
@@ -73,6 +46,13 @@ export const AddRemito = () => {
                             errores.remito = 'Ingresá número de remito'
                         }
 
+                        if (!valores.departamento) {
+                            errores.departamento = "Seleccioná un departamento";
+                        }
+                        if (!valores.proveedor) {
+                            errores.proveedor = "Seleccioná un proveedor";
+                        }
+
                         return errores;
                     }}
                     onSubmit={(valores, { resetForm }) => {
@@ -81,15 +61,15 @@ export const AddRemito = () => {
                         setShow(true)
                     }}
                 >
-                    {({ values, errors, touched, handleSubmit, handleChange, handleBlur }) => (
+                    {({errors, setFieldValue, values}) => (
 
-                        <form onSubmit={handleSubmit}>
+                        <Form>
                             <div className="row altaRemito">
                                 <h2 className="text-left"> Alta de Remito</h2>
                                 {/*Nombre del usuario que da el alta del remito */}
                                 {/* <div className="col">
                                     <label>Usuario Alta</label>
-                                    <input type="text"
+                                    <Field type="text"
                                         className="form-control"
                                         placeholder="Usuario"
                                         aria-label="Usuario Ata"
@@ -100,33 +80,45 @@ export const AddRemito = () => {
 
                                 <div className="col">
                                     <label>Remito</label>
-                                    <input type="number"
+                                    <Field type="number"
                                         className="form-control"
                                         name="remito"
                                         id="remito"
                                         placeholder="Número remito"
                                         aria-label="Remito"
-                                        value={values.remito}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
                                     />
-                                    {touched.remito && errors.remito && <span><small className="text-danger p-2">{errors.remito}</small></span>}
+                                    <ErrorMessage
+                                        name="remito"
+                                        component={() => (<span><small className="text-danger p-2">{errors.remito}</small></span>)}
+                                    />
                                 </div>
 
                                 <div className="col">
                                     <label htmlFor='departamentos' >Departamentos</label>
                                     <SelectDepartamentos
-                                        onChange={handleDepartamentoChange}
-                                        selectedValueDep={selectedValueDep}
-                                        setSelectedValueDep={setSelectedValueDep} />
+                                        selectedValueDep={values.departamento}
+                                        onChange={(selectedDepartamento) => {
+                                            setFieldValue('departamento', selectedDepartamento);
+                                            setSelectedValueDep(selectedDepartamento); 
+                                        }} />
+                                         <ErrorMessage
+                                        name="departamento"
+                                        component={() => (<span><small className="text-danger p-2">{errors.departamento}</small></span>)}
+                                    />
                                 </div>
 
                                 <div className="col">
                                     <label htmlFor='proveedores' >Proveedores</label>
                                     <SelectProveedores
-                                        onChange={handleProveedorChange}
-                                        selectedValueProv={selectedValueProv}
-                                        setSelectedValueProv={setSelectedValueProv} />
+                                        selectedValueProv={values.proveedor}
+                                        onChange={(selectedProveedor) => {
+                                            setFieldValue('proveedor', selectedProveedor);
+                                            setSelectedValueProv(selectedProveedor); 
+                                        }} />
+                                        <ErrorMessage
+                                        name="proveedor"
+                                        component={() => (<span><small className="text-danger p-2">{errors.proveedor}</small></span>)}
+                                    />
                                 </div>
 
                             </div>
@@ -135,43 +127,37 @@ export const AddRemito = () => {
 
                                 <div className="col">
                                     <label htmlFor='fechaRecepcionSTI' >Fecha recepción STI</label>
-                                    <input className="form-control"
+                                    <Field className="form-control"
                                         type="date" id="fechaRecepcionSTI"
                                         name="fechaRecepcionSTI" pattern="\d{1,2}/\d{1,2}/\d{2}"
                                         placeholder="dd/mm/aa"
                                         aria-label="Fecha recepción STI"
-                                        value={values.fechaRecepcionSTI}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
                                     />
-                                    {touched.fechaRecepcionSTI && errors.fechaRecepcionSTI && <span><small className="text-danger p-2">{errors.fechaRecepcionSTI}</small></span>}
+                                    <ErrorMessage
+                                        name="fechaRecepcionSTI"
+                                        component={() => (<span><small className="text-danger p-2">{errors.fechaRecepcionSTI}</small></span>)}
+                                    />
                                 </div>
 
                                 <div className="col">
                                     <label>Expediente</label>
-                                    <input type="text"
+                                    <Field type="text"
                                         className="form-control"
                                         name="expediente"
                                         id="expediente"
                                         placeholder="Expediente"
                                         aria-label="Expediente"
-                                        value={values.expediente}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
                                     />
                                 </div>
 
                                 <div className="col">
                                     <label>Legajo compra</label>
-                                    <input type="text"
+                                    <Field type="text"
                                         className="form-control"
                                         name="legajoCompra"
                                         id="legajoCompra"
                                         placeholder="Legajo compra"
                                         aria-label="Legajo compra"
-                                        value={values.legajoCompra}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
                                     />
                                 </div>
 
@@ -179,45 +165,34 @@ export const AddRemito = () => {
                             <div className="row altaRemito">
                                 <div className="col">
                                     <label>Orden compra</label>
-                                    <input type="text"
+                                    <Field type="text"
                                         className="form-control"
                                         name="ordenCompra"
                                         id="ordenCompra"
                                         placeholder="Orden compra"
                                         aria-label="orden compra"
-                                        value={values.ordenCompra}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
                                     />
                                 </div>
 
-
-
                                 <div className="col">
                                     <label>Orden provisión</label>
-                                    <input type="text"
+                                    <Field type="text"
                                         className="form-control"
                                         name="ordenProvision"
                                         id="ordenProvision"
                                         placeholder="Orden provisión"
                                         aria-label="orden provisión"
-                                        value={values.ordenProvision}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
                                     />
                                 </div>
 
                                 <div className="col">
                                     <label>Orden entrega</label>
-                                    <input type="text"
+                                    <Field type="text"
                                         className="form-control"
                                         name="ordenEntrega"
                                         id="ordenEntrega"
                                         placeholder="Orden entrega"
                                         aria-label="Orden entrega"
-                                        value={values.ordenEntrega}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
                                     />
                                 </div>
 
@@ -225,15 +200,16 @@ export const AddRemito = () => {
                             <div className="row altaRemito">
                                 <div className="col">
                                     <label htmlFor="comentarios">COMENTARIOS</label>
-                                    <textarea id="comentarios"
+                                    <Field 
+                                        id="comentarios"
                                         className="form-control"
+                                        placeholder="El comentario no puede superar los  200 caracteres"
                                         name="comentarios"
+                                        as="textarea"
                                         rows="3"
                                         cols="100"
-                                        value={values.comentarios}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                    ></textarea>
+                                        maxLength="200"
+                                    />
 
                                 </div>
                             </div>
@@ -247,14 +223,14 @@ export const AddRemito = () => {
                                     </svg>
                                 </button>
                             </div>
-                            <ModalAddPerifericos  data={dataAddRemito} values={values} /* deleteCamposRemito={deleteCamposRemito} */ setShow={setShow} show={show} />
+                            <ModalAddPerifericos data={dataAddRemito} /* deleteCamposRemito={deleteCamposRemito} */ setShow={setShow} show={show} />
 
-                        </form>
+                        </Form>
                     )}
                 </Formik>
                 <div className="row altaRemito">
 
-                    
+
 
                 </div>
             </div >
