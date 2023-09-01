@@ -6,7 +6,6 @@ import { ModalAddPerifericos } from "../ModalAddPerifericos/ModalAddPerifericos"
 import { SelectProveedores } from "../Select/SelectProveedores";
 import { SelectDepartamentos } from "../Select/SelectDepartamentos";
 
-
 export const AddRemito = () => {
 
     const [show, setShow] = useState(false);
@@ -16,14 +15,6 @@ export const AddRemito = () => {
     // useState para controlar el estado de los Select2 después de seleccionar y borrar
     const [selectedValueProv, setSelectedValueProv] = useState({ label: 'Proveedores', value: '' });
     const [selectedValueDep, setSelectedValueDep] = useState({ label: 'Departamentos', value: '' });
-
-    const deleteCamposRemito = (resetFormFunction) => {
-        resetFormFunction();
-        // Aquí también puedes resetear otros estados si lo necesitas, por ejemplo:
-        setSelectedValueProv({ label: 'Proveedores', value: '' });
-        setSelectedValueDep({ label: 'Departamentos', value: '' });
-    }
-
 
     return (
         <>

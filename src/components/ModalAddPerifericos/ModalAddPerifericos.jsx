@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { UserContext } from '../../UserContext/UserContext';
 import { ListadoPerifericos } from '../ListadoPerifericos/ListadoPerifericos';
 
-export function ModalAddPerifericos({ data, deleteCamposRemito, setShow, show }) {
+export function ModalAddPerifericos({ data, setShow, show }) {
 
 
     const handleClose = () => setShow(false);
@@ -77,7 +77,7 @@ export function ModalAddPerifericos({ data, deleteCamposRemito, setShow, show })
                 </Modal.Body>
                 {/* LISTADO DE PERIFÉRICOS  */}
                 <Modal.Body>
-                    <ListadoPerifericos encabezadoRemito={data} handleClose={handleClose} deleteCamposRemito={deleteCamposRemito} />
+                    <ListadoPerifericos encabezadoRemito={data} handleClose={handleClose} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
