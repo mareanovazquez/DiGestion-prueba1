@@ -136,11 +136,24 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
                             comentarios: valores.comentarioPeriferico,
                             id: id
                         }]);
+                        const addPerifericoRemito = {
+                            ...dataRemito,  // Copia superficial del objeto dataRemito
+                            perifericos: [  // Actualizamos la propiedad perifericos con un nuevo array
+                                ...dataRemito.perifericos, // Copiamos los elementos actuales de perifericos
+                                {  // Agregamos el nuevo periferico al final
+                                    id: id,
+                                    modelo_id: modeloId,
+                                    garantia: valores.garantiaSeleccionada,
+                                    cantidad: valores.cantidadSeleccionada,
+                                    comentarios: valores.comentarioPeriferico,
+                                }
+                            ]
+                        };
                         setId(id + 1);
                         setDataRemito(addPerifericoRemito)
                         setShowTable(true);
                         resetForm();
-                    }}
+                        }}
                 >
 
                     {({ errors, setFieldValue, values, resetForm }) => (
