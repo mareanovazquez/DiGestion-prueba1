@@ -6,21 +6,16 @@ import HttpService from "../../services/HttpService"
 export const SelectPerifericos = (props) => {
     const [perifericos, setPerifericos] = useState([])
     const { token } = useContext(UserContext)
-
     const http = new HttpService();
 
     useEffect(() => {
         http.getData('/perifericos', token)
-
             .then(response => {
-
                 const perifericos = response.data.data.map(periferico => ({
                     value: periferico.nombre,
                     label: periferico.nombre,
                     perifId: periferico.id // Cambia "otroValor" al nombre correcto                  
-
-                }
-                ))
+                }))
                 setPerifericos(perifericos)
             })
             .catch(error => {
@@ -29,11 +24,7 @@ export const SelectPerifericos = (props) => {
     }, [])
 
     const handleSelected = (perifericoSeleccionado) => {
-        props.onChange({
-            value: perifericoSeleccionado.value,
-            perifId: perifericoSeleccionado.perifId
-        });
-        props.setSelectedValuePerif(perifericoSeleccionado)
+        props.onChange(perifericoSeleccionado);
     }
 
     return (
@@ -42,6 +33,7 @@ export const SelectPerifericos = (props) => {
                 value={props.selectedValuePerif}
                 options={perifericos}
                 onChange={handleSelected}
+                placeholder="Periféricos"
             />
         </>
     )

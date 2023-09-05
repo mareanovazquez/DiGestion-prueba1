@@ -57,7 +57,7 @@ export const AddRemito = () => {
                         resetForm();
                         setShow(true)
                     }}
-
+                    
                 >
                     {({ errors, setFieldValue, values, resetForm }) => (
 
@@ -107,11 +107,9 @@ export const AddRemito = () => {
                                         component={() => (<span><small className="text-danger p-2">{errors.proveedor}</small></span>)}
                                     />
                                 </div>
-
                             </div>
 
                             <div className="row altaRemito">
-
                                 <div className="col">
                                     <label htmlFor='fechaRecepcionSTI' >Fecha recepción STI</label>
                                     <Field className="form-control"
@@ -214,15 +212,11 @@ export const AddRemito = () => {
                                     </svg>
                                 </button>
                             </div>
-                            <ModalAddPerifericos data={dataAddRemito} /* deleteCamposRemito={deleteCamposRemito} */ setShow={setShow} show={show} />
-
+                            <ModalAddPerifericos dataAddRemito={dataAddRemito} setShow={setShow} show={show} />
                         </Form>
                     )}
                 </Formik>
                 <div className="row altaRemito">
-
-
-
                 </div>
             </div >
         </>

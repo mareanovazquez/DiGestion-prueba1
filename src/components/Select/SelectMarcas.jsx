@@ -6,23 +6,19 @@ import HttpService from "../../services/HttpService"
 export const SelectMarcas = (props) => {
     const [marcas, setMarcas] = useState([])
     const { token } = useContext(UserContext)
-
     const http = new HttpService();
     const perifId = props.perifId
 
     useEffect(() => {
 
         if (perifId) {
-
             http.getData(`/remitos/get-marcas/${perifId}`, token)
-
                 .then(response => {
                     const ListMarcas = response.data
                     const marcas = Object.values(ListMarcas).map(marca => ({
                         value: marca.nombre,
                         label: marca.nombre,
                         marcaId: marca.id // Cambia "otroValor" al nombre correcto                  
-
                     }
                     ))
                     setMarcas(marcas)
@@ -34,11 +30,7 @@ export const SelectMarcas = (props) => {
     }, [perifId])
 
     const handleSelected = (marcaSeleccionada) => {
-        props.onChange({
-            value: marcaSeleccionada.value,
-            marcaId: marcaSeleccionada.marcaId
-        });
-        props.setSelectedValueMarca(marcaSeleccionada)
+        props.onChange(marcaSeleccionada);
     }
 
     return (
@@ -47,6 +39,7 @@ export const SelectMarcas = (props) => {
                value={props.selectedValueMarca}
                 options={marcas}
                 onChange={handleSelected}
+                placeholder="Marcas"
             />
         </>
     )
