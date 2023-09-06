@@ -4,19 +4,15 @@ import Modal from 'react-bootstrap/Modal';
 import { UserContext } from '../../UserContext/UserContext';
 import { ListadoPerifericos } from '../ListadoPerifericos/ListadoPerifericos';
 
-export function ModalAddPerifericos({ dataAddRemito, setShow, show }) {
+export function ModalAddPerifericos({setDataAddRemito, dataAddRemito, setShow, show }) {
 
-
-    const handleClose = () => setShow(false);
-
-    /* Función de Bootstrap para desplegar el modal */
-    /* const handleShow = () => {
-        setShow(true)
-        
-    }; */
+    const handleClose = () => {
+    setShow(false);
+    setDataAddRemito({});
+    }    
 
     const { name } = useContext(UserContext)
-    console.log(dataAddRemito)
+
     if (!dataAddRemito) {
         return <p>No hay datos disponibles para mostrar.</p>;
     }

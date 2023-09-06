@@ -21,22 +21,6 @@
         ]);
 
 
-        /* Añade cada uno de los perifericos al objeto dataRemito que se va a enviar a través del POST */
-        const addPerifericoRemito = {
-            ...dataRemito,  // Copia superficial del objeto dataRemito
-            perifericos: [  // Actualizamos la propiedad perifericos con un nuevo array
-                ...dataRemito.perifericos, // Copiamos los elementos actuales de perifericos
-                {  // Agregamos el nuevo periferico al final
-                    id: id,
-                    modelo_id: modeloId,
-                    garantia: garantiaSeleccionada,
-                    cantidad: cantidadSeleccionada,
-                    comentarios: comentarioPeriferico,
-                }
-            ]
-        };
-        setDataRemito(addPerifericoRemito)
-
         /*Vacía los inputs para que se pueda seleccionar un periferico nuevo */
         setPerifericoSeleccionado('');
         setMarcaSeleccionada('');
@@ -51,56 +35,8 @@
 
     }
 
-    //Función para eliminar un solo item de la lista de perifericos 
-    const DeleteItem = (id) => {
-        // 1. Resetear los valores de los inputs.
-        setPerifericoSeleccionado('');
-        setMarcaSeleccionada('');
-        setModeloSeleccionado('');
-        setGarantiaSeleccionada('');
-        setComentarioPeriferico('');
-        setCantidadSeleccionada('1');
-
-        // 2. Eliminar el periférico de itemsPerifericos.
-        setItemsPerifericos(itemsPerifericos.filter(item => item.id !== id))
-
-        // 3. Eliminar el periférico de dataRemito.
-        const updatedDataRemito = {
-            ...dataRemito,
-            perifericos: dataRemito.perifericos.filter(periferico => periferico.id !== id)
-        };
-        setDataRemito(updatedDataRemito);
-    }
-
-    // Función para eliminar todos los items de la lista de periféricos
-    const EliminarTodo = () => {
-        setItemsPerifericos([])
-        setId(1)
-        setPerifericoSeleccionado('');
-        setMarcaSeleccionada('');
-        setModeloSeleccionado('');
-        setGarantiaSeleccionada('');
-        setComentarioPeriferico('');
-        setCantidadSeleccionada('');
-        setShowTable(false);
-
-        /* Función para eliminar todos los perifericos cargados */
-        const updatedDataRemito = {
-            ...dataRemito,
-            perifericos: []  // Borra todos los periféricos
-        };
-        setDataRemito(updatedDataRemito);
-        setSelectedValuePerif({ label: 'Periférico', value: '' });
-        setSelectedValueMarca({ label: 'Marca', value: '' });
-        setSelectedValueMod({ label: 'Modelo', value: '' });
-    }
-
-    //Función para mostrar la cantidad total de periféricos cargados
-    let totalCantidad = 0;
-
-    for (let i = 0; i < itemsPerifericos.length; i++) {
-        totalCantidad += parseInt(itemsPerifericos[i].cantidad);
-    }
+   
+    
 
 
      // Función para manejar el cambio en la selección del periférico

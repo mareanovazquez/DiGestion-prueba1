@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { SelectPerifericos } from "../Select/SelectPerifericos";
 import { SelectMarcas } from "../Select/SelectMarcas";
 import { SelectModelos } from "../Select/SelectModelos";
+import { useRef } from "react";
 
 
 export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
@@ -33,23 +34,45 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
     /* Los datos del encabeza del remito se cargan en el momento en que se
     inicializa el useState porque ya vienen dados por props*/
     const [dataRemito, setDataRemito] = useState({
-
         "remito": {
-            "departamento_id": encabezadoRemito.departamento.departamento_id,
-            "proveedor_id": encabezadoRemito.proveedor.proveedor_id,
-            "fecha_recepcion": encabezadoRemito.fechaRecepcionSTI,
-            "remito": encabezadoRemito.remito,
-            "expediente": encabezadoRemito.expediente,
-            "comentarios": encabezadoRemito.comentarios,
-            "orden_compra": encabezadoRemito.ordenCompra,
-            "legajo_compra": encabezadoRemito.legajoCompra,
-            "orden_provision": encabezadoRemito.ordenProvision,
-            "orden_entrega": encabezadoRemito.ordenEntrega,
+            "departamento_id": encabezadoRemito?.departamento?.departamento_id || "",
+            "proveedor_id": encabezadoRemito?.proveedor?.proveedor_id || "",
+            "fecha_recepcion": encabezadoRemito?.fechaRecepcionSTI || "",
+            "remito": encabezadoRemito?.remito || "",
+            "expediente": encabezadoRemito?.expediente || "",
+            "comentarios": encabezadoRemito?.comentarios || "",
+            "orden_compra": encabezadoRemito?.ordenCompra || "",
+            "legajo_compra": encabezadoRemito?.legajoCompra || "",
+            "orden_provision": encabezadoRemito?.ordenProvision || "",
+            "orden_entrega": encabezadoRemito?.ordenEntrega || "",
         },
         "perifericos": [],
     }
     )
     console.log(dataRemito)
+    
+
+    /* Cuando se cierra el modal y se vacían las props que vienen dadas por dataAddRemito(encabezadoRemito)
+    este useEffect está escuchando esos cambios para volver a cargarse cuando se vuelva a cargar
+    el encabezado del remito */
+    useEffect(()=> {
+       setDataRemito(prevDataRemito => ({
+        ...prevDataRemito,
+        "remito": {
+            "departamento_id": encabezadoRemito?.departamento?.departamento_id || "",
+            "proveedor_id": encabezadoRemito?.proveedor?.proveedor_id || "",
+            "fecha_recepcion": encabezadoRemito?.fechaRecepcionSTI || "",
+            "remito": encabezadoRemito?.remito || "",
+            "expediente": encabezadoRemito?.expediente || "",
+            "comentarios": encabezadoRemito?.comentarios || "",
+            "orden_compra": encabezadoRemito?.ordenCompra || "",
+            "legajo_compra": encabezadoRemito?.legajoCompra || "",
+            "orden_provision": encabezadoRemito?.ordenProvision || "",
+            "orden_entrega": encabezadoRemito?.ordenEntrega || "",
+        },
+        "perifericos": [],
+    }))
+    },[encabezadoRemito])
 
     // Servicio para hacer el http request
     const http = new HttpService();
@@ -67,6 +90,37 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
         totalCantidad += parseInt(itemsPerifericos[i].cantidad);
     }
 
+     //Función para eliminar un solo item de la lista de perifericos 
+     const DeleteItem = (id) => {
+        // 1. Eliminar el periférico de itemsPerifericos.
+        setItemsPerifericos(itemsPerifericos.filter(item => item.id !== id))
+
+        // 2. Eliminar el periférico de dataRemito.
+        const updatedDataRemito = {
+            ...dataRemito,
+            perifericos: dataRemito.perifericos.filter(periferico => periferico.id !== id)
+        };
+        //3. Actualiza el valor de dataRemito
+        setDataRemito(updatedDataRemito);
+    }
+
+    // Función para eliminar todos los items de la lista de periféricos
+    const EliminarTodo = () => {
+        setItemsPerifericos([])
+        setId(1)
+        setShowTable(false);
+
+        /* Función para eliminar todos los perifericos cargados */
+        const updatedDataRemito = {
+            ...dataRemito,
+            perifericos: []  // Borra todos los periféricos
+        };
+        setDataRemito(updatedDataRemito);
+        setSelectedValuePerif({ label: 'Periférico', value: '' });
+        setSelectedValueMarca({ label: 'Marca', value: '' });
+        setSelectedValueMod({ label: 'Modelo', value: '' });
+    }
+
     // función onClick para enviar el remito
     const HandleSendRemito = () => {
 
@@ -78,7 +132,6 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
                 return rest;
             })
         };
-
         const dataBody = JSON.stringify(dataToSend)
 
         http.postData2('/remitos-create', dataBody, token)
@@ -93,10 +146,12 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
             })
     }
 
+
     return (
         <>
             <div>
                 <Formik
+
                     initialValues={{
                         perifericoSeleccionado: '',
                         marcaSeleccionada: '',
@@ -126,6 +181,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
                         }
                         return errores;
                     }}
+
                     onSubmit={(valores, { resetForm }) => {
                         setItemsPerifericos(prevItems => [...prevItems, {
                             periferico: valores.perifericoSeleccionado.label,
@@ -153,7 +209,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
                         setDataRemito(addPerifericoRemito)
                         setShowTable(true);
                         resetForm();
-                        }}
+                    }}
                 >
 
                     {({ errors, setFieldValue, values, resetForm }) => (
@@ -308,7 +364,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
                             <div>
                                 <p>Total de periféricos cargados: <b>{totalCantidad}</b></p>
                                 <div className="d-inline"><Button variant="primary" onClick={HandleSendRemito} >Enviar</Button></div>
-                                <div className="d-inline ps-3"><Button variant="secondary"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash trashIcon" viewBox="0 0 16 16">
+                                <div className="d-inline ps-3"><Button variant="secondary" onClick={EliminarTodo}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash trashIcon" viewBox="0 0 16 16">
                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                 </svg>
