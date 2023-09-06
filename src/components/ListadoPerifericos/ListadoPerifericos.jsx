@@ -50,29 +50,29 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
     }
     )
     console.log(dataRemito)
-    
+
 
     /* Cuando se cierra el modal y se vacían las props que vienen dadas por dataAddRemito(encabezadoRemito)
     este useEffect está escuchando esos cambios para volver a cargarse cuando se vuelva a cargar
     el encabezado del remito */
-    useEffect(()=> {
-       setDataRemito(prevDataRemito => ({
-        ...prevDataRemito,
-        "remito": {
-            "departamento_id": encabezadoRemito?.departamento?.departamento_id || "",
-            "proveedor_id": encabezadoRemito?.proveedor?.proveedor_id || "",
-            "fecha_recepcion": encabezadoRemito?.fechaRecepcionSTI || "",
-            "remito": encabezadoRemito?.remito || "",
-            "expediente": encabezadoRemito?.expediente || "",
-            "comentarios": encabezadoRemito?.comentarios || "",
-            "orden_compra": encabezadoRemito?.ordenCompra || "",
-            "legajo_compra": encabezadoRemito?.legajoCompra || "",
-            "orden_provision": encabezadoRemito?.ordenProvision || "",
-            "orden_entrega": encabezadoRemito?.ordenEntrega || "",
-        },
-        "perifericos": [],
-    }))
-    },[encabezadoRemito])
+    useEffect(() => {
+        setDataRemito(prevDataRemito => ({
+            ...prevDataRemito,
+            "remito": {
+                "departamento_id": encabezadoRemito?.departamento?.departamento_id || "",
+                "proveedor_id": encabezadoRemito?.proveedor?.proveedor_id || "",
+                "fecha_recepcion": encabezadoRemito?.fechaRecepcionSTI || "",
+                "remito": encabezadoRemito?.remito || "",
+                "expediente": encabezadoRemito?.expediente || "",
+                "comentarios": encabezadoRemito?.comentarios || "",
+                "orden_compra": encabezadoRemito?.ordenCompra || "",
+                "legajo_compra": encabezadoRemito?.legajoCompra || "",
+                "orden_provision": encabezadoRemito?.ordenProvision || "",
+                "orden_entrega": encabezadoRemito?.ordenEntrega || "",
+            },
+            "perifericos": [],
+        }))
+    }, [encabezadoRemito])
 
     // Servicio para hacer el http request
     const http = new HttpService();
@@ -90,8 +90,8 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
         totalCantidad += parseInt(itemsPerifericos[i].cantidad);
     }
 
-     //Función para eliminar un solo item de la lista de perifericos 
-     const DeleteItem = (id) => {
+    //Función para eliminar un solo item de la lista de perifericos 
+    const DeleteItem = (id) => {
         // 1. Eliminar el periférico de itemsPerifericos.
         setItemsPerifericos(itemsPerifericos.filter(item => item.id !== id))
 
@@ -230,7 +230,6 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
                                     <ErrorMessage
                                         name="perifericoSeleccionado"
                                         component={() => (<span><small className="text-danger p-2">{errors.perifericoSeleccionado}</small></span>)} />
-
                                 </div>
 
                                 <div className="col-4">
@@ -240,7 +239,12 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
                                         onChange={(selectedMarca) => {
                                             setFieldValue('marcaSeleccionada', selectedMarca)
                                             setSelectedValueMarca(selectedMarca)
-                                            setMarcaId(selectedMarca.marcaId)
+                                            if (selectedMarca) {
+                                                setMarcaId(selectedMarca.marcaId)
+                                            } else {
+                                                setMarcaId(null); // o cualquier valor predeterminado que desees usar cuando no se haya seleccionado una marca
+                                            }
+
                                         }}
                                         perifId={perifId}
                                     />
@@ -257,7 +261,11 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
                                         onChange={(selectedModelo) => {
                                             setFieldValue('modeloSeleccionado', selectedModelo)
                                             setSelectedValueMod(selectedModelo)
-                                            setModeloId(selectedModelo.modeloId)
+                                            if (selectedModelo) {
+                                                setModeloId(selectedModelo.modeloId)
+                                            } else {
+                                                setModeloId(null)
+                                            }
                                         }}
                                         perifId={perifId}
                                         marcaId={marcaId}

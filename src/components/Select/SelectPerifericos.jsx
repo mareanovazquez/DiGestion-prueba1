@@ -14,7 +14,7 @@ export const SelectPerifericos = (props) => {
                 const perifericos = response.data.data.map(periferico => ({
                     value: periferico.nombre,
                     label: periferico.nombre,
-                    perifId: periferico.id // Cambia "otroValor" al nombre correcto                  
+                    perifId: periferico.id                 
                 }))
                 setPerifericos(perifericos)
             })

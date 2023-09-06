@@ -10,7 +10,6 @@ export const SelectMarcas = (props) => {
     const perifId = props.perifId
 
     useEffect(() => {
-
         if (perifId) {
             http.getData(`/remitos/get-marcas/${perifId}`, token)
                 .then(response => {
@@ -18,7 +17,7 @@ export const SelectMarcas = (props) => {
                     const marcas = Object.values(ListMarcas).map(marca => ({
                         value: marca.nombre,
                         label: marca.nombre,
-                        marcaId: marca.id // Cambia "otroValor" al nombre correcto                  
+                        marcaId: marca.id 
                     }
                     ))
                     setMarcas(marcas)
@@ -26,7 +25,8 @@ export const SelectMarcas = (props) => {
                 .catch(error => {
                     console.log(error)
                 });
-        }
+                props.onChange(null)            
+            }
     }, [perifId])
 
     const handleSelected = (marcaSeleccionada) => {

@@ -27,8 +27,9 @@ export const SelectModelos = (props) => {
                 .catch(error => {
                     console.log(error)
                 });
+                props.onChange(null)
         }
-    }, [marcaId])
+    }, [perifId, marcaId])
 
     const handleSelected = (modeloSeleccionado) => {
         props.onChange(modeloSeleccionado);
