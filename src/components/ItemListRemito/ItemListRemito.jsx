@@ -12,7 +12,6 @@ export const ItemListRemito = () => {
     const [filterProveedor, setFilterProveedor] = useState('');
     const [filterFechaRecepcion, setFilterFechaRecepcion] = useState('');
     const [filterRemito, setFilterRemito] = useState('');
-    const [filterFechaRecepcionDTI, setFilterFechaRecepcionDTI] = useState('');
     const [isLoading, setIsLoading] = useState(true)
 
     const { error, setError, token, setToken } = useContext(UserContext)
@@ -40,7 +39,7 @@ export const ItemListRemito = () => {
             && remito.proveedor.toString().toLowerCase().includes(filterProveedor.toLowerCase())
             && remito.fecha_recepcion.includes(filterFechaRecepcion)
             && remito.remito.toLowerCase().includes(filterRemito.toLowerCase())
-            )
+        )
 
 
         return (
@@ -56,7 +55,8 @@ export const ItemListRemito = () => {
                             <th scope='col'> Departamento</th>
                             <th scope='col'> Proveedor</th>
                             <th scope='col'> Fecha recepción</th>
-                            <th scope="col" className="text-center">Ver remito</th>
+                            <th scope="col" className="text-center">Ver</th>
+                            <th scope="col" className="text-center">Asignar</th>
                         </tr>
                         <tr>
                             <th scope='col'> <input type='text' value={filterRemito} placeholder="Filtrar" onChange={(e) => setFilterRemito(e.target.value)} /></th>
@@ -64,16 +64,22 @@ export const ItemListRemito = () => {
                             <th scope='col'> <input type='text' value={filterProveedor} placeholder="Filtrar" onChange={(e) => setFilterProveedor(e.target.value)} /></th>
                             <th scope='col'> <input type="date" value={filterFechaRecepcion} placeholder="filtrar" onChange={(e) => setFilterFechaRecepcion(e.target.value)} /></th>
                             <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredRemitos.map((remito) =>                        
+                        {filteredRemitos.map((remito) =>
                             <tr className="border-bottom my-2" key={remito.id} scope="row">
                                 <td className="border-bottom">{remito.remito}</td>
                                 <td className="border-bottom">{remito.departamento}</td>
                                 <td className="border-bottom">{remito.proveedor}</td>
                                 <td className="border-bottom">{remito.fecha_recepcion}</td>
-                                <td className="border-bottom"><Link to={`/remito/${remito.id}`}><Ver /></Link> </td>
+                                <td className="border-bottom text-center"><Link to={`/remito/${remito.id}`}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-file-earmark-ruled-fill text-primary" viewBox="0 0 16 16">
+                                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM3 9h10v1H6v2h7v1H6v2H5v-2H3v-1h2v-2H3V9z" />
+                                </svg></Link> </td>
+                                <td className="border-bottom text-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-file-earmark-plus-fill text-primary" viewBox="0 0 16 16">
+                                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM8.5 7v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 1 0z" />
+                                </svg></td>
                             </tr>
                         )}
                     </tbody>

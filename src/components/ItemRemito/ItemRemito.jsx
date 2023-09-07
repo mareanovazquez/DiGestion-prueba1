@@ -11,9 +11,10 @@ import { DownloadTableExcel } from 'react-export-table-to-excel';
 
 export const ItemRemito = () => {
     const [remitos, setRemitos] = useState([])
+    const [remitosPerifericos, setRemitosPerifericos] = useState([])
     const [verPDF, setVerPDF] = useState(false)
     const { rid } = useParams();
-    const { token } = useContext(UserContext);
+    const { token, name } = useContext(UserContext);
     const tableRef = useRef(null);
 
     const http = new HttpService();
@@ -22,15 +23,20 @@ export const ItemRemito = () => {
         http.getData(`/remito/${rid}`, token)
             .then(response => {
                 const listRemitos = response.data.data;
+                const lisRemitosPerifericos = response.data.data.remitoModelos
                 setRemitos(listRemitos);
-                console.log(listRemitos)
+                setRemitosPerifericos(lisRemitosPerifericos)
+
             })
             .catch(error => {
                 console.log(error)
             })
     }, [])
 
-    
+
+    console.log(remitos)
+    console.log(remitosPerifericos)
+
     return (
 
         <>
@@ -77,7 +83,7 @@ export const ItemRemito = () => {
                                         <ul>
                                             <li><b>Departamento:</b>{remitos.departamento}</li>
                                             <li><b>Remito:</b> {remitos.remito}</li>
-                                            <li><b>Usuario alta: </b> {remitos.usuario_alta}</li>
+                                            <li><b>Usuario alta: </b> {name}</li>
                                             <li><b>Orden provisión:</b> {remitos.orden_provision}</li>
                                         </ul>
                                     </div>
@@ -120,7 +126,7 @@ export const ItemRemito = () => {
                                         <tr className='d-none'>
                                             <td>{remitos.remito}</td>
                                             <td>{remitos.departamento}</td>
-                                            <td>{remitos.usuario}</td>
+                                            <td>{name}</td>
                                             <td>{remitos.proveedor}</td>
                                             <td>{remitos.comentarios}</td>
                                             <td>{remitos.fecha_recepcion}</td>
@@ -154,33 +160,18 @@ export const ItemRemito = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">CPU Mini</th>
-                                            <td>HP</td>
-                                            <td>Elite desk 800</td>
-                                            <td>12 meses</td>
-                                            <td>8</td>
-                                            <td>8</td>
-                                            <td>esto es un comentario</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">CPU Mini</th>
-                                            <td>HP</td>
-                                            <td>Elite desk 800</td>
-                                            <td>12 meses</td>
-                                            <td>8</td>
-                                            <td>8</td>
-                                            <td>esto es un comentario</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">CPU Mini</th>
-                                            <td>HP</td>
-                                            <td>Elite desk 800</td>
-                                            <td>12 meses</td>
-                                            <td>8</td>
-                                            <td>8</td>
-                                            <td>esto es un comentario</td>
-                                        </tr>
+                                        {remitosPerifericos.length>0 &&
+                                        remitosPerifericos.map((remitoPeriferico)=>
+                                            <tr key={remitoPeriferico.id} scope="row">
+                                                <th>{remitoPeriferico.nombrePeriferico}</th>
+                                                <td>{remitoPeriferico.nombreMarca}</td>
+                                                <td>{remitoPeriferico.nombreModelo}</td>
+                                                <td>{remitoPeriferico.garantia}</td>
+                                                <td>{remitoPeriferico.cantidad}</td>
+                                                <td>{remitoPeriferico.disponible}</td>
+                                                <td>{remitoPeriferico.comentarios}</td>
+                                            </tr>
+                                        )}
                                     </tbody>
                                 </table>
                             </>
@@ -190,7 +181,7 @@ export const ItemRemito = () => {
                                     height: '100vh'
                                 }}>
                                 {
-                                    <ItemRemitoPDF data={remitos} />}
+                                    <ItemRemitoPDF data={remitos} dataPerifericos={remitosPerifericos} name={name} />}
                             </PDFViewer>}
                     </>
                 </div>

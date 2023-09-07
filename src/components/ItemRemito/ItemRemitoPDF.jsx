@@ -1,15 +1,7 @@
-import { useContext, useState } from "react";
-import HttpService from "../../services/HttpService";
-import { UserContext } from "../../UserContext/UserContext";
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer"
 
-
-export const ItemRemitoPDF = ({data}) => {
-
-    const [remitos, setRemitos] = useState([])
-    const { token } = useContext(UserContext);
-    const http = new HttpService();
-
+export const ItemRemitoPDF = ({ data, dataPerifericos, name }) => {
+    console.log(dataPerifericos)
     const styles = StyleSheet.create({
         encabezado: {
             fontSize: '30px',
@@ -87,13 +79,13 @@ export const ItemRemitoPDF = ({data}) => {
                             <View style={styles.column}>
                                 <ul style={styles.list}>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Departamento: {data.departamento}</Text> 
+                                        <Text style={styles.bold}>Departamento: {data.departamento}</Text>
                                     </li>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Remito: {data.remito}</Text> 
+                                        <Text style={styles.bold}>Remito: {data.remito}</Text>
                                     </li>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Usuario alta: {data.usuario_alta}</Text>
+                                        <Text style={styles.bold}>Usuario alta: {name}</Text>
                                     </li>
                                     <li style={styles.listItem}>
                                         <Text style={styles.bold}>Orden provisión:{data.orden_provision}</Text>
@@ -103,7 +95,7 @@ export const ItemRemitoPDF = ({data}) => {
                             <View style={styles.column}>
                                 <ul style={styles.list}>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Proveedor:{data.proveedor}</Text> 
+                                        <Text style={styles.bold}>Proveedor:{data.proveedor}</Text>
                                     </li>
                                     <li style={styles.listItem}>
                                         <Text style={styles.bold}>Expediente:{data.expediente}</Text>
@@ -119,10 +111,10 @@ export const ItemRemitoPDF = ({data}) => {
                             <View style={styles.column}>
                                 <ul style={styles.list}>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Fecha recepción: {data.fecha_recepcion}</Text> 
+                                        <Text style={styles.bold}>Fecha recepción: {data.fecha_recepcion}</Text>
                                     </li>
                                     <li style={styles.listItem}>
-                                        <Text style={styles.bold}>Fecha recepción DTI: {data.fecha_recepcion_dti}</Text> 
+                                        <Text style={styles.bold}>Fecha recepción DTI: {data.fecha_recepcion_dti}</Text>
                                     </li>
                                     <li style={styles.listItem}>
                                         <Text style={styles.bold}>Legajo compra: {data.legajo_compra}</Text>
@@ -132,9 +124,10 @@ export const ItemRemitoPDF = ({data}) => {
                         </View>
                         <View style={styles.separator} />
                         <View style={styles.comments}>
-                            <Text style={styles.bold}>COMENTARIOS: {data.comentarios}</Text> 
+                            <Text style={styles.bold}>COMENTARIOS: {data.comentarios}</Text>
                         </View>
                     </View>
+
                     <View style={styles.table}>
                         <View style={styles.tableRow}>
                             <Text style={[styles.tableCell, styles.tableHeader]}>Periférico</Text>
@@ -145,33 +138,19 @@ export const ItemRemitoPDF = ({data}) => {
                             <Text style={[styles.tableCell, styles.tableHeader]}>Disponible</Text>
                             <Text style={[styles.tableCell, styles.tableHeader]}>Comentarios</Text>
                         </View>
-                        <View style={styles.tableRow}>
-                            <Text style={styles.tableCell}>CPU Mini</Text>
-                            <Text style={styles.tableCell}>HP</Text>
-                            <Text style={styles.tableCell}>Elite desk 800</Text>
-                            <Text style={styles.tableCell}>12 meses</Text>
-                            <Text style={styles.tableCell}>8</Text>
-                            <Text style={styles.tableCell}>8</Text>
-                            <Text style={styles.tableCell}>esto es un comentario</Text>
-                        </View>
-                        <View style={styles.tableRow}>
-                            <Text style={styles.tableCell}>CPU Mini</Text>
-                            <Text style={styles.tableCell}>HP</Text>
-                            <Text style={styles.tableCell}>Elite desk 800</Text>
-                            <Text style={styles.tableCell}>12 meses</Text>
-                            <Text style={styles.tableCell}>8</Text>
-                            <Text style={styles.tableCell}>8</Text>
-                            <Text style={styles.tableCell}>esto es un comentario</Text>
-                        </View>
-                        <View style={styles.tableRow}>
-                            <Text style={styles.tableCell}>CPU Mini</Text>
-                            <Text style={styles.tableCell}>HP</Text>
-                            <Text style={styles.tableCell}>Elite desk 800</Text>
-                            <Text style={styles.tableCell}>12 meses</Text>
-                            <Text style={styles.tableCell}>8</Text>
-                            <Text style={styles.tableCell}>8</Text>
-                            <Text style={styles.tableCell}>esto es un comentario</Text>
-                        </View>
+                        {Array.isArray(dataPerifericos) && dataPerifericos.length > 0 && 
+                        dataPerifericos.map ((periferico)=>
+                            <View key={periferico.id} style={styles.tableRow}>
+                                <Text style={styles.tableCell}>{periferico.nombrePeriferico}</Text>
+                                <Text style={styles.tableCell}>{periferico.nombreMarca}</Text>
+                                <Text style={styles.tableCell}>{periferico.nombreModelo}</Text>
+                                <Text style={styles.tableCell}>{periferico.garantia}</Text>
+                                <Text style={styles.tableCell}>{periferico.cantidad}</Text>
+                                <Text style={styles.tableCell}>{periferico.disponible}</Text>
+                                <Text style={styles.tableCell}>{periferico.comentarios}</Text>
+                            </View>
+                        )
+                        }
                     </View>
                 </Page>
             </Document>

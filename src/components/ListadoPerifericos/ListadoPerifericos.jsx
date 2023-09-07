@@ -140,6 +140,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
                 console.log(respuesta)
                 /*Función que cierra el Modal de periféricos después de enviar el POST */
                 handleClose()
+                navigate('/remitos')
             })
             .catch(error => {
                 console.log(error)
