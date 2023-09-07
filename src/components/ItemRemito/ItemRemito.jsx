@@ -33,10 +33,6 @@ export const ItemRemito = () => {
             })
     }, [])
 
-
-    console.log(remitos)
-    console.log(remitosPerifericos)
-
     return (
 
         <>
@@ -180,8 +176,7 @@ export const ItemRemito = () => {
                                     width: '100%',
                                     height: '100vh'
                                 }}>
-                                {
-                                    <ItemRemitoPDF data={remitos} dataPerifericos={remitosPerifericos} name={name} />}
+                                {<ItemRemitoPDF data={remitos} dataPerifericos={remitosPerifericos} name={name} />}
                             </PDFViewer>}
                     </>
                 </div>

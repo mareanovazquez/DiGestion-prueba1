@@ -49,8 +49,6 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
         "perifericos": [],
     }
     )
-    console.log(dataRemito)
-
 
     /* Cuando se cierra el modal y se vacían las props que vienen dadas por dataAddRemito(encabezadoRemito)
     este useEffect está escuchando esos cambios para volver a cargarse cuando se vuelva a cargar
@@ -168,17 +166,25 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
                         if (!valores.perifericoSeleccionado) {
                             errores.perifericoSeleccionado = "Seleccioná un periférico"
                         }
+
                         if (!valores.marcaSeleccionada) {
                             errores.marcaSeleccionada = "Seleccioná una marca de periférico"
                         }
+
                         if (!valores.modeloSeleccionado) {
                             errores.modeloSeleccionado = "Seleccioná un modelo"
                         }
+
                         if (!valores.garantiaSeleccionada) {
                             errores.garantiaSeleccionada = "Falta definir una garantía"
+                        } else if (valores.garantiaSeleccionada <0){
+                            errores.garantiaSeleccionada = "La garantía no puede ser negativa"
                         }
+
                         if (!valores.cantidadSeleccionada) {
                             errores.cantidadSeleccionada = "Falta cargar cantidad"
+                        } else if (valores.cantidadSeleccionada <0) {
+                            errores.cantidadSeleccionada = "La cantidad no puede ser negativa"
                         }
                         return errores;
                     }}
