@@ -1,4 +1,3 @@
-
 import { useContext, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav';
@@ -26,7 +25,6 @@ export const ItemRemito = () => {
                 const lisRemitosPerifericos = response.data.data.remitoModelos
                 setRemitos(listRemitos);
                 setRemitosPerifericos(lisRemitosPerifericos)
-
             })
             .catch(error => {
                 console.log(error)
@@ -41,7 +39,7 @@ export const ItemRemito = () => {
                     <Nav className=" menuDescargasRemito" activeKey="/home">
                         <Nav.Item>
                             <NavLink to='/remitos' >
-                                <button className="btn btn-primary m-2">Volver</button>
+                                <button className="btn btn-dark m-2">Volver</button>
                             </NavLink>
                         </Nav.Item>
                         <Nav.Item>
@@ -52,7 +50,6 @@ export const ItemRemito = () => {
                                 <button className='btn btn-success m-2'>XLS</button>
                             </DownloadTableExcel>
                         </Nav.Item>
-
                         {/* El preview de PDF está comentado porque me parece redundate previsualizar el PDF cuando se ve en pantalla
                         y que haya otro botón para descargar cuando solo necesitamos un botón para descargar */}
                         {/* <Nav.Item>
@@ -61,12 +58,17 @@ export const ItemRemito = () => {
                             }} className="btn btn-danger m-2">{!verPDF ? "PDF" : "cerrar PDF"}</button>
                         </Nav.Item> */}
                         <Nav.Item>
-                            <PDFDownloadLink document={<ItemRemitoPDF data={remitos} />} fileName='Remito_Perifericos_PDF'>
+                            <PDFDownloadLink document={<ItemRemitoPDF data={remitos} dataPerifericos={remitosPerifericos} name={name}/>} fileName='Remito_Perifericos_PDF'>
                                 <button className='btn btn-danger m-2'> PDF {/* <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
                                     <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
                                     <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
                                 </svg> */}</button>
                             </PDFDownloadLink>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <button className='btn btn-primary m-2'>
+                                Asignar
+                            </button>
                         </Nav.Item>
                     </Nav>
 
@@ -94,7 +96,6 @@ export const ItemRemito = () => {
                                     <div className="col">
                                         <ul>
                                             <li><b>Fecha recepción:</b> {remitos.fecha_recepcion}</li>
-                                            <li><b>Fecha recepción DTI:</b>{remitos.fecha_recepcion_dti}</li>
                                             <li><b>Legajo compra:</b>{remitos.legajo_compra}</li>
                                         </ul>
                                     </div>
@@ -105,7 +106,7 @@ export const ItemRemito = () => {
                             null}
                     </>
                     <>
-                        {!verPDF ?
+                        
                             <>
                                 <hr></hr>
                                 <h6 className="card-subtitle text-muted">PERIFÉRICOS</h6>
@@ -133,16 +134,14 @@ export const ItemRemito = () => {
                                             <th>Orden de entrega</th>
                                             <th>Legajo</th>
                                             <th>Orden provisión</th>
-                                            <th>Fecha Recepción DTI</th>
                                             <th>Comentarios</th>
                                         </tr>
                                         <tr className='d-none'>
                                             <td>{remitos.expediente}</td>
                                             <td>{remitos.orden_compra}</td>
                                             <td>{remitos.orden_entrega}</td>
-                                            <td>{remitos.legajo}</td>
+                                            <td>{remitos.legajo_compra}</td>
                                             <td>{remitos.orden_provision}</td>
-                                            <td>{remitos.fecha_recepcion_dti}</td>
                                             <td>{remitos.comentarios}</td>
                                         </tr>
                                         <tr>
@@ -171,13 +170,6 @@ export const ItemRemito = () => {
                                     </tbody>
                                 </table>
                             </>
-                            : <PDFViewer
-                                style={{
-                                    width: '100%',
-                                    height: '100vh'
-                                }}>
-                                {<ItemRemitoPDF data={remitos} dataPerifericos={remitosPerifericos} name={name} />}
-                            </PDFViewer>}
                     </>
                 </div>
             </div>

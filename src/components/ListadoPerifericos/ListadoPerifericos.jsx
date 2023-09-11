@@ -144,13 +144,10 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
                 console.log(error)
             })
     }
-
-
     return (
         <>
             <div>
                 <Formik
-
                     initialValues={{
                         perifericoSeleccionado: '',
                         marcaSeleccionada: '',
@@ -220,7 +217,6 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
                 >
 
                     {({ errors, setFieldValue, values, resetForm }) => (
-
                         <Form>
                             <div className="row justify-content-start ">
                                 <h3>Seleccione los periféricos</h3>
