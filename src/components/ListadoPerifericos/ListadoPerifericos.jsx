@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { SelectPerifericos } from "../Select/SelectPerifericos";
 import { SelectMarcas } from "../Select/SelectMarcas";
 import { SelectModelos } from "../Select/SelectModelos";
-import { useRef } from "react";
 
 
 export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
