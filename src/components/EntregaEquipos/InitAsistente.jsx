@@ -4,6 +4,7 @@ import { SelectDepartamentos } from "../Select/SelectDepartamentos";
 import { Link, useNavigate } from "react-router-dom";
 
 
+
 export const InitAsistente = () => {
 
     const navigate = useNavigate();
@@ -130,16 +131,9 @@ export const InitAsistente = () => {
                                 </button>
                             </div>
                         </Form>
-
-
                     )}
-
-
-
-
                 </Formik>
             </div>
-
         </>
     )
 }

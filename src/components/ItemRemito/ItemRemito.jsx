@@ -25,6 +25,7 @@ export const ItemRemito = () => {
                 const lisRemitosPerifericos = response.data.data.remitoModelos
                 setRemitos(listRemitos);
                 setRemitosPerifericos(lisRemitosPerifericos)
+                
             })
             .catch(error => {
                 console.log(error)
