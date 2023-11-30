@@ -33,6 +33,8 @@ export const SelectDepartamentos = (props) => {
             options={departamentos}
             onChange={handleSelected}
             placeholder="Departamento"
+            isDisabled={props.isDisabled} // Agregamos la prop isDisabled aquí
+
         />
     );
 }

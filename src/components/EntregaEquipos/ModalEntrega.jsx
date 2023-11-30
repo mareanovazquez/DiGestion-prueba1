@@ -33,7 +33,8 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                     showTableEntrga={showTableEntrega}/>
                 </ModalBody>
                 <ModalBody>
-                    <AsignacionStock 
+                    <AsignacionStock
+                    data={data} 
                     dataPerifericos={dataPerifericos} 
                     handleClose={handleClose}
                     setShowTableEntrega={setShowTableEntrega}
