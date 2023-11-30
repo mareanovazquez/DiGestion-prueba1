@@ -10,6 +10,7 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
     const [showTableEntrega, setShowTableEntrega] = useState(false)
     const handleClose = () => {
         setShow(false);
+        setShowTableEntrega(false);
     }
     const { name } = useContext(UserContext);
 
@@ -36,7 +37,7 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                     dataPerifericos={dataPerifericos} 
                     handleClose={handleClose}
                     setShowTableEntrega={setShowTableEntrega}
-                    showTableEntrga={showTableEntrega}/>
+                    showTableEntrega={showTableEntrega}  />
                 </ModalBody>
                 <ModalFooter>
                 <Button variant="secondary" onClick={handleClose}>
