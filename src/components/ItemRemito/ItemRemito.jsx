@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav';
 import { UserContext } from '../../UserContext/UserContext';
 import HttpService from '../../services/HttpService';
@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 import { ItemRemitoPDF } from './ItemRemitoPDF';
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import { DownloadTableExcel } from 'react-export-table-to-excel';
+import {ModalEntrega} from '../EntregaEquipos/ModalEntrega'
 
 export const ItemRemito = () => {
     const [remitos, setRemitos] = useState([])
@@ -15,6 +16,8 @@ export const ItemRemito = () => {
     const { rid } = useParams();
     const { token, name } = useContext(UserContext);
     const tableRef = useRef(null);
+
+    const [show, setShow] = useState(false);
 
     const http = new HttpService();
 
@@ -32,6 +35,9 @@ export const ItemRemito = () => {
             })
     }, [])
 
+    const handleClicEntrega = ()=>{
+        setShow(true)
+    }
     return (
 
         <>
@@ -67,8 +73,8 @@ export const ItemRemito = () => {
                             </PDFDownloadLink>
                         </Nav.Item>
                         <Nav.Item>
-                            <NavLink to='/initAsistente'>
-                                <button className='btn btn-primary m-2'>
+                            <NavLink>
+                                <button className='btn btn-primary m-2' onClick={handleClicEntrega}>
                                     Entregar
                                 </button>
                             </NavLink>
@@ -177,7 +183,7 @@ export const ItemRemito = () => {
                 </div>
             </div>
             <div>
-
+                <ModalEntrega data={remitos} dataPerifericos={remitosPerifericos} setShow={setShow} show={show}/>
             </div>
         </>
 

@@ -5,9 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 
-export const InitAsistente = () => {
 
-    const navigate = useNavigate();
+export const InitAsistente = ({showTableEntrega, setShowTableEntrega}) => {
+
+    const navigate= useNavigate();
 
     const [dataEntregaPerif, setDataEntregaPerif] = useState({});
     // useState para controlar el estado de los Select2 después de seleccionar y borrar
@@ -16,7 +17,10 @@ export const InitAsistente = () => {
 
     return (
         <>
-            <div className="contenedorAltaRemito">
+
+            <div>
+            </div>
+            <div className="contenedorInitAsistente">
                 <div>
                     <h2>Inicio asistente de entrega de equipos</h2>
                 </div>
@@ -47,7 +51,8 @@ export const InitAsistente = () => {
                     }}
                     onSubmit={(valores, { resetForm }) => {
                         setDataEntregaPerif(valores)
-                        navigate('/asignacionstock')
+                        setShowTableEntrega(true)
+                        /* navigate('/asignacionstock') */
                         resetForm()
 
                     }}
@@ -134,6 +139,8 @@ export const InitAsistente = () => {
                     )}
                 </Formik>
             </div>
+
         </>
     )
 }
+
