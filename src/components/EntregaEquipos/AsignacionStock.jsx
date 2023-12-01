@@ -89,7 +89,7 @@ export const AsignacionStock = ({ data, dataPerifericos, setShowTableEntrega, sh
                                             <input
                                                 className="form-control"
                                                 type="number"
-                                                value={asignaciones[periferico.id] || ''}
+                                                value={asignaciones[periferico.id] || 0}
                                                 onChange={(e) => handleAsignarChange(periferico.id, e.target.value, cantidadDisponible)}
                                                 style={{ width: '70px' }}
                                             />
