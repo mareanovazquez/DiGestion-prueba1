@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 
 export const AsignacionStock = ({ data, dataPerifericos, setShowTableEntrega, showTableEntrega, handleClose, remitoEntrega }) => {
@@ -7,20 +7,50 @@ export const AsignacionStock = ({ data, dataPerifericos, setShowTableEntrega, sh
     const [asignaciones, setAsignaciones] = useState({});
     const [comentarios, setComentarios] = useState({});
 
+    const [cantidadDisponible, setCantidadDisponible] = useState({});
+
+    const [updatedDataPerifericos, setUpdatedDataPerifericos] = useState([...dataPerifericos]);
+
+
+    useEffect(() => {
+        // Actualizar la cantidad disponible cada vez que cambia la asignación
+        const newCantidadDisponible = {};
+        dataPerifericos.forEach((periferico) => {
+            const id = periferico.id;
+            const cantidadDisponible = periferico.cantidad - (asignaciones[id] || 0);
+            newCantidadDisponible[id] = cantidadDisponible;
+        });
+        setCantidadDisponible(newCantidadDisponible);
+    }, [asignaciones, dataPerifericos]);
+
     const handleAsignarChange = (perifericoId, value, cantidadDisponible) => {
         const asignacionValida = value >= 0 && value <= cantidadDisponible;
 
         if (asignacionValida) {
-            setAsignaciones(prevState => ({ ...prevState, [perifericoId]: value }));
+            setAsignaciones((prevAsignaciones) => ({ ...prevAsignaciones, [perifericoId]: value }));
         } else {
             alert("Asignación de stock no válida");
         }
     };
 
-    // Manejar cambios en el campo "Comentarios"
-    const handleComentariosChange = (perifericoId, value) => {
-        setComentarios(prevState => ({ ...prevState, [perifericoId]: value }));
+    const handleSendRemitoModified = () => {
+        const newDataPerifericos = updatedDataPerifericos.map((periferico) => {
+            const id = periferico.id;
+            return {
+                ...periferico,
+                cantidad: cantidadDisponible[id], // Actualiza la cantidad con el nuevo valor
+            };
+        });
+        setUpdatedDataPerifericos(newDataPerifericos);
+        /* Falta crear función para sumar new data perifericos al newDataRemito */
+        /* Falta crear el POST para cambiar el remito original */
+        /* Falta crear el conditional RENDER para mostar la última vista de carga de datos de los perif */
     };
+
+
+    console.log(dataPerifericos)
+    console.log(cantidadDisponible)
+    console.log(updatedDataPerifericos)
 
     return (
         <>
@@ -77,37 +107,38 @@ export const AsignacionStock = ({ data, dataPerifericos, setShowTableEntrega, sh
                                     const cantidadDisponible = periferico.cantidad;
 
                                     return (
-                                    <tr key={periferico.id}>
-                                        <td className="text-left">{periferico.nombrePeriferico}</td>
-                                        <td className="text-left">{periferico.nombreMarca}</td>
-                                        <td className="text-left">{periferico.nombreModelo}</td>
-                                        <td className="text-left">{data.fecha_recepcion}</td>
-                                        <td className="text-left">{periferico.garantia} meses</td>
-                                        <td className="text-left">{periferico.cantidad}</td>
-                                        <td className="text-left">{periferico.cantidad - (asignaciones[periferico.id] || 0)}</td>
-                                        <td className="text-left">
-                                            <input
-                                                className="form-control"
-                                                type="number"
-                                                value={asignaciones[periferico.id] || 0}
-                                                onChange={(e) => handleAsignarChange(periferico.id, e.target.value, cantidadDisponible)}
-                                                style={{ width: '70px' }}
-                                            />
-                                        </td>
-                                        <td className="text-left">
-                                            <textarea
-                                                className="form-control"
-                                                value={comentarios[periferico.id] || ''}
-                                                onChange={(e) => handleComentariosChange(periferico.id, e.target.value)}
-                                            />
-                                        </td>
-                                    </tr>
-                                )})}
+                                        <tr key={periferico.id}>
+                                            <td className="text-left">{periferico.nombrePeriferico}</td>
+                                            <td className="text-left">{periferico.nombreMarca}</td>
+                                            <td className="text-left">{periferico.nombreModelo}</td>
+                                            <td className="text-left">{data.fecha_recepcion}</td>
+                                            <td className="text-left">{periferico.garantia} meses</td>
+                                            <td className="text-left">{periferico.cantidad}</td>
+                                            <td className="text-left">{periferico.cantidad - (asignaciones[periferico.id] || 0)}</td>
+                                            <td className="text-left">
+                                                <input
+                                                    className="form-control"
+                                                    type="number"
+                                                    value={asignaciones[periferico.id] || 0}
+                                                    onChange={(e) => handleAsignarChange(periferico.id, e.target.value, cantidadDisponible)}
+                                                    style={{ width: '70px' }}
+                                                />
+                                            </td>
+                                            <td className="text-left">
+                                                <textarea
+                                                    className="form-control"
+                                                    value={comentarios[periferico.id] || ''}
+                                                    onChange={(e) => handleComentariosChange(periferico.id, e.target.value)}
+                                                />
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
                             </tbody>
                         </table>
                         <div className="d-grid gap-2 p-2 d-md-flex justify-content-md-end">
                             <button className="btn btn-primary" type="button" onClick={handleClose}>Volver</button>
-                            <Link><button className="btn btn-success" type="button"> Siguiente</button></Link>
+                            <Link><button className="btn btn-success" type="button" onClick={handleSendRemitoModified}> Siguiente</button></Link>
                         </div>
                     </div>
                 )}
