@@ -2,7 +2,18 @@ export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEnt
 
     const stockEquipos = newDataRemito.remitoModelos.filter(equipo => equipo.cantidad !== equipo.disponible);
 
-    console.log(stockEquipos)
+    // Crear un nuevo array duplicando los elementos según la diferencia entre cantidad y disponible
+    const equiposDuplicados = [];
+    stockEquipos.forEach(equipo => {
+        const diferencia = Math.abs(equipo.cantidad - equipo.disponible); // Utilizar Math.abs() para obtener el valor absoluto
+        for (let i = 0; i < diferencia; i++) {
+            equiposDuplicados.push({ ...equipo }); // Copiar el elemento para no modificar el original
+        }
+    });
+
+    /* Falta agregar manejador de estado input y textarea */
+    /* crear y un estado para guardar toda esta información */
+
 
     return (
         <>
@@ -52,9 +63,9 @@ export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEnt
                             </tr>
                         </thead>
                         <tbody>
-                            {stockEquipos.map((equipo) => {
+                            {equiposDuplicados.map((equipo, index) => {
                                 return (
-                                    <tr key={equipo.id}>
+                                    <tr key={index}>
                                         <td className="text-left">{newDataRemito.remito}</td>
                                         <td className="text-left">{equipo.nombrePeriferico}</td>
                                         <td className="text-left">{equipo.nombreMarca}</td>
