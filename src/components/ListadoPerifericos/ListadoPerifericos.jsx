@@ -143,6 +143,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
                 console.log(error)
             })
     }
+    console.log(dataRemito)
     return (
         <>
             <div>

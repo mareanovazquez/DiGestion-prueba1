@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 
-export const AsignacionStock = ({ data, dataPerifericos, setShowTableEntrega, showTableEntrega, handleClose, remitoEntrega }) => {
+export const AsignacionStock = ({ data, dataPerifericos, setShowTableEntrega, showTableEntrega, handleClose, remitoEntrega, newDataRemito, setNewDataRemito }) => {
+
+
+    /* data tiene los valores del remito */
+    /* dataPerifericos es igual a data.remitoModelos y tiene solo los periféricos listados */
 
     // Estado local para los campos "Asignar" y "Comentarios"
     const [asignaciones, setAsignaciones] = useState({});
@@ -9,7 +13,7 @@ export const AsignacionStock = ({ data, dataPerifericos, setShowTableEntrega, sh
 
     const [cantidadDisponible, setCantidadDisponible] = useState({});
 
-    const [updatedDataPerifericos, setUpdatedDataPerifericos] = useState([...dataPerifericos]);
+
 
 
     useEffect(() => {
@@ -23,6 +27,7 @@ export const AsignacionStock = ({ data, dataPerifericos, setShowTableEntrega, sh
         setCantidadDisponible(newCantidadDisponible);
     }, [asignaciones, dataPerifericos]);
 
+
     const handleAsignarChange = (perifericoId, value, cantidadDisponible) => {
         const asignacionValida = value >= 0 && value <= cantidadDisponible;
 
@@ -33,6 +38,12 @@ export const AsignacionStock = ({ data, dataPerifericos, setShowTableEntrega, sh
         }
     };
 
+    /*Actualiza la cantidad de cada periférico en el array updatedDataPerifericos 
+    utilizando la información almacenada en el estado cantidadDisponible. 
+    Después de esta actualización, 
+    el estado updatedDataPerifericos contiene los periféricos con las cantidades ajustadas, 
+    y se utiliza para renderizar la tabla en tu componente React. */
+    const [updatedDataPerifericos, setUpdatedDataPerifericos] = useState([...dataPerifericos]);
     const handleSendRemitoModified = () => {
         const newDataPerifericos = updatedDataPerifericos.map((periferico) => {
             const id = periferico.id;
@@ -42,15 +53,28 @@ export const AsignacionStock = ({ data, dataPerifericos, setShowTableEntrega, sh
             };
         });
         setUpdatedDataPerifericos(newDataPerifericos);
-        /* Falta crear función para sumar new data perifericos al newDataRemito */
-        /* Falta crear el POST para cambiar el remito original */
-        /* Falta crear el conditional RENDER para mostar la última vista de carga de datos de los perif */
     };
 
+    /* 
+    NEW DATA REMITO
+    useEffect crea una copia de data (viene por props) y 
+    actualiza la propiedad 'remitoModelos' con los valores de 'updatedDataPerifericos'
+    */
 
-    console.log(dataPerifericos)
-    console.log(cantidadDisponible)
-    console.log(updatedDataPerifericos)
+    
+    useEffect(() => {
+        const newData = {
+            ...data,
+            remitoModelos: updatedDataPerifericos,
+        };
+        setNewDataRemito(newData)
+    }, [updatedDataPerifericos])
+
+    console.log(data)
+    console.log(newDataRemito)
+
+    /* Falta crear el POST para cambiar el remito original */
+    /* Falta crear el conditional RENDER para mostar la última vista de carga de datos de los perif */
 
     return (
         <>

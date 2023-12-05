@@ -175,7 +175,7 @@ import { ItemListPerifericos } from './components/ItemListPerifericos/ItemListPe
 import { ItemProveedor } from './components/ItemProveedor/ItemProveedor';
 import { ListProveedoresPagi } from './components/ListProveedores/ListProveedoresPagi';
 import { ItemRemitoPDF } from './components/ItemRemito/ItemRemitoPDF';
-import { InitAsistente } from './components/EntregaEquipos/initAsistente.jsx';
+import { InitAsistente } from './components/EntregaEquipos/InitAsistente.jsx';
 import { AsignacionStock } from './components/EntregaEquipos/AsignacionStock.jsx'
 import { CargaDatosEquipos } from './components/EntregaEquipos/CargaDatosEquipos.jsx'
 import { ResumenEntrega } from './components/EntregaEquipos/ResumenEntrega.jsx'
@@ -214,9 +214,7 @@ function App() {
                     <Route path='/remito/:rid' element={<ItemRemito />} />
                     <Route path='/remito/addRemito' element={<AddRemito />} />
                     <Route path='/perifericos' element={<ItemListPerifericos />} />
-                    <Route path='/initAsistente' element={<InitAsistente />} />
-                    <Route path='/asignacionStock' element={<AsignacionStock />} />
-                    <Route path='/cargaDatosEquipos' element={<CargaDatosEquipos />} />
+                    
                     <Route path='/resumenEntrega' element={<ResumenEntrega />} />
 
                     {/* INICIO Read and Write */}
