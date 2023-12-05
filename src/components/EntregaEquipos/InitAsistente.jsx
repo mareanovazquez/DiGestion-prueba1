@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 
-export const InitAsistente = ({ showTableEntrega, setShowTableEntrega, remitoEntrega, setRemitoEntrega }) => {
+export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, remitoEntrega, setRemitoEntrega }) => {
 
     const navigate = useNavigate();
 
@@ -58,7 +58,7 @@ export const InitAsistente = ({ showTableEntrega, setShowTableEntrega, remitoEnt
                         onSubmit={(valores, { resetForm }) => {
                             setDataEntregaPerif(valores)
                             setRemitoEntrega(valores)
-                            setShowTableEntrega(true)
+                            setShowAsignacionStock(true)
                             setFormSubmitted(true); // Marcar el formulario como enviado
                             setShowInitAsistente(false)
                         }}

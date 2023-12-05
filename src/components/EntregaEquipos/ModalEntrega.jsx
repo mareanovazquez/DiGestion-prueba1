@@ -9,7 +9,11 @@ import { useState } from "react";
 export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
 
     const { name } = useContext(UserContext);
-    const [showTableEntrega, setShowTableEntrega] = useState(false)
+
+    /* ESTADO PARA CONTROLAR LA RENDERIZACIÓN DEL MODULO ASIGNACIÓN STOCK */
+    const [showAsignacionStock, setShowAsignacionStock] = useState(false)
+
+    const [showCargaDatos, setShowCargaDatos] = useState(false)
 
     /* ESTADO PARA CONTROLAR LOS DATOS DEL ENCABEZADO DEL REMITO DE ENTREGA */
     const [remitoEntrega, setRemitoEntrega] = useState({});
@@ -19,7 +23,8 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
 
     const handleClose = () => {
         setShow(false);
-        setShowTableEntrega(false);
+        setShowAsignacionStock(false);
+        setShowCargaDatos(false)
     }
 
 
@@ -39,8 +44,8 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                 <ModalBody>
 
                     <InitAsistente
-                        setShowTableEntrega={setShowTableEntrega}
-                        showTableEntrga={showTableEntrega}
+                        setShowAsignacionStock={setShowAsignacionStock}
+                        showAsignacionStock={showAsignacionStock}
                         remitoEntrega={remitoEntrega}
                         setRemitoEntrega={setRemitoEntrega}
                     />
@@ -50,15 +55,23 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                         data={data}
                         dataPerifericos={dataPerifericos}
                         handleClose={handleClose}
-                        setShowTableEntrega={setShowTableEntrega}
-                        showTableEntrega={showTableEntrega}
+                        setShowAsignacionStock={setShowAsignacionStock}
+                        showAsignacionStock={showAsignacionStock}
                         remitoEntrega={remitoEntrega}
                         setRemitoEntrega={setRemitoEntrega}
                         setNewDataRemito={setNewDataRemito}
-                        newDataRemito={newDataRemito} />
+                        newDataRemito={newDataRemito}
+                        setShowCargaDatos={setShowCargaDatos}
+                        showCargaDatos={showCargaDatos} />
                 </ModalBody>
                 <ModalBody>
-                    <CargaDatosEquipos />
+                    <CargaDatosEquipos
+                    setShowCargaDatos ={setShowCargaDatos}
+                    showCargaDatos={showCargaDatos}
+                    remitoEntrega={remitoEntrega}
+                    setRemitoEntrega={setRemitoEntrega}
+                    newDataRemito={newDataRemito}
+                    setNewDataRemito={setNewDataRemito} />
                 </ModalBody>
                 <ModalFooter>
                     <Button variant="secondary" onClick={handleClose}>

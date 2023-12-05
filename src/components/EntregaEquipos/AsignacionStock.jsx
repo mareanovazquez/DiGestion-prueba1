@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 
-export const AsignacionStock = ({ data, dataPerifericos, setShowTableEntrega, showTableEntrega, handleClose, remitoEntrega, newDataRemito, setNewDataRemito }) => {
+export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsignacionStock, showAsignacionStock, remitoEntrega, setRemitoEntrega, setNewDataRemito, newDataRemito, setShowCargaDatos, showCargaDatos }) => {
 
 
     /* data tiene los valores del remito */
@@ -44,6 +44,7 @@ export const AsignacionStock = ({ data, dataPerifericos, setShowTableEntrega, sh
     el estado updatedDataPerifericos contiene los periféricos con las cantidades ajustadas, 
     y se utiliza para renderizar la tabla en tu componente React. */
     const [updatedDataPerifericos, setUpdatedDataPerifericos] = useState([...dataPerifericos]);
+
     const handleSendRemitoModified = () => {
         const newDataPerifericos = updatedDataPerifericos.map((periferico) => {
             const id = periferico.id;
@@ -53,6 +54,8 @@ export const AsignacionStock = ({ data, dataPerifericos, setShowTableEntrega, sh
             };
         });
         setUpdatedDataPerifericos(newDataPerifericos);
+        setShowCargaDatos(true)
+        setShowAsignacionStock(false)
     };
 
     /* 
@@ -61,7 +64,6 @@ export const AsignacionStock = ({ data, dataPerifericos, setShowTableEntrega, sh
     actualiza la propiedad 'remitoModelos' con los valores de 'updatedDataPerifericos'
     */
 
-    
     useEffect(() => {
         const newData = {
             ...data,
@@ -70,15 +72,12 @@ export const AsignacionStock = ({ data, dataPerifericos, setShowTableEntrega, sh
         setNewDataRemito(newData)
     }, [updatedDataPerifericos])
 
-    console.log(data)
-    console.log(newDataRemito)
-
     /* Falta crear el POST para cambiar el remito original */
-    /* Falta crear el conditional RENDER para mostar la última vista de carga de datos de los perif */
+
 
     return (
         <>
-            {showTableEntrega &&
+            {showAsignacionStock &&
                 (
                     <div className="contenedorAsignacionStock">
                         <h2 className="text-center">Asignación cantidad de stock por equipo</h2>
