@@ -14,7 +14,6 @@ export const SelectOrganismos = (props) => {
         if (deptoId) {
             http.getData(`/organismos-by-depto/${deptoId}`, token)
                 .then(response => {
-                    /* const ListOrganismos = response.data */
                     const organismos = response.data.data.map(organismo => ({
                         value: organismo.nombre,
                         label: organismo.nombre,
@@ -33,7 +32,6 @@ export const SelectOrganismos = (props) => {
 
     const handleSelected = (organismoSeleccionado) => {
         props.onChange(organismoSeleccionado);
-        console.log(organismoSeleccionado)
     }
 
     return (

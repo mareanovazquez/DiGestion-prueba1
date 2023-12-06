@@ -71,12 +71,12 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                 </ModalBody>
                 <ModalBody>
                     <CargaDatosEquipos
-                    setShowCargaDatos ={setShowCargaDatos}
-                    showCargaDatos={showCargaDatos}
-                    remitoEntrega={remitoEntrega}
-                    setRemitoEntrega={setRemitoEntrega}
-                    newDataRemito={newDataRemito}
-                    setNewDataRemito={setNewDataRemito} />
+                        setShowCargaDatos={setShowCargaDatos}
+                        showCargaDatos={showCargaDatos}
+                        remitoEntrega={remitoEntrega}
+                        setRemitoEntrega={setRemitoEntrega}
+                        newDataRemito={newDataRemito}
+                        setNewDataRemito={setNewDataRemito} />
                 </ModalBody>
                 <ModalFooter>
                     <Button variant="secondary" onClick={handleClose}>

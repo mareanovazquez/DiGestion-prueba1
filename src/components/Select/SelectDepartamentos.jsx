@@ -32,7 +32,6 @@ export const SelectDepartamentos = (props) => {
         // Utiliza la función setDeptoId proporcionada como prop
         props.setDeptoId(departamentoId);
         props.onChange(departamentoSeleccionado);
-        console.log(departamentoSeleccionado)
     }
 
 

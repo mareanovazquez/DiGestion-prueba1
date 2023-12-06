@@ -92,7 +92,7 @@ export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsi
                                 <li className="col" >
                                     <div className="ms-2 me-auto">
                                         <div className="fw-bold">ORGANISMO</div>
-                                        {remitoEntrega.organismo}
+                                        {remitoEntrega.organismo.label}
                                     </div>
                                 </li>
                                 <li className="col">

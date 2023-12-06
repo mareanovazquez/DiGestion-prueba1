@@ -25,7 +25,7 @@ export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, rem
     /* ESTADO PARA CONTROLAR LA RENDERIZACIÓN DEL COMPONENTE initAsistente */
     const [showInitAsistente, setShowInitAsistente] = useState(true)
 
-    
+
     return (
         <>
 
@@ -61,7 +61,7 @@ export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, rem
 
                             return errores;
                         }}
-                        onSubmit={(valores, { resetForm }) => {
+                        onSubmit={(valores) => {
                             setDataEntregaPerif(valores)
                             setRemitoEntrega(valores)
                             setShowAsignacionStock(true)
@@ -73,7 +73,7 @@ export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, rem
                             organismo: 'Seleccioná un organismo',
                             fechaEntrega: 'Definí una fecha de entrega',
                         }}
-                        
+
 
 
                     >
@@ -112,7 +112,6 @@ export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, rem
                                             deptoId={deptoId}
                                             setDeptoId={setDeptoId}
                                         />
-
                                         <ErrorMessage
                                             name="organismo"
                                             component={() => (<span><small className="text-danger p-2">{errors.organismo}</small></span>)}
@@ -158,7 +157,7 @@ export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, rem
                                     <button onClick={() => {
                                         resetForm();
                                         setSelectedValueDep({ label: 'Departamentos', value: '' });
-                                        setSelectedValueOrg({label:'Organismos', value:''})
+                                        setSelectedValueOrg({ label: 'Organismos', value: '' })
                                         setDataEntregaPerif({})
                                     }} className="btn btn-secondary" type="button" disabled={formSubmitted}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash trashIcon" viewBox="0 0 16 16">
