@@ -19,6 +19,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
     const [perifId, setPerifId] = useState('');
     const [marcaId, setMarcaId] = useState('');
     const [modeloId, setModeloId] = useState('')
+    
 
     // Estado para manejar los label de los select2 de periférico, marca y modelo
     const [selectedValuePerif, setSelectedValuePerif] = useState({ label: 'Periférico', value: '' });
@@ -143,7 +144,7 @@ export const ListadoPerifericos = ({ encabezadoRemito, handleClose }) => {
                 console.log(error)
             })
     }
-    console.log(dataRemito)
+    
     return (
         <>
             <div>

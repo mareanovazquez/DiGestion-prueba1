@@ -21,6 +21,9 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
     /* ESTADO PARA CONTROLAR LOS DATOS NUEVOS DEL REMITO CON EL VALOR ACTUALIZAZO DEL STOCK DE PERIFERICOS */
     const [newDataRemito, setNewDataRemito] = useState({})
 
+    /* ESTADO PARA CONTROLAR EL SELECT2 DE ORGANISMO */
+    const [deptoId, setDeptoId] = useState('')
+
     const handleClose = () => {
         setShow(false);
         setShowAsignacionStock(false);
@@ -48,6 +51,8 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                         showAsignacionStock={showAsignacionStock}
                         remitoEntrega={remitoEntrega}
                         setRemitoEntrega={setRemitoEntrega}
+                        deptoId={deptoId}
+                        setDeptoId={setDeptoId}
                     />
                 </ModalBody>
                 <ModalBody>

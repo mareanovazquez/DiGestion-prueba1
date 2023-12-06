@@ -1,10 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Select from "react-select";
 import { UserContext } from "../../UserContext/UserContext";
 import HttpService from "../../services/HttpService";
 
 export const SelectDepartamentos = (props) => {
     const [departamentos, setDepartamentos] = useState([]);
+    const [selectedDepartamentoId, setSelectedDepartamentoId] = useState(null); // Nuevo estado para almacenar el departamento_id
     const { token } = useContext(UserContext);
     const http = new HttpService();
 
@@ -17,6 +18,7 @@ export const SelectDepartamentos = (props) => {
                     departamento_id: departamento.id
                 }));
                 setDepartamentos(departamentos);
+
             })
             .catch(error => {
                 console.log(error);
@@ -24,17 +26,23 @@ export const SelectDepartamentos = (props) => {
     }, []);
 
     const handleSelected = (departamentoSeleccionado) => {
-        props.onChange(departamentoSeleccionado); // Pasamos todo el objeto seleccionado para que coincida con el formato de las opciones
+        const departamentoId = departamentoSeleccionado.departamento_id;
+        setSelectedDepartamentoId(departamentoId);
+
+        // Utiliza la función setDeptoId proporcionada como prop
+        props.setDeptoId(departamentoId);
+        props.onChange(departamentoSeleccionado);
+        console.log(departamentoSeleccionado)
     }
+
+
 
     return (
         <Select
-            value={props.selectedValueDep} // Asegúrate de que selectedValueDep tenga el formato correcto
+            value={props.selectedValueDep}
             options={departamentos}
             onChange={handleSelected}
-            placeholder="Departamento"
-            isDisabled={props.isDisabled} // Agregamos la prop isDisabled aquí
-
+            placeholder="Departamentos"
         />
     );
 }

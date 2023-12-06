@@ -2,11 +2,12 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
 import { SelectDepartamentos } from "../Select/SelectDepartamentos";
 import { Link, useNavigate } from "react-router-dom";
+import { SelectOrganismos } from "../Select/SelectOrganismos";
 
 
 
 
-export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, remitoEntrega, setRemitoEntrega }) => {
+export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, remitoEntrega, setRemitoEntrega, deptoId, setDeptoId }) => {
 
     const navigate = useNavigate();
 
@@ -15,11 +16,16 @@ export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, rem
     // useState para controlar el estado de los Select2 después de seleccionar y borrar
     const [selectedValueDep, setSelectedValueDep] = useState({ label: 'Departamentos', value: '' });
 
+    // useState para controlar el estado de los Select2 después de seleccionar y borrar
+    const [selectedValueOrg, setSelectedValueOrg] = useState({ label: 'Organismos', value: '' });
+
     /*ESTADO PARA CONTROLAR EL ENVÍO DEL FORMULARIO*/
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     /* ESTADO PARA CONTROLAR LA RENDERIZACIÓN DEL COMPONENTE initAsistente */
     const [showInitAsistente, setShowInitAsistente] = useState(true)
+
+    
     return (
         <>
 
@@ -59,17 +65,15 @@ export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, rem
                             setDataEntregaPerif(valores)
                             setRemitoEntrega(valores)
                             setShowAsignacionStock(true)
-                            setFormSubmitted(true); // Marcar el formulario como enviado
                             setShowInitAsistente(false)
                         }}
-                        enableReinitialize={true}
 
                         initialErrors={{ // Nuevo: initialErrors en lugar de isInitialValid
                             departamento: 'Seleccioná un departamento',
                             organismo: 'Seleccioná un organismo',
                             fechaEntrega: 'Definí una fecha de entrega',
                         }}
-                        validateOnMount
+                        
 
 
                     >
@@ -83,8 +87,14 @@ export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, rem
                                             onChange={(selectedDepartamento) => {
                                                 setFieldValue('departamento', selectedDepartamento)
                                                 setSelectedValueDep(selectedDepartamento)
+                                                if (selectedDepartamento) {
+                                                    setDeptoId(selectedDepartamento.departamento_id)
+                                                } else {
+                                                    setDeptoId(null)
+                                                }
                                             }}
-                                            isDisabled={formSubmitted} // Deshabilitar el SelectDepartamentos después del envío
+                                            deptoId={deptoId}
+                                            setDeptoId={setDeptoId}
                                         />
                                         <ErrorMessage
                                             name="departamento"
@@ -93,14 +103,16 @@ export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, rem
                                     </div>
                                     <div className="col">
                                         <label>Organismo</label>
-                                        <Field type="text"
-                                            className="form-control"
-                                            name="organismo"
-                                            id="organismo"
-                                            placeholder="Organismo"
-                                            aria-label="Organismo"
-                                            disabled={formSubmitted} // Deshabilitar el campo después del envío
+                                        <SelectOrganismos
+                                            selectedValueOrg={values.organismo}
+                                            onChange={(selectedOrganismo) => {
+                                                setFieldValue('organismo', selectedOrganismo)
+                                                setSelectedValueOrg(selectedOrganismo)
+                                            }}
+                                            deptoId={deptoId}
+                                            setDeptoId={setDeptoId}
                                         />
+
                                         <ErrorMessage
                                             name="organismo"
                                             component={() => (<span><small className="text-danger p-2">{errors.organismo}</small></span>)}
@@ -146,6 +158,7 @@ export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, rem
                                     <button onClick={() => {
                                         resetForm();
                                         setSelectedValueDep({ label: 'Departamentos', value: '' });
+                                        setSelectedValueOrg({label:'Organismos', value:''})
                                         setDataEntregaPerif({})
                                     }} className="btn btn-secondary" type="button" disabled={formSubmitted}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash trashIcon" viewBox="0 0 16 16">

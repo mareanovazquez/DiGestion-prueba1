@@ -12,9 +12,13 @@ export const AddRemito = () => {
 
     const [dataAddRemito, setDataAddRemito] = useState({});
 
+    /* ESTADO PARA CONTROLAR EL SELECT2 DE ORGANISMO */
+    const [deptoId, setDeptoId] = useState('')
+
     // useState para controlar el estado de los Select2 después de seleccionar y borrar
     const [selectedValueProv, setSelectedValueProv] = useState({ label: 'Proveedores', value: '' });
     const [selectedValueDep, setSelectedValueDep] = useState({ label: 'Departamentos', value: '' });
+
 
     return (
         <>
@@ -57,7 +61,7 @@ export const AddRemito = () => {
                         resetForm();
                         setShow(true)
                     }}
-                    
+
                 >
                     {({ errors, setFieldValue, values, resetForm }) => (
 
@@ -87,7 +91,9 @@ export const AddRemito = () => {
                                         onChange={(selectedDepartamento) => {
                                             setFieldValue('departamento', selectedDepartamento);
                                             setSelectedValueDep(selectedDepartamento);
-                                        }} />
+                                        }}
+                                        deptoId={deptoId}
+                                        setDeptoId={setDeptoId} />
                                     <ErrorMessage
                                         name="departamento"
                                         component={() => (<span><small className="text-danger p-2">{errors.departamento}</small></span>)}

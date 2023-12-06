@@ -1,6 +1,7 @@
 export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEntrega, setRemitoEntrega, newDataRemito, setNewDataRemito }) => {
 
-    const stockEquipos = newDataRemito.remitoModelos.filter(equipo => equipo.cantidad !== equipo.disponible);
+    // Verificar si newDataRemito y newDataRemito.remitoModelos están definidos
+    const stockEquipos = newDataRemito && newDataRemito.remitoModelos ? newDataRemito.remitoModelos.filter(equipo => equipo.cantidad !== equipo.disponible) : [];
 
     // Crear un nuevo array duplicando los elementos según la diferencia entre cantidad y disponible
     const equiposDuplicados = [];
