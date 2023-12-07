@@ -61,12 +61,12 @@ export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsi
     };
 
     /* 
-    NEW DATA REMITO
+    NEWDATAREMITO
     useEffect crea una copia de data (viene por props) y 
     actualiza la propiedad 'remitoModelos' con los valores de 'updatedDataPerifericos'
     */
 
-    /* COMPROBANTE EQUIPOS
+    /* EQUIPOSASIGNADOS
     useEffect crea una copia de data (viene por props) y 
     actualiza la propiedad 'remitoModelos' con los valores de 'updatedDataPerifericos'
     y en remitoModelos agrega un nuevo valor que es stockAsignado para hacer el forEach y duplicar
