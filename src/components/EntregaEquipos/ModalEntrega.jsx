@@ -13,21 +13,32 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
     /* ESTADO PARA CONTROLAR LA RENDERIZACIÓN DEL MODULO ASIGNACIÓN STOCK */
     const [showAsignacionStock, setShowAsignacionStock] = useState(false)
 
+    /* ESTADO PARA CONTROLAR LA RENDERIZACIÓN DEL MODULO CARGA DATOS EQUIPOS */
     const [showCargaDatos, setShowCargaDatos] = useState(false)
 
     /* ESTADO PARA CONTROLAR LOS DATOS DEL ENCABEZADO DEL REMITO DE ENTREGA */
     const [remitoEntrega, setRemitoEntrega] = useState({});
 
     /* ESTADO PARA CONTROLAR LOS DATOS NUEVOS DEL REMITO CON EL VALOR ACTUALIZAZO DEL STOCK DE PERIFERICOS */
-    const [newDataRemito, setNewDataRemito] = useState({})
+    const [newDataRemito, setNewDataRemito] = useState({});
+
+    /* ESTADO PARA GENERAR EL COMPROBANTE PDF DE ENTREGA DE EQUIPOS */
+    const [comprobanteEquipos, setComprobanteEquipos] = useState({});
+
+    /* ESTADO PARA MANEJAR LAS CANTIDADES DE STOCK ASIGNADO POR REMITO */
+    const [asignaciones, setAsignaciones] = useState({});
+
+    /* ESTADO PARA CONTROLAR LOS NUEVOS DATOS DEL REMITO CON EL STOCK ASIGNADO */
+    const [equiposAsignados, setEquiposAsignados] = useState({})
 
     /* ESTADO PARA CONTROLAR EL SELECT2 DE ORGANISMO */
-    const [deptoId, setDeptoId] = useState('')
+    const [deptoId, setDeptoId] = useState('');
 
     const handleClose = () => {
         setShow(false);
         setShowAsignacionStock(false);
         setShowCargaDatos(false)
+        setAsignaciones({})
     }
 
 
@@ -60,14 +71,20 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                         data={data}
                         dataPerifericos={dataPerifericos}
                         handleClose={handleClose}
-                        setShowAsignacionStock={setShowAsignacionStock}
                         showAsignacionStock={showAsignacionStock}
+                        setShowAsignacionStock={setShowAsignacionStock}
                         remitoEntrega={remitoEntrega}
                         setRemitoEntrega={setRemitoEntrega}
-                        setNewDataRemito={setNewDataRemito}
                         newDataRemito={newDataRemito}
+                        setNewDataRemito={setNewDataRemito}
+                        showCargaDatos={showCargaDatos}
                         setShowCargaDatos={setShowCargaDatos}
-                        showCargaDatos={showCargaDatos} />
+                        comprobanteEquipos={comprobanteEquipos}
+                        setComprobanteEquipos={setComprobanteEquipos}
+                        asignaciones={asignaciones}
+                        setAsignaciones={setAsignaciones}
+                        equiposAsignados={equiposAsignados}
+                        setEquiposAsignados={setEquiposAsignados} />
                 </ModalBody>
                 <ModalBody>
                     <CargaDatosEquipos
@@ -76,7 +93,14 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                         remitoEntrega={remitoEntrega}
                         setRemitoEntrega={setRemitoEntrega}
                         newDataRemito={newDataRemito}
-                        setNewDataRemito={setNewDataRemito} />
+                        setNewDataRemito={setNewDataRemito}
+                        comprobanteEquipos={comprobanteEquipos}
+                        setComprobanteEquipos={setComprobanteEquipos}
+                        asignaciones={asignaciones}
+                        setAsignaciones={setAsignaciones}
+                        equiposAsignados={equiposAsignados}
+                        setEquiposAsignados={setEquiposAsignados}
+                    />
                 </ModalBody>
                 <ModalFooter>
                     <Button variant="secondary" onClick={handleClose}>

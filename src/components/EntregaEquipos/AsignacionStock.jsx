@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 
-export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsignacionStock, showAsignacionStock, remitoEntrega, setRemitoEntrega, setNewDataRemito, newDataRemito, setShowCargaDatos, showCargaDatos }) => {
+export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsignacionStock, showAsignacionStock, remitoEntrega, setRemitoEntrega, setNewDataRemito, newDataRemito, setShowCargaDatos, showCargaDatos, comprobanteEquipos, setComprobanteEquipos, asignaciones, setAsignaciones, equiposAsignados, setEquiposAsignados }) => {
 
 
     /* data tiene los valores del remito */
     /* dataPerifericos es igual a data.remitoModelos y tiene solo los periféricos listados */
 
     // Estado local para los campos "Asignar" y "Comentarios"
-    const [asignaciones, setAsignaciones] = useState({});
+
     const [comentarios, setComentarios] = useState({});
 
     const [cantidadDisponible, setCantidadDisponible] = useState({});
@@ -36,6 +36,7 @@ export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsi
         } else {
             alert("Asignación de stock no válida");
         }
+
     };
 
     /*Actualiza la cantidad de cada periférico en el array updatedDataPerifericos 
@@ -51,6 +52,7 @@ export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsi
             return {
                 ...periferico,
                 cantidad: cantidadDisponible[id], // Actualiza la cantidad con el nuevo valor
+                disponible: cantidadDisponible[id] //Actualiza la cantidad con el nuevo valor
             };
         });
         setUpdatedDataPerifericos(newDataPerifericos);
@@ -64,16 +66,31 @@ export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsi
     actualiza la propiedad 'remitoModelos' con los valores de 'updatedDataPerifericos'
     */
 
+    /* COMPROBANTE EQUIPOS
+    useEffect crea una copia de data (viene por props) y 
+    actualiza la propiedad 'remitoModelos' con los valores de 'updatedDataPerifericos'
+    y en remitoModelos agrega un nuevo valor que es stockAsignado para hacer el forEach y duplicar
+    los campos en carga de datos
+     */
+
     useEffect(() => {
         const newData = {
             ...data,
             remitoModelos: updatedDataPerifericos,
         };
+
+        const newDataAsignaciones = {
+            ...data,
+            remitoModelos: updatedDataPerifericos.map((equipo) => ({
+                ...equipo,
+                stockAsignado: asignaciones[equipo.id] || 0,
+            })),
+        };
         setNewDataRemito(newData)
+        setEquiposAsignados(newDataAsignaciones)
     }, [updatedDataPerifericos])
 
     /* Falta crear el POST para cambiar el remito original */
-
 
     return (
         <>

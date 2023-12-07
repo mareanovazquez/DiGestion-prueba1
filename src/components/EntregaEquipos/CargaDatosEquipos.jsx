@@ -1,20 +1,19 @@
-export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEntrega, setRemitoEntrega, newDataRemito, setNewDataRemito }) => {
+export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEntrega, setRemitoEntrega, newDataRemito, setNewDataRemito, asignaciones, setAsignaciones, comprobanteEquipos, setComprobanteEquipos, equiposAsignados, setEquiposAsignados }) => {
 
-    // Verificar si newDataRemito y newDataRemito.remitoModelos están definidos
-    const stockEquipos = newDataRemito && newDataRemito.remitoModelos ? newDataRemito.remitoModelos.filter(equipo => equipo.cantidad !== equipo.disponible) : [];
+    // Verificar si equiposAsignados y equiposAsignados.remitoModelos están definidos
+const stockEquipos = equiposAsignados && equiposAsignados.remitoModelos ? equiposAsignados.remitoModelos.filter(equipo => equipo.stockAsignado > 0) : [];
 
-    // Crear un nuevo array duplicando los elementos según la diferencia entre cantidad y disponible
-    const equiposDuplicados = [];
-    stockEquipos.forEach(equipo => {
-        const diferencia = Math.abs(equipo.cantidad - equipo.disponible); // Utilizar Math.abs() para obtener el valor absoluto
-        for (let i = 0; i < diferencia; i++) {
-            equiposDuplicados.push({ ...equipo }); // Copiar el elemento para no modificar el original
-        }
-    });
+// Crear un nuevo array duplicando los elementos según el valor de stockAsignado
+const equiposDuplicados = [];
+stockEquipos.forEach(equipo => {
+    const cantidadAsignada = equipo.stockAsignado;
+    for (let i = 0; i < cantidadAsignada; i++) {
+        equiposDuplicados.push({ ...equipo }); // Copiar el elemento para no modificar el original
+    }
+});
 
+/* FALTA GUARDAR LOS DATOS DE CARGA EQUIPO EN COMPROBANTE EQUIPOS */
     /* Falta agregar manejador de estado input y textarea */
-    /* crear y un estado para guardar toda esta información */
-
 
     return (
         <>
