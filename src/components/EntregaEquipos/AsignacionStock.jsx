@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom";
 
 export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsignacionStock, showAsignacionStock, remitoEntrega, setRemitoEntrega, setNewDataRemito, newDataRemito, setShowCargaDatos, showCargaDatos, comprobanteEquipos, setComprobanteEquipos, asignaciones, setAsignaciones, equiposAsignados, setEquiposAsignados }) => {
-
 
     /* data tiene los valores del remito */
     /* dataPerifericos es igual a data.remitoModelos y tiene solo los periféricos listados */
@@ -36,8 +34,14 @@ export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsi
         } else {
             alert("Asignación de stock no válida");
         }
-
     };
+
+    const handleComentariosChange = (perifericoId, value) => {
+        setComentarios((prevComentarios) => ({
+          ...prevComentarios,
+          [perifericoId]: value,
+        }));
+      };
 
     /*Actualiza la cantidad de cada periférico en el array updatedDataPerifericos 
     utilizando la información almacenada en el estado cantidadDisponible. 
@@ -58,7 +62,7 @@ export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsi
         setUpdatedDataPerifericos(newDataPerifericos);
         setShowCargaDatos(true)
         setShowAsignacionStock(false)
-    };
+        };
 
     /* 
     NEWDATAREMITO
@@ -84,13 +88,15 @@ export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsi
             remitoModelos: updatedDataPerifericos.map((equipo) => ({
                 ...equipo,
                 stockAsignado: asignaciones[equipo.id] || 0,
+                comentarioAsignacion: comentarios[equipo.id] || ''
             })),
         };
         setNewDataRemito(newData)
         setEquiposAsignados(newDataAsignaciones)
     }, [updatedDataPerifericos])
 
-    /* Falta crear el POST para cambiar el remito original */
+    /* Falta crear el POST para enviarle a Matías los cambios el remito original */
+
 
     return (
         <>
@@ -145,7 +151,6 @@ export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsi
                             <tbody>
                                 {dataPerifericos.map((periferico) => {
                                     const cantidadDisponible = periferico.cantidad;
-
                                     return (
                                         <tr key={periferico.id}>
                                             <td className="text-left">{periferico.nombrePeriferico}</td>
@@ -178,7 +183,7 @@ export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsi
                         </table>
                         <div className="d-grid gap-2 p-2 d-md-flex justify-content-md-end">
                             <button className="btn btn-primary" type="button" onClick={handleClose}>Volver</button>
-                            <Link><button className="btn btn-success" type="button" onClick={handleSendRemitoModified}> Siguiente</button></Link>
+                            <button className="btn btn-success" type="button" onClick={handleSendRemitoModified}> Siguiente</button>
                         </div>
                     </div>
                 )}

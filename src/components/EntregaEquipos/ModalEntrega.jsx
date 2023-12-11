@@ -4,6 +4,7 @@ import { Button, Modal, ModalBody, ModalFooter } from "react-bootstrap";
 import { InitAsistente } from "./InitAsistente";
 import { AsignacionStock } from "./AsignacionStock";
 import { CargaDatosEquipos } from "./CargaDatosEquipos";
+import { ResumenEntrega } from "./ResumenEntrega"
 import { useState } from "react";
 
 export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
@@ -15,6 +16,9 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
 
     /* ESTADO PARA CONTROLAR LA RENDERIZACIÓN DEL MODULO CARGA DATOS EQUIPOS */
     const [showCargaDatos, setShowCargaDatos] = useState(false)
+
+    /* ESTADO PARA CONTROLAR LA RENDERIZACIÓN DEL MODULO DE RESUMEN ENTREGA EQUIPOS */
+    const [showResumenEntrega, setShowResumenEntrega] = useState(false)
 
     /* ESTADO PARA CONTROLAR LOS DATOS DEL ENCABEZADO DEL REMITO DE ENTREGA */
     const [remitoEntrega, setRemitoEntrega] = useState({});
@@ -39,6 +43,8 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
         setShowAsignacionStock(false);
         setShowCargaDatos(false)
         setAsignaciones({})
+        setShowResumenEntrega(false)
+        setComprobanteEquipos({})
     }
 
 
@@ -53,7 +59,11 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Remito N° {data.remito}</Modal.Title>
+                    <Modal.Title>
+                        <h2>
+                            Remito N° {data.remito}
+                        </h2>
+                    </Modal.Title>
                 </Modal.Header>
                 <ModalBody>
 
@@ -84,7 +94,8 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                         asignaciones={asignaciones}
                         setAsignaciones={setAsignaciones}
                         equiposAsignados={equiposAsignados}
-                        setEquiposAsignados={setEquiposAsignados} />
+                        setEquiposAsignados={setEquiposAsignados}
+                    />
                 </ModalBody>
                 <ModalBody>
                     <CargaDatosEquipos
@@ -100,6 +111,17 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                         setAsignaciones={setAsignaciones}
                         equiposAsignados={equiposAsignados}
                         setEquiposAsignados={setEquiposAsignados}
+                        handleClose={handleClose}
+                        showResumenEntrega={showResumenEntrega}
+                        setShowResumenEntrega={setShowResumenEntrega}
+                    />
+                </ModalBody>
+                <ModalBody>
+                    <ResumenEntrega
+                        showResumenEntrega={showResumenEntrega}
+                        setShowResumenEntrega={setShowResumenEntrega}
+                        comprobanteEquipos={comprobanteEquipos}
+                        setComprobanteEquipos={setComprobanteEquipos}
                     />
                 </ModalBody>
                 <ModalFooter>
