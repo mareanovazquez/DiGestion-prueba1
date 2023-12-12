@@ -1,8 +1,6 @@
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer"
-import { useEffect } from "react";
 export const ResumenEntregaPDF = ({ comprobanteEquipos, equiposAsignados }) => {
 
-    
     const styles = StyleSheet.create({
         encabezado: {
             fontSize: '30px',
@@ -45,7 +43,7 @@ export const ResumenEntregaPDF = ({ comprobanteEquipos, equiposAsignados }) => {
             marginBottom: 10,
         },
         comments: {
-            fontSize:'14px',
+            fontSize:'12px',
             marginTop: 10,
         },
         table: {
@@ -93,7 +91,7 @@ export const ResumenEntregaPDF = ({ comprobanteEquipos, equiposAsignados }) => {
                         <Text>DiGestión</Text>
                     </View>
                     <Text style={styles.encabezadoH2}>Comprobante de la entrega de equipos</Text>
-                    <View style={styles.container}>
+                    <View>
                         <View style={styles.row}>
                             <View style={styles.column}>
                                 <ul style={styles.list}>
