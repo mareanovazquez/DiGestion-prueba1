@@ -95,9 +95,6 @@ export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsi
         setEquiposAsignados(newDataAsignaciones)
     }, [updatedDataPerifericos])
 
-    /* Falta crear el POST para enviarle a Matías los cambios el remito original */
-
-
     return (
         <>
             {showAsignacionStock &&

@@ -47,114 +47,118 @@ export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEnt
         if (!todosConNumeroSerie) {
             // Mostrar un mensaje de error o tomar la acción que desees si falta el número de serie
             alert("Por favor, ingresa el número de serie para todos los equipos.");
-            return;}
+            return;
+        }
 
-            setShowCargaDatos(false);
+        setShowCargaDatos(false);
         setShowResumenEntrega(true);
 
         // Obtener los datos de stockEquipos
-            const stockEquiposData = equiposData.map((equipo) => ({
-                periferico: equipo.nombrePeriferico,
-                marca: equipo.nombreMarca,
-                modelo: equipo.nombreModelo,
-                numeroSerie: equipo.numeroSerie,
-                comentarioEquipo: equipo.comentarioEquipo,
-                // ... otras propiedades
-            }));
+        const stockEquiposData = equiposData.map((equipo) => ({
+            periferico: equipo.nombrePeriferico,
+            marca: equipo.nombreMarca,
+            modelo: equipo.nombreModelo,
+            numeroSerie: equipo.numeroSerie,
+            comentarioEquipo: equipo.comentarioEquipo,
+            // ... otras propiedades
+        }));
 
-            // Actualizar el estado comprobanteEquipos
-            const nuevosDatosComprobante = {
-                departamento: remitoEntrega.departamento.label,
-                organismo: remitoEntrega.organismo.label,
-                fechaEntrega: remitoEntrega.fechaEntrega,
-                comentario: remitoEntrega.comentarios,
-                stockEquipos: stockEquiposData,
-            };
-            setComprobanteEquipos(nuevosDatosComprobante);
+        // Actualizar el estado comprobanteEquipos
+        const nuevosDatosComprobante = {
+            departamento: remitoEntrega.departamento.label,
+            organismo: remitoEntrega.organismo.label,
+            fechaEntrega: remitoEntrega.fechaEntrega,
+            comentario: remitoEntrega.comentarios,
+            stockEquipos: stockEquiposData,
         };
+        setComprobanteEquipos(nuevosDatosComprobante);
 
-        return (
-            <>
-                {showCargaDatos &&
-                    <div className="contenedorCargaDatos">
-                        <h2>Carga de datos de garantía de los equipos asignados
-                        </h2>
-                        <div className="p-2">
-                            <ul className="row">
-                                <li className="col" >
-                                    <div className="ms-2 me-auto">
-                                        <div className="fw-bold">DEPARTAMENTO</div>
-                                        {remitoEntrega.departamento.label}
-                                    </div>
-                                </li>
-                                <li className="col" >
-                                    <div className="ms-2 me-auto">
-                                        <div className="fw-bold">ORGANISMO</div>
-                                        {remitoEntrega.organismo.label}
-                                    </div>
-                                </li>
-                                <li className="col">
-                                    <div className="ms-2 me-auto">
-                                        <div className="fw-bold">FECHA DE ENTREGA</div>
-                                        {remitoEntrega.fechaEntrega}
-                                    </div>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li >
-                                    <div className="ms-2 me-auto">
-                                        <div className="fw-bold">COMENTARIOS</div>
-                                        {remitoEntrega.comentarios}
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <table className="table table-secondary table-striped">
-                            <thead>
-                                <tr>
-                                    <th className="text-left bg-secondary text-white">Remito</th>
-                                    <th className="text-left bg-secondary text-white">Periférico</th>
-                                    <th className="text-left bg-secondary text-white">Marca</th>
-                                    <th className="text-left bg-secondary text-white">Modelo</th>
-                                    <th className="text-left bg-secondary text-white">Número serie</th>
-                                    <th className="text-left bg-secondary text-white">Comentario equipo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {equiposData.map((equipo, index) => {
-                                    return (
-                                        <tr key={index}>
-                                            <td className="text-left">{newDataRemito.remito}</td>
-                                            <td className="text-left">{equipo.nombrePeriferico}</td>
-                                            <td className="text-left">{equipo.nombreMarca}</td>
-                                            <td className="text-left">{equipo.nombreModelo}</td>
-                                            <td className="text-left">
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    value={equipo.numeroSerie}
-                                                    onChange={(e) => handleNumeroSerieChange(equipo.id, e.target.value)}
-                                                />
-                                            </td>
-                                            <td className="text-left">
-                                                <textarea
-                                                    className="form-control"
-                                                    value={equipo.comentarioEquipo}
-                                                    onChange={(e) => handleComentarioChange(equipo.id, e.target.value)}
-                                                />
-                                            </td>
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </table>
 
-                        <div className="d-grid gap-2 p-2 d-md-flex justify-content-md-end">
-                            <button className="btn btn-primary" type="button" onClick={handleClose}>Volver</button>
-                            <button className="btn btn-success" type="button" onClick={handleCreateResumen} > Siguiente</button>
-                        </div>
+        /* ACA DEBERÍA HACERSE EL POST PARA ENVIAR LOS DATOS ACTUALIZADOS A MATÍAS */
+    };
+
+    return (
+        <>
+            {showCargaDatos &&
+                <div className="contenedorCargaDatos">
+                    <h2>Carga de datos de garantía de los equipos asignados
+                    </h2>
+                    <div className="p-2">
+                        <ul className="row">
+                            <li className="col" >
+                                <div className="ms-2 me-auto">
+                                    <div className="fw-bold">DEPARTAMENTO</div>
+                                    {remitoEntrega.departamento.label}
+                                </div>
+                            </li>
+                            <li className="col" >
+                                <div className="ms-2 me-auto">
+                                    <div className="fw-bold">ORGANISMO</div>
+                                    {remitoEntrega.organismo.label}
+                                </div>
+                            </li>
+                            <li className="col">
+                                <div className="ms-2 me-auto">
+                                    <div className="fw-bold">FECHA DE ENTREGA</div>
+                                    {remitoEntrega.fechaEntrega}
+                                </div>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li >
+                                <div className="ms-2 me-auto">
+                                    <div className="fw-bold">COMENTARIOS</div>
+                                    {remitoEntrega.comentarios}
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                }
-            </>
-        )
-    }
+                    <table className="table table-secondary table-striped">
+                        <thead>
+                            <tr>
+                                <th className="text-left bg-secondary text-white">Remito</th>
+                                <th className="text-left bg-secondary text-white">Periférico</th>
+                                <th className="text-left bg-secondary text-white">Marca</th>
+                                <th className="text-left bg-secondary text-white">Modelo</th>
+                                <th className="text-left bg-secondary text-white">Número serie</th>
+                                <th className="text-left bg-secondary text-white">Comentario equipo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {equiposData.map((equipo, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td className="text-left">{newDataRemito.remito}</td>
+                                        <td className="text-left">{equipo.nombrePeriferico}</td>
+                                        <td className="text-left">{equipo.nombreMarca}</td>
+                                        <td className="text-left">{equipo.nombreModelo}</td>
+                                        <td className="text-left">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={equipo.numeroSerie}
+                                                onChange={(e) => handleNumeroSerieChange(equipo.id, e.target.value)}
+                                            />
+                                        </td>
+                                        <td className="text-left">
+                                            <textarea
+                                                className="form-control"
+                                                value={equipo.comentarioEquipo}
+                                                onChange={(e) => handleComentarioChange(equipo.id, e.target.value)}
+                                            />
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+
+                    <div className="d-grid gap-2 p-2 d-md-flex justify-content-md-end">
+                        <button className="btn btn-primary" type="button" onClick={handleClose}>Volver</button>
+                        <button className="btn btn-success" type="button" onClick={handleCreateResumen} > Siguiente</button>
+                    </div>
+                </div>
+            }
+        </>
+    )
+}

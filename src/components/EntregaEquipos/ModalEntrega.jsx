@@ -122,6 +122,9 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                         setShowResumenEntrega={setShowResumenEntrega}
                         comprobanteEquipos={comprobanteEquipos}
                         setComprobanteEquipos={setComprobanteEquipos}
+                        handleClose={handleClose}
+                        equiposAsignados={equiposAsignados}
+                        setEquiposAsignados={setEquiposAsignados}
                     />
                 </ModalBody>
                 <ModalFooter>

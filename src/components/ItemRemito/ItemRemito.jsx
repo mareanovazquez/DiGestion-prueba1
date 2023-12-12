@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav';
 import { UserContext } from '../../UserContext/UserContext';
 import HttpService from '../../services/HttpService';
