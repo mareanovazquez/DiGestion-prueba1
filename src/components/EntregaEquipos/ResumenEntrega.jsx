@@ -66,8 +66,7 @@ export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comp
                         </tbody>
                     </table>
                     <div className="d-grid gap-2 p-2 d-md-flex justify-content-md-end">
-                        <button className="btn btn-primary" type="button" onClick={handleClose}>Volver</button>
-
+                        <button className="btn btn-dark" type="button" onClick={handleClose}>Volver</button>
                         <PDFDownloadLink document={<ResumenEntregaPDF comprobanteEquipos={comprobanteEquipos} equiposAsignados={equiposAsignados} />} fileName='Comprobante_Entrega_Equipos'>
                             <button className="btn btn-danger" type="button"> PDF </button>
                         </PDFDownloadLink>

@@ -11,6 +11,9 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
 
     const { name } = useContext(UserContext);
 
+     /* ESTADO PARA CONTROLAR LA RENDERIZACIÓN DEL COMPONENTE initAsistente */
+    const [showInitAsistente, setShowInitAsistente] = useState(true)
+
     /* ESTADO PARA CONTROLAR LA RENDERIZACIÓN DEL MODULO ASIGNACIÓN STOCK */
     const [showAsignacionStock, setShowAsignacionStock] = useState(false)
 
@@ -38,6 +41,7 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
     /* ESTADO PARA CONTROLAR EL SELECT2 DE ORGANISMO */
     const [deptoId, setDeptoId] = useState('');
 
+    /* Handler para cerrar el modal y reinicializar todo el asistente */
     const handleClose = () => {
         setShow(false);
         setShowAsignacionStock(false);
@@ -45,9 +49,22 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
         setAsignaciones({})
         setShowResumenEntrega(false)
         setComprobanteEquipos({})
+        setShowInitAsistente(true)
     }
 
+    /* Handler de renderización de volver atrás desde
+    asignación Stock a initAsistente */
+    const handleVolverInit = ()=> {
+        setShowAsignacionStock(false)
+        setShowInitAsistente(true)
+    }
 
+/* Handler de renderización de volver atrás desde
+    carga de datos a asignacionStock */
+    const handleVolverAsig = ()=> {
+        setShowAsignacionStock(true)
+        setShowCargaDatos(false)
+    }
 
     return (
         <>
@@ -68,12 +85,15 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                 <ModalBody>
 
                     <InitAsistente
-                        setShowAsignacionStock={setShowAsignacionStock}
+                        showInitAsistente={showInitAsistente}
+                        setShowInitAsistente={setShowInitAsistente}
                         showAsignacionStock={showAsignacionStock}
+                        setShowAsignacionStock={setShowAsignacionStock}
                         remitoEntrega={remitoEntrega}
                         setRemitoEntrega={setRemitoEntrega}
                         deptoId={deptoId}
                         setDeptoId={setDeptoId}
+                        handleClose={handleClose}
                     />
                 </ModalBody>
                 <ModalBody>
@@ -95,6 +115,7 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                         setAsignaciones={setAsignaciones}
                         equiposAsignados={equiposAsignados}
                         setEquiposAsignados={setEquiposAsignados}
+                        handleVolverInit={handleVolverInit}
                     />
                 </ModalBody>
                 <ModalBody>
@@ -114,6 +135,7 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                         handleClose={handleClose}
                         showResumenEntrega={showResumenEntrega}
                         setShowResumenEntrega={setShowResumenEntrega}
+                        handleVolverAsig={handleVolverAsig}
                     />
                 </ModalBody>
                 <ModalBody>
@@ -127,12 +149,6 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                         setEquiposAsignados={setEquiposAsignados}
                     />
                 </ModalBody>
-                <ModalFooter>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Cerrar
-                    </Button>
-                </ModalFooter>
-
             </Modal>
 
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEntrega, setRemitoEntrega, newDataRemito, setNewDataRemito, asignaciones, setAsignaciones, comprobanteEquipos, setComprobanteEquipos, equiposAsignados, setEquiposAsignados, handleClose, showResumenEntrega, setShowResumenEntrega }) => {
+export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEntrega, setRemitoEntrega, newDataRemito, setNewDataRemito, asignaciones, setAsignaciones, comprobanteEquipos, setComprobanteEquipos, equiposAsignados, setEquiposAsignados, handleClose, showResumenEntrega, setShowResumenEntrega, handleVolverAsig }) => {
     /* Estado que almacena dinámicamente la información que el usuario 
     ingresa para cada equipo en el formulario.  */
     const [equiposData, setEquiposData] = useState([]);
@@ -154,7 +154,8 @@ export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEnt
                     </table>
 
                     <div className="d-grid gap-2 p-2 d-md-flex justify-content-md-end">
-                        <button className="btn btn-primary" type="button" onClick={handleClose}>Volver</button>
+                        <button className="btn btn-dark" type="button" onClick={handleClose}>Cerrar</button>
+                        <button className="btn btn-primary" type="button" onClick={handleVolverAsig}>Atrás</button>
                         <button className="btn btn-success" type="button" onClick={handleCreateResumen} > Siguiente</button>
                     </div>
                 </div>

@@ -1,13 +1,13 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
 import { SelectDepartamentos } from "../Select/SelectDepartamentos";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SelectOrganismos } from "../Select/SelectOrganismos";
 
 
 
 
-export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, remitoEntrega, setRemitoEntrega, deptoId, setDeptoId }) => {
+export const InitAsistente = ({ showInitAsistente, setShowInitAsistente, showAsignacionStock, setShowAsignacionStock, remitoEntrega, setRemitoEntrega, deptoId, setDeptoId, handleClose }) => {
 
     const navigate = useNavigate();
 
@@ -22,8 +22,7 @@ export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, rem
     /*ESTADO PARA CONTROLAR EL ENVÍO DEL FORMULARIO*/
     const [formSubmitted, setFormSubmitted] = useState(false);
 
-    /* ESTADO PARA CONTROLAR LA RENDERIZACIÓN DEL COMPONENTE initAsistente */
-    const [showInitAsistente, setShowInitAsistente] = useState(true)
+   
 
 
     return (
@@ -152,7 +151,7 @@ export const InitAsistente = ({ showAsignacionStock, setShowAsignacionStock, rem
                                 </div>
 
                                 <div className="d-grid gap-2 p-2 d-md-flex justify-content-md-end">
-                                    <Link to='/remitos'><button className="btn btn-primary" type="button" disabled={formSubmitted}>Volver</button></Link>
+                                    <button className="btn btn-dark" type="button" onClick={handleClose}>Volver</button>
                                     <button className="btn btn-success" type="submit" disabled={formSubmitted}>Siguiente</button>
                                     <button onClick={() => {
                                         resetForm();

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsignacionStock, showAsignacionStock, remitoEntrega, setRemitoEntrega, setNewDataRemito, newDataRemito, setShowCargaDatos, showCargaDatos, comprobanteEquipos, setComprobanteEquipos, asignaciones, setAsignaciones, equiposAsignados, setEquiposAsignados }) => {
+export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsignacionStock, showAsignacionStock, remitoEntrega, setRemitoEntrega, setNewDataRemito, newDataRemito, setShowCargaDatos, showCargaDatos, comprobanteEquipos, setComprobanteEquipos, asignaciones, setAsignaciones, equiposAsignados, setEquiposAsignados, handleVolverInit }) => {
 
     /* data tiene los valores del remito */
     /* dataPerifericos es igual a data.remitoModelos y tiene solo los periféricos listados */
@@ -179,7 +179,8 @@ export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsi
                             </tbody>
                         </table>
                         <div className="d-grid gap-2 p-2 d-md-flex justify-content-md-end">
-                            <button className="btn btn-primary" type="button" onClick={handleClose}>Volver</button>
+                            <button className="btn btn-dark" type="button" onClick={handleClose}>Cerrar</button>
+                            <button className="btn btn-primary" type="button" onClick={handleVolverInit}> Atrás</button>
                             <button className="btn btn-success" type="button" onClick={handleSendRemitoModified}> Siguiente</button>
                         </div>
                     </div>
