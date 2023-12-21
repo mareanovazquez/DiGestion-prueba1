@@ -42,7 +42,7 @@ export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comp
                     <table className="table table-secondary table-striped">
                         <thead>
                             <tr>
-                            <th className="text-left bg-secondary text-white">Remito N°</th>
+                                <th className="text-left bg-secondary text-white">Remito N°</th>
                                 <th className="text-left bg-secondary text-white">Periférico</th>
                                 <th className="text-left bg-secondary text-white">Marca</th>
                                 <th className="text-left bg-secondary text-white">Modelo</th>
@@ -67,6 +67,7 @@ export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comp
                     </table>
                     <div className="d-grid gap-2 p-2 d-md-flex justify-content-md-end">
                         <button className="btn btn-dark" type="button" onClick={handleClose}>Volver</button>
+                        <button className="btn btn-primary">Confirmar entrega</button>
                         <PDFDownloadLink document={<ResumenEntregaPDF comprobanteEquipos={comprobanteEquipos} equiposAsignados={equiposAsignados} />} fileName='Comprobante_Entrega_Equipos'>
                             <button className="btn btn-danger" type="button"> PDF </button>
                         </PDFDownloadLink>

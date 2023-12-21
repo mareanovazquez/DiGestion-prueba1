@@ -75,7 +75,7 @@ export const ItemRemito = () => {
                         <Nav.Item>
                             <NavLink>
                                 <button className='btn btn-primary m-2' onClick={handleClicEntrega}>
-                                    Entregar
+                                    Iniciar entrega
                                 </button>
                             </NavLink>
                         </Nav.Item>
