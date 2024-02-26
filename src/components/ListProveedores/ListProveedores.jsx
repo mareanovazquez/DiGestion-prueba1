@@ -25,6 +25,7 @@ export const ListProveedores = () => {
                 const proveedores = response.data.data
                 setProveedores(proveedores);
                 setIsLoading(false)
+                
 
             })
             .catch(error => {
@@ -47,6 +48,9 @@ export const ListProveedores = () => {
         setFilterProveedor('');
     }
 
+   // Vista de resultados
+   const [vistaProovedores, setVistaProveedores] = useState(10);
+   console.log(vistaProovedores)
 
     //Prueba PAGINATE
     const Items = ({ proveedores }) => {
@@ -109,7 +113,7 @@ export const ListProveedores = () => {
     function PaginatedItems({ itemsPorPagina }) {
         const [itemOffset, setItemOffset] = useState(0);
         const endOffset = itemOffset + itemsPorPagina;
-        console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+        console.log(`Mostrando ${itemOffset} de ${endOffset} proveedores`);
         const filteredProveedores = filterProveedor ? proveedores.filter(proveedor => proveedor.nombre.toLowerCase().includes(filterProveedor.toLowerCase())) : proveedores;
         const items = filteredProveedores.slice(itemOffset, endOffset);
         const pageCount = Math.ceil(proveedores.length / itemsPorPagina);
@@ -117,9 +121,10 @@ export const ListProveedores = () => {
             setItemOffset(0)
             const newOffset = (event.selected * itemsPorPagina) % proveedores.length;
             console.log(
-                `User requested page number ${event.selected}, which is offset ${newOffset}`
+                `Página ${event.selected} , mostrando ${newOffset} de ${proveedores.length} proveedores`
             );
             setItemOffset(newOffset);
+           
         }
 
         return (
@@ -132,24 +137,26 @@ export const ListProveedores = () => {
                         <ReactPaginate
                             className="react-paginate"
                             breakLabel="..."
-                            nextLabel=" Next >"
+                            nextLabel=" Siguiente>"
                             onPageChange={handlePageClick}
-                            pageRangeDisplayed={5}
+                            pageRangeDisplayed={2}
                             pageCount={pageCount}
-                            previousLabel="< Prev "
+                            previousLabel="<Anterior"
                             renderOnZeroPageCount={null}
                         />
+                        <><div className="text-center p-2"><p>Mostrando {`${endOffset} de ${proveedores.length} proveedores`} </p></div></>
                     </div>
+                    
                 }
-
             </>
         )
-
     }
 
     return (
         <>
-            <PaginatedItems itemsPorPagina={15} />
+        {
+        <PaginatedItems itemsPorPagina={10} /> 
+        }
         </>
     )
 }

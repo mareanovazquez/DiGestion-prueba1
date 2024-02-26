@@ -28,7 +28,7 @@ export const ItemRemito = () => {
                 const lisRemitosPerifericos = response.data.data.remitoModelos
                 setRemitos(listRemitos);
                 setRemitosPerifericos(lisRemitosPerifericos)
-                
+                                
             })
             .catch(error => {
                 console.log(error)
@@ -38,6 +38,10 @@ export const ItemRemito = () => {
     const handleClicEntrega = ()=>{
         setShow(true)
     }
+
+    console.log(remitos)
+
+    
     return (
 
         <>
@@ -90,7 +94,8 @@ export const ItemRemito = () => {
                                         <ul>
                                             <li><b>Departamento:</b>{remitos.departamento}</li>
                                             <li><b>Remito:</b> {remitos.remito}</li>
-                                            <li><b>Usuario alta: </b> {name}</li>
+                                            <li><b>Usuario alta: </b> {remitos.usuario_alta}</li>
+                                            {/* En lugar de usuario_alta debería usar remitos.create pero todavía no está disponible */}
                                             <li><b>Orden provisión:</b> {remitos.orden_provision}</li>
                                         </ul>
                                     </div>
