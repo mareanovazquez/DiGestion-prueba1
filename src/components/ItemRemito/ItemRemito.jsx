@@ -96,7 +96,7 @@ export const ItemRemito = () => {
                                             <li><b>Remito:</b> {remitos.remito}</li>
                                             <li><b>Usuario alta: </b> {remitos.usuario_alta}</li>
                                             {/* En lugar de usuario_alta debería usar remitos.create pero todavía no está disponible */}
-                                            <li><b>Orden provisión:</b> {remitos.orden_provision}</li>
+                                            <li><b>Orden provisión:</b> {remitos.creador}</li>
                                         </ul>
                                     </div>
                                     <div className="col">
