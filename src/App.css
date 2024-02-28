@@ -43,9 +43,19 @@ li {
   align-items: center;
   height: 100vh;
 }
-.tablaRemitos {
+.selectVistaProveedores {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  width: 80%;
+.formSelectVistaProveedores {
+  width: 20%;
+  
+}
+
+.tablaRemitos {
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
 }

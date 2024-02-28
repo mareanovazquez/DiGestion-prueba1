@@ -13,7 +13,6 @@ export const ListProveedores = () => {
     const [proveedores, setProveedores] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [filterProveedor, setFilterProveedor] = useState('')
-   
     const { token } = useContext(UserContext)
     const inputRef = useRef()
 
@@ -43,12 +42,24 @@ export const ListProveedores = () => {
 
     const BuscarProveedor = () => {
         setFilterProveedor(inputRef.current.value);
+        setGuiaPaginate(false)
     }
 
     const BorrarBusquedas = () => {
         setFilterProveedor('');
+        setGuiaPaginate(true)
     }
 
+    /* Filtro para listar cantidad de proveedores mostrados  */
+    const [itemsPorPagina, setItemsPorPagina] = useState(15)
+
+    const handleChangeItems = (event) => {
+        const nuevoValorItems = parseInt(event.target.value);
+        setItemsPorPagina(nuevoValorItems);
+    };
+
+    /* Estado para mostrar la cantidad de resultados mostrados */
+    const [guiaPaginate, setGuiaPaginate] = useState(true)
 
 
     //Prueba PAGINATE
@@ -58,6 +69,24 @@ export const ListProveedores = () => {
             <>
                 <div>
                     <h2 className="h2 text-center p-2">Lista de proveedores</h2>
+                    <div className="selectVistaProveedores">
+                            <div className="formSelectVistaProveedores">
+                                <div className="form-group">
+                                    <label htmlFor="itemsPorPagina" className="text-center">Listar proveedores</label>
+                                    <select
+                                        id="itemsPorPagina"
+                                        className="form-control"
+                                        value={itemsPorPagina}
+                                        onChange={handleChangeItems}
+                                    >
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
                     <table className="table tablaRemitos">
                         <thead>
@@ -101,21 +130,19 @@ export const ListProveedores = () => {
         )
     }
 
+
+
     function PaginatedItems({ itemsPorPagina }) {
         const [itemOffset, setItemOffset] = useState(0);
         const [pageSelect, setPageSelect] = useState(1)
         const endOffset = itemOffset + itemsPorPagina;
-        console.log(`Mostrando ${itemOffset} de ${endOffset} proveedores`);
         const filteredProveedores = filterProveedor ? proveedores.filter(proveedor => proveedor.nombre.toLowerCase().includes(filterProveedor.toLowerCase())) : proveedores;
         const items = filteredProveedores.slice(itemOffset, endOffset);
         const pageCount = Math.ceil(proveedores.length / itemsPorPagina);
         const handlePageClick = (event) => {
             setItemOffset(0)
             const newOffset = (event.selected * itemsPorPagina) % proveedores.length;
-            const pageSelected = event.selected +1;
-            console.log(
-                `Página ${event.selected +1} , mostrando ${newOffset} de ${proveedores.length} proveedores`
-            );
+            const pageSelected = event.selected + 1;
             setItemOffset(newOffset);
             setPageSelect(pageSelected);
         }
@@ -137,7 +164,9 @@ export const ListProveedores = () => {
                             previousLabel="<Anterior"
                             renderOnZeroPageCount={null}
                         />
-                        <><div className="text-center p-2"><p> {`Página ${pageSelect} | ${endOffset} de ${proveedores.length} proveedores`} </p></div></>
+                        <>{ guiaPaginate ? 
+                        <div className="text-center p-2"><p> {`Página ${pageSelect} | ${endOffset} de ${proveedores.length} proveedores` } </p></div> 
+                        : <div className="text-center p-2"> <p>Mostrando resultados para {filterProveedor}</p></div> } </>
                     </div>
 
                 }
@@ -148,7 +177,7 @@ export const ListProveedores = () => {
     return (
         <>
             {
-                <PaginatedItems itemsPorPagina={15} />
+                <PaginatedItems itemsPorPagina={itemsPorPagina} />
             }
         </>
     )
