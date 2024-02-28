@@ -13,6 +13,7 @@ export const ListProveedores = () => {
     const [proveedores, setProveedores] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [filterProveedor, setFilterProveedor] = useState('')
+   
     const { token } = useContext(UserContext)
     const inputRef = useRef()
 
@@ -25,7 +26,7 @@ export const ListProveedores = () => {
                 const proveedores = response.data.data
                 setProveedores(proveedores);
                 setIsLoading(false)
-                
+
 
             })
             .catch(error => {
@@ -48,9 +49,7 @@ export const ListProveedores = () => {
         setFilterProveedor('');
     }
 
-   // Vista de resultados
-   const [vistaProovedores, setVistaProveedores] = useState(10);
-   console.log(vistaProovedores)
+
 
     //Prueba PAGINATE
     const Items = ({ proveedores }) => {
@@ -59,11 +58,11 @@ export const ListProveedores = () => {
             <>
                 <div>
                     <h2 className="h2 text-center p-2">Lista de proveedores</h2>
-                    
+
                     <table className="table tablaRemitos">
                         <thead>
                             <tr>
-                                <th colSpan="7"><input className="form-control" type="text" defaultValue={filterProveedor} placeholder="Escribe al menos 5 caracteres para iniciar la búsqueda" ref={inputRef} /></th>
+                                <th colSpan="7"><input className="form-control" type="text" defaultValue={filterProveedor} placeholder="Escribí al menos 5 caracteres para iniciar la búsqueda y después hacé clic en la lupa." ref={inputRef} /></th>
                                 <th colSpan="1"> <button className="btn btn-primary" onClick={BuscarProveedor}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                                 </svg></button></th>
@@ -72,27 +71,19 @@ export const ListProveedores = () => {
                                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                 </svg></button></th>
                             </tr>
-                            <tr>
-                                <th className="text-center" scope='col'> ID</th>
-                                <th scope='col'> Nombre</th>
-                                <th scope='col'> Estado</th>
-                                <th scope='col'> Creado por</th>
-                                <th scope='col'> Actualización</th>
-                                <th scope='col'> Fecha creación</th>
-                                <th scope="col">Datos proveedor</th>
+                            <tr className="border-bottom">
+                                <th className="text-center col-2" scope='col'> ID</th>
+                                <th className="text-left col-8" scope='col '> Nombre</th>
+                                <th scope="col" className="text-center col-2">Datos proveedor</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 proveedores.map((proveedor) => (
                                     <tr className="border-bottom my-2" key={proveedor.id} scope="row">
-                                        <td className="border-bottom">{proveedor.id}</td>
-                                        <td className="border-bottom">{proveedor.nombre}</td>
-                                        <td className="border-bottom">{proveedor.estado}</td>
-                                        <td className="border-bottom">{proveedor.created_by}</td>
-                                        <td className="border-bottom">{proveedor.updated_by}</td>
-                                        <td className="border-bottom">{proveedor.created_at}</td>
-                                        <td className="border-bottom text-center">
+                                        <td className="border-bottom text-center">{proveedor.id}</td>
+                                        <td className="border-bottom text-left">{proveedor.nombre}</td>
+                                        <td className="border-bottom text-center pr-4">
                                             <Link to={`/proveedor/${proveedor.id}`}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-building-add text-black" viewBox="0 0 16 16">
                                                     <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Z" />
@@ -112,6 +103,7 @@ export const ListProveedores = () => {
 
     function PaginatedItems({ itemsPorPagina }) {
         const [itemOffset, setItemOffset] = useState(0);
+        const [pageSelect, setPageSelect] = useState(1)
         const endOffset = itemOffset + itemsPorPagina;
         console.log(`Mostrando ${itemOffset} de ${endOffset} proveedores`);
         const filteredProveedores = filterProveedor ? proveedores.filter(proveedor => proveedor.nombre.toLowerCase().includes(filterProveedor.toLowerCase())) : proveedores;
@@ -120,11 +112,12 @@ export const ListProveedores = () => {
         const handlePageClick = (event) => {
             setItemOffset(0)
             const newOffset = (event.selected * itemsPorPagina) % proveedores.length;
+            const pageSelected = event.selected +1;
             console.log(
-                `Página ${event.selected} , mostrando ${newOffset} de ${proveedores.length} proveedores`
+                `Página ${event.selected +1} , mostrando ${newOffset} de ${proveedores.length} proveedores`
             );
             setItemOffset(newOffset);
-           
+            setPageSelect(pageSelected);
         }
 
         return (
@@ -144,9 +137,9 @@ export const ListProveedores = () => {
                             previousLabel="<Anterior"
                             renderOnZeroPageCount={null}
                         />
-                        <><div className="text-center p-2"><p>Mostrando {`${endOffset} de ${proveedores.length} proveedores`} </p></div></>
+                        <><div className="text-center p-2"><p> {`Página ${pageSelect} | ${endOffset} de ${proveedores.length} proveedores`} </p></div></>
                     </div>
-                    
+
                 }
             </>
         )
@@ -154,9 +147,9 @@ export const ListProveedores = () => {
 
     return (
         <>
-        {
-        <PaginatedItems itemsPorPagina={10} /> 
-        }
+            {
+                <PaginatedItems itemsPorPagina={15} />
+            }
         </>
     )
 }
