@@ -37,7 +37,7 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
 
     /* ESTADO PARA CONTROLAR LOS NUEVOS DATOS DEL REMITO CON EL STOCK ASIGNADO */
     const [equiposAsignados, setEquiposAsignados] = useState({})
-
+    
     /* ESTADO PARA CONTROLAR EL SELECT2 DE ORGANISMO */
     const [deptoId, setDeptoId] = useState('');
 

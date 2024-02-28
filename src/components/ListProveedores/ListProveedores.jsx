@@ -137,7 +137,7 @@ export const ListProveedores = () => {
         const filteredProveedores = filterProveedor ? proveedores.filter(proveedor => proveedor.nombre.toLowerCase().includes(filterProveedor.toLowerCase())) : proveedores;
         const items = filteredProveedores.slice(itemOffset, endOffset);
         const pageCount = Math.ceil(proveedores.length / itemsPorPagina);
-       
+
         const handlePageClick = (event) => {
             setItemOffset(0)
             const newOffset = (event.selected * itemsPorPagina) % proveedores.length;
@@ -146,7 +146,7 @@ export const ListProveedores = () => {
             setPageSelect(pageSelected);
         }
 
-        const handlePageClickFilter = (event)=> {
+        const handlePageClickFilter = (event) => {
             setItemOffset(0)
             const newOffset = (event.select * itemsPorPagina) % filteredProveedores;
             const pageSelected = event.selected + 1;
@@ -172,7 +172,7 @@ export const ListProveedores = () => {
                                 previousLabel="<Anterior"
                                 renderOnZeroPageCount={null}
                             /> :
-                           <></>
+                            <></>
                         }
                         <>
                             {guiaPaginate ?
