@@ -147,6 +147,8 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                         handleClose={handleClose}
                         equiposAsignados={equiposAsignados}
                         setEquiposAsignados={setEquiposAsignados}
+                        remitoEntrega={remitoEntrega}
+                        setRemitoEntrega={setRemitoEntrega}
                     />
                 </ModalBody>
             </Modal>

@@ -22,7 +22,7 @@ export const InitAsistente = ({ showInitAsistente, setShowInitAsistente, showAsi
     /*ESTADO PARA CONTROLAR EL ENVÍO DEL FORMULARIO*/
     const [formSubmitted, setFormSubmitted] = useState(false);
 
-   
+
 
 
     return (

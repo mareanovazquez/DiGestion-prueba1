@@ -13,14 +13,17 @@ export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEnt
                     nombrePeriferico: equipo.nombrePeriferico,
                     nombreMarca: equipo.nombreMarca,
                     nombreModelo: equipo.nombreModelo,
+                    modeloid: equipo.modelo_id,
                     numeroSerie: "",
                     comentarioEquipo: "",
-                }))
+                    }))
             );
 
             setEquiposData(duplicatedEquipos);
         }
     }, [equiposAsignados]);
+
+    console.log(equiposData)
 
     const handleNumeroSerieChange = (id, value) => {
         const updatedEquiposData = [...equiposData];
@@ -58,6 +61,7 @@ export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEnt
             periferico: equipo.nombrePeriferico,
             marca: equipo.nombreMarca,
             modelo: equipo.nombreModelo,
+            modeloid: equipo.modeloid,
             numeroSerie: equipo.numeroSerie,
             comentarioEquipo: equipo.comentarioEquipo,
             // ... otras propiedades
@@ -67,14 +71,12 @@ export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEnt
         const nuevosDatosComprobante = {
             departamento: remitoEntrega.departamento.label,
             organismo: remitoEntrega.organismo.label,
+            organismoid: remitoEntrega.organismo.organismoId,
             fechaEntrega: remitoEntrega.fechaEntrega,
             comentario: remitoEntrega.comentarios,
             stockEquipos: stockEquiposData,
         };
         setComprobanteEquipos(nuevosDatosComprobante);
-
-
-        /* ACA DEBERÍA HACERSE EL POST PARA ENVIAR LOS DATOS ACTUALIZADOS A MATÍAS */
     };
 
     return (

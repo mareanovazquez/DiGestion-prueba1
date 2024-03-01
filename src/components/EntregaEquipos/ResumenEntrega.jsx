@@ -1,7 +1,23 @@
 import { PDFDownloadLink } from "@react-pdf/renderer"
 import { ResumenEntregaPDF } from "./ResumenEntregaPDF"
+import { useEffect, useState } from "react"
 
-export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comprobanteEquipos, setComprobanteEquipos, handleClose, equiposAsignados, setEquiposAsignados }) => {
+export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comprobanteEquipos, setComprobanteEquipos, handleClose, equiposAsignados, setEquiposAsignados, remitoEntrega, setRemitoEntrega }) => {
+
+    /* ACA DEBERÍA HACERSE EL POST PARA ENVIAR LOS DATOS ACTUALIZADOS A MATÍAS */
+    const [perifericosEntregados, setPerifericosEntregados] = useState ({});
+   
+    
+   useEffect(()=> {
+       setPerifericosEntregados ({
+
+        })
+   }, [])    
+
+        const handleEntregaPerifericos = () => {
+          }
+console.log(equiposAsignados)
+console.log(comprobanteEquipos)
 
     return (
         <>

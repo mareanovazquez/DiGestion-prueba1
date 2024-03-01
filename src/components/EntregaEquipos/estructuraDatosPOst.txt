@@ -1,0 +1,29 @@
+/* ESTA ES LA ESTRUCTURA DE DATOS
+{
+    entrega:{
+        juzgado_id: comprobanteEquipos.organismoid ,
+        fecha_entrega :comprobanteEquipos.fechEntrega,
+        comentario: comprobanteEquipos.comentario: 
+    },
+    "eqipos":[
+            {
+                "remito_modelo_id": comprobanteEquipos.id,
+                "modelo_id":comprobanteEquipos.modeloid,
+                "cantidad": 3,
+                "data":[
+                    {
+                        "nro_serie": 23123123,
+                        "comentarios": "saarasa"
+                    },
+                    {
+                        "nro_serie": 23123123,
+                        "comentarios": "saarasa"
+                    },
+                    {
+                        "nro_serie": 23123123,
+                        "comentarios": "saarasa"
+                    }
+                ]
+            }
+        ]
+} */
