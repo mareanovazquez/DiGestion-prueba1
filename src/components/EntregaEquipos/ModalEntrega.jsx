@@ -5,7 +5,9 @@ import { InitAsistente } from "./InitAsistente";
 import { AsignacionStock } from "./AsignacionStock";
 import { CargaDatosEquipos } from "./CargaDatosEquipos";
 import { ResumenEntrega } from "./ResumenEntrega"
+import {ConfirmacionEntrega} from "./ConfirmacionEntrega"
 import { useState } from "react";
+import { ClipPath } from "@react-pdf/renderer";
 
 export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
 
@@ -22,6 +24,9 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
 
     /* ESTADO PARA CONTROLAR LA RENDERIZACIÓN DEL MODULO DE RESUMEN ENTREGA EQUIPOS */
     const [showResumenEntrega, setShowResumenEntrega] = useState(false)
+
+    /* ESTADO PARA CONTROLAR LA RENDERIZACIÓN DEL MODULO DE CONFIRMACIÓN DE ENTREGA */
+    const [showConfirmacionEntrega, setShowConfirmacionEntrega] = useState(false)
 
     /* ESTADO PARA CONTROLAR LOS DATOS DEL ENCABEZADO DEL REMITO DE ENTREGA */
     const [remitoEntrega, setRemitoEntrega] = useState({});
@@ -41,8 +46,11 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
     /* ESTADO PARA CONTROLAR EL SELECT2 DE ORGANISMO */
     const [deptoId, setDeptoId] = useState('');
 
-    /* ESTADO PARA CONTROLAR EL RESUMEN DE LA ENTREGA AL BACKEND */
+    /* ESTADO PARA CONTROLAR EL RESUMEN DE LOS EQUIPOS ENTREGADOS AL BACKEND */
     const [equiposDataGroup, setEquiposDataGroup] = useState({})
+
+    /* ESTADO PARA ARMAR EL ARCHIVO FINAL PARA ENVIAR POR POST */
+    const [perifericosEntregados, setPerifericosEntregados] = useState({});
 
     /* Handler para cerrar el modal y reinicializar todo el asistente */
     const handleClose = () => {
@@ -53,6 +61,8 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
         setShowResumenEntrega(false)
         setComprobanteEquipos({})
         setShowInitAsistente(true)
+        setNewDataRemito({})
+        setPerifericosEntregados({})
     }
 
     /* Handler de renderización de volver atrás desde
@@ -68,6 +78,8 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
         setShowAsignacionStock(true)
         setShowCargaDatos(false)
     }
+
+
 
     return (
         <>
@@ -156,7 +168,23 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                         setRemitoEntrega={setRemitoEntrega}
                         equiposDataGroup={equiposDataGroup}
                         setEquiposDataGroup={setEquiposDataGroup}
+                        perifericosEntregados ={perifericosEntregados}
+                        setPerifericosEntregados ={setPerifericosEntregados}
+                        showConfirmacionEntrega={showConfirmacionEntrega}
+                        setShowConfirmacionEntrega={setShowConfirmacionEntrega}
                     />
+                </ModalBody>
+                <ModalBody>
+                    <ConfirmacionEntrega
+                    equiposAsignados={equiposAsignados}
+                    setEquiposAsignados={setEquiposAsignados}
+                    comprobanteEquipos = {comprobanteEquipos} 
+                    setComprobanteEquipos = {setComprobanteEquipos} 
+                    perifericosEntregados = {perifericosEntregados} 
+                    setPerifericosEntregados = {setPerifericosEntregados}
+                    showConfirmacionEntrega = {showConfirmacionEntrega}
+                    setShowConfirmacionEntrega = {setShowConfirmacionEntrega}
+                   />
                 </ModalBody>
             </Modal>
 

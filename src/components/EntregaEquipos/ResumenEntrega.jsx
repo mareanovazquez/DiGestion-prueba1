@@ -1,11 +1,10 @@
-import { PDFDownloadLink } from "@react-pdf/renderer"
-import { ResumenEntregaPDF } from "./ResumenEntregaPDF"
+
 import { useEffect, useState } from "react"
 
-export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comprobanteEquipos, setComprobanteEquipos, handleClose, equiposAsignados, setEquiposAsignados, remitoEntrega, setRemitoEntrega, equiposDataGroup, setEquiposDataGroup }) => {
+export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comprobanteEquipos, setComprobanteEquipos, handleClose, equiposAsignados, setEquiposAsignados, remitoEntrega, setRemitoEntrega, equiposDataGroup, setEquiposDataGroup, perifericosEntregados, setPerifericosEntregados, showConfirmacionEntrega, setShowConfirmacionEntrega }) => {
 
     /* ACA DEBERÍA HACERSE EL POST PARA ENVIAR LOS DATOS ACTUALIZADOS A MATÍAS */
-    const [perifericosEntregados, setPerifericosEntregados] = useState({});
+   
 
     useEffect(() => {
         if (comprobanteEquipos && comprobanteEquipos.stockEquipos) {
@@ -49,6 +48,9 @@ export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comp
             equipos: equiposDataGroup
 
         })
+
+        setShowConfirmacionEntrega(true)
+       setShowResumenEntrega(false)
     }
 
     console.log(perifericosEntregados)
@@ -118,9 +120,6 @@ export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comp
                     <div className="d-grid gap-2 p-2 d-md-flex justify-content-md-end">
                         <button className="btn btn-dark" type="button" onClick={handleClose}>Volver</button>
                         <button className="btn btn-primary" onClick={handleEntregaPerifericos}>Confirmar entrega</button>
-                        <PDFDownloadLink document={<ResumenEntregaPDF comprobanteEquipos={comprobanteEquipos} equiposAsignados={equiposAsignados} />} fileName='Comprobante_Entrega_Equipos'>
-                            <button className="btn btn-danger" type="button"> PDF </button>
-                        </PDFDownloadLink>
                     </div>
                 </div>
             }</>

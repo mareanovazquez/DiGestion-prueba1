@@ -69,7 +69,6 @@ export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEnt
             // ... otras propiedades
         }));
 
-        console.log(equiposData)
         // Actualizar el estado comprobanteEquipos
         const nuevosDatosComprobante = {
             departamento: remitoEntrega.departamento.label,
