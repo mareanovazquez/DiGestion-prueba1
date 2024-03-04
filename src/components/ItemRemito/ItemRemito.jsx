@@ -39,9 +39,6 @@ export const ItemRemito = () => {
         setShow(true)
     }
 
-    console.log(remitos)
-
-    
     return (
 
         <>

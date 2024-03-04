@@ -2,22 +2,56 @@ import { PDFDownloadLink } from "@react-pdf/renderer"
 import { ResumenEntregaPDF } from "./ResumenEntregaPDF"
 import { useEffect, useState } from "react"
 
-export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comprobanteEquipos, setComprobanteEquipos, handleClose, equiposAsignados, setEquiposAsignados, remitoEntrega, setRemitoEntrega }) => {
+export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comprobanteEquipos, setComprobanteEquipos, handleClose, equiposAsignados, setEquiposAsignados, remitoEntrega, setRemitoEntrega, equiposDataGroup, setEquiposDataGroup }) => {
 
     /* ACA DEBERÍA HACERSE EL POST PARA ENVIAR LOS DATOS ACTUALIZADOS A MATÍAS */
-    const [perifericosEntregados, setPerifericosEntregados] = useState ({});
-   
-    
-   useEffect(()=> {
-       setPerifericosEntregados ({
+    const [perifericosEntregados, setPerifericosEntregados] = useState({});
+
+    useEffect(() => {
+        if (comprobanteEquipos && comprobanteEquipos.stockEquipos) {
+            // Agrupar equipos por remito_modelo_id y modelo_id
+            const groupedEquipos = comprobanteEquipos.stockEquipos.reduce((accumulator, equipo) => {
+                const key = `${equipo.remitoid}-${equipo.modeloid}`;
+                if (!accumulator[key]) {
+                    accumulator[key] = {
+                        remito_modelo_id: equipo.remitoid,
+                        modelo_id: equipo.modeloid,
+                        cantidad: 1, // Inicializar la cantidad en 1, ya que estamos contando este equipo
+                        data: [{
+                            numeroSerie: equipo.numeroSerie,
+                            comentarioEquipo: equipo.comentarioEquipo
+                        }]
+                    };
+                } else {
+                    accumulator[key].cantidad++; // Incrementar la cantidad de este modelo
+                    accumulator[key].data.push({ // Agregar este equipo al array de datos
+                        numeroSerie: equipo.numeroSerie,
+                        comentarioEquipo: equipo.comentarioEquipo
+                    });
+                }
+                return accumulator;
+            }, {});
+
+            const equiposArray = Object.values(groupedEquipos);
+
+            setEquiposDataGroup(equiposArray);
+        }
+    }, [comprobanteEquipos]);
+
+
+    const handleEntregaPerifericos = () => {
+        setPerifericosEntregados({
+            entrega: {
+                juzgado_id: comprobanteEquipos.organismoid,
+                fecha_entrega: comprobanteEquipos.fechaEntrega,
+                comentario: comprobanteEquipos.comentario
+            },
+            equipos: equiposDataGroup
 
         })
-   }, [])    
+    }
 
-        const handleEntregaPerifericos = () => {
-          }
-console.log(equiposAsignados)
-console.log(comprobanteEquipos)
+    console.log(perifericosEntregados)
 
     return (
         <>
@@ -83,7 +117,7 @@ console.log(comprobanteEquipos)
                     </table>
                     <div className="d-grid gap-2 p-2 d-md-flex justify-content-md-end">
                         <button className="btn btn-dark" type="button" onClick={handleClose}>Volver</button>
-                        <button className="btn btn-primary">Confirmar entrega</button>
+                        <button className="btn btn-primary" onClick={handleEntregaPerifericos}>Confirmar entrega</button>
                         <PDFDownloadLink document={<ResumenEntregaPDF comprobanteEquipos={comprobanteEquipos} equiposAsignados={equiposAsignados} />} fileName='Comprobante_Entrega_Equipos'>
                             <button className="btn btn-danger" type="button"> PDF </button>
                         </PDFDownloadLink>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { ResumenEntrega } from "./ResumenEntrega";
 
-export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEntrega, setRemitoEntrega, newDataRemito, setNewDataRemito, asignaciones, setAsignaciones, comprobanteEquipos, setComprobanteEquipos, equiposAsignados, setEquiposAsignados, handleClose, showResumenEntrega, setShowResumenEntrega, handleVolverAsig }) => {
+export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEntrega, setRemitoEntrega, newDataRemito, setNewDataRemito, asignaciones, setAsignaciones, comprobanteEquipos, setComprobanteEquipos, equiposAsignados, setEquiposAsignados, handleClose, showResumenEntrega, setShowResumenEntrega, handleVolverAsig, equiposDataGroup, setEquiposDataGroup }) => {
     /* Estado que almacena dinámicamente la información que el usuario 
     ingresa para cada equipo en el formulario.  */
     const [equiposData, setEquiposData] = useState([]);
@@ -14,16 +15,15 @@ export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEnt
                     nombreMarca: equipo.nombreMarca,
                     nombreModelo: equipo.nombreModelo,
                     modeloid: equipo.modelo_id,
+                    remitoid: equipo.remito_id,
                     numeroSerie: "",
                     comentarioEquipo: "",
-                    }))
+                }))
             );
 
             setEquiposData(duplicatedEquipos);
         }
     }, [equiposAsignados]);
-
-    console.log(equiposData)
 
     const handleNumeroSerieChange = (id, value) => {
         const updatedEquiposData = [...equiposData];
@@ -42,6 +42,7 @@ export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEnt
             setEquiposData(updatedEquiposData);
         }
     };
+
 
     const handleCreateResumen = () => {
         // Verificar que todos los equipos tengan un número de serie ingresado
@@ -64,9 +65,11 @@ export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEnt
             modeloid: equipo.modeloid,
             numeroSerie: equipo.numeroSerie,
             comentarioEquipo: equipo.comentarioEquipo,
+            remitoid: equipo.remitoid,
             // ... otras propiedades
         }));
 
+        console.log(equiposData)
         // Actualizar el estado comprobanteEquipos
         const nuevosDatosComprobante = {
             departamento: remitoEntrega.departamento.label,
@@ -74,6 +77,7 @@ export const CargaDatosEquipos = ({ showCargaDatos, setShowCargaDatos, remitoEnt
             organismoid: remitoEntrega.organismo.organismoId,
             fechaEntrega: remitoEntrega.fechaEntrega,
             comentario: remitoEntrega.comentarios,
+            remito_id: equiposAsignados.id,
             stockEquipos: stockEquiposData,
         };
         setComprobanteEquipos(nuevosDatosComprobante);

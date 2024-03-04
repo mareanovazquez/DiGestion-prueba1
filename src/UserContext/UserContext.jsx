@@ -24,45 +24,7 @@ export const UserContextProvider = ({ children }) => {
     const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn') === 'true');
 
 
-    //Usuarios creados para probar las rutas protegidas (ESTO DEBE ELIMINARSE)
-    /* const dataUsuarios = [
-        {
-            id: 1,
-            nombre: 'mariano',
-            contraseña: '1234',
-            permiso: 'Admin',
-            departamento: 'Todos los departamentos'
-        },
-        {
-            id: 2,
-            nombre: 'matias',
-            contraseña: '1234',
-            permiso: 'Admin'
-        },
-        {
-            id: 3,
-            nombre: 'ayelen',
-            contraseña: '1234',
-            permiso: 'ReadAndWrite',
-            departamento: '23'
-        },
-        {
-            id: 4,
-            nombre: 'pingo',
-            contraseña: '1234',
-            permiso: 'Read',
-            departamento: '31'
-        },
-        {
-            id: 5,
-            nombre: 'pongo',
-            contraseña: '1234',
-            permiso: 'Read',
-            departamento: '2'
-        }
-    ]; */
-    
-    const handleLogin = (e) => {
+        const handleLogin = (e) => {
         e.preventDefault();
 
         const http = new HttpService();

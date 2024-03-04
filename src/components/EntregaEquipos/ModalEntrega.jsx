@@ -41,6 +41,9 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
     /* ESTADO PARA CONTROLAR EL SELECT2 DE ORGANISMO */
     const [deptoId, setDeptoId] = useState('');
 
+    /* ESTADO PARA CONTROLAR EL RESUMEN DE LA ENTREGA AL BACKEND */
+    const [equiposDataGroup, setEquiposDataGroup] = useState({})
+
     /* Handler para cerrar el modal y reinicializar todo el asistente */
     const handleClose = () => {
         setShow(false);
@@ -136,6 +139,8 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                         showResumenEntrega={showResumenEntrega}
                         setShowResumenEntrega={setShowResumenEntrega}
                         handleVolverAsig={handleVolverAsig}
+                        equiposDataGroup={equiposDataGroup}
+                        setEquiposDataGroup={setEquiposDataGroup}
                     />
                 </ModalBody>
                 <ModalBody>
@@ -149,6 +154,8 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                         setEquiposAsignados={setEquiposAsignados}
                         remitoEntrega={remitoEntrega}
                         setRemitoEntrega={setRemitoEntrega}
+                        equiposDataGroup={equiposDataGroup}
+                        setEquiposDataGroup={setEquiposDataGroup}
                     />
                 </ModalBody>
             </Modal>

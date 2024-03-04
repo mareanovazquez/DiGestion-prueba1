@@ -3,11 +3,11 @@
     entrega:{
         juzgado_id: comprobanteEquipos.organismoid ,
         fecha_entrega :comprobanteEquipos.fechEntrega,
-        comentario: comprobanteEquipos.comentario: 
+        comentario: comprobanteEquipos.comentario 
     },
-    "eqipos":[
+    "equipos":[
             {
-                "remito_modelo_id": comprobanteEquipos.id,
+                "remito_modelo_id": comprobanteEquipos.remito_id,
                 "modelo_id":comprobanteEquipos.modeloid,
                 "cantidad": 3,
                 "data":[
@@ -27,3 +27,7 @@
             }
         ]
 } */
+
+
+
+  
