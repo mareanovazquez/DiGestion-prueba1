@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react"
+import HttpService from "../../services/HttpService";
+import { UserContext } from "../../UserContext/UserContext";
+import { useContext } from "react";
 
 export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comprobanteEquipos, setComprobanteEquipos, handleClose, equiposAsignados, setEquiposAsignados, remitoEntrega, setRemitoEntrega, equiposDataGroup, setEquiposDataGroup, perifericosEntregados, setPerifericosEntregados, showConfirmacionEntrega, setShowConfirmacionEntrega, handleVolverCargaDatos }) => {
 
-    /* ACA DEBERÍA HACERSE EL POST PARA ENVIAR LOS DATOS ACTUALIZADOS A MATÍAS */
+ // Servicio para hacer el http request
+ const http = new HttpService();
+
+   //recuperar token para validar el HTTP request
+   const { token } = useContext(UserContext)
 
     useEffect(() => {
         if (comprobanteEquipos && comprobanteEquipos.stockEquipos) {
@@ -44,11 +51,21 @@ export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comp
                 comentario: comprobanteEquipos.comentario
             },
             equipos: equiposDataGroup
-
         })
 
-        setShowConfirmacionEntrega(true)
-        setShowResumenEntrega(false)
+        const dataBody = JSON.stringify(perifericosEntregados)
+                
+        http.postData2('/entregas-create', dataBody, token)
+        .then(response =>{
+            const respuesta = response.data
+            console.log(respuesta)
+            setShowConfirmacionEntrega(true)
+            setShowResumenEntrega(false)
+        })
+        .catch(error => {
+            console.log(error)
+            alert('La entrega de periféricos no pudo realizarse correctamente.')
+        })
     }
 
     console.log(perifericosEntregados)
