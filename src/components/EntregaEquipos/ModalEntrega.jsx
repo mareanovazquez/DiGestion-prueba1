@@ -62,6 +62,7 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
         setComprobanteEquipos({})
         setShowInitAsistente(true)
         setNewDataRemito({})
+        setShowConfirmacionEntrega(false)
         setPerifericosEntregados({})
     }
 
@@ -79,6 +80,12 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
         setShowCargaDatos(false)
     }
 
+    /* Handler para la renderización de volver atrás desde
+    Resumen entrega a Carga de datos */
+    const handleVolverCargaDatos = ()=> {
+        setShowCargaDatos(true)
+        setShowResumenEntrega(false)
+    }
 
 
     return (
@@ -172,6 +179,7 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                         setPerifericosEntregados ={setPerifericosEntregados}
                         showConfirmacionEntrega={showConfirmacionEntrega}
                         setShowConfirmacionEntrega={setShowConfirmacionEntrega}
+                        handleVolverCargaDatos={handleVolverCargaDatos}
                     />
                 </ModalBody>
                 <ModalBody>
@@ -184,6 +192,7 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                     setPerifericosEntregados = {setPerifericosEntregados}
                     showConfirmacionEntrega = {showConfirmacionEntrega}
                     setShowConfirmacionEntrega = {setShowConfirmacionEntrega}
+                    handleClose={handleClose}
                    />
                 </ModalBody>
             </Modal>

@@ -1,10 +1,8 @@
-
 import { useEffect, useState } from "react"
 
-export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comprobanteEquipos, setComprobanteEquipos, handleClose, equiposAsignados, setEquiposAsignados, remitoEntrega, setRemitoEntrega, equiposDataGroup, setEquiposDataGroup, perifericosEntregados, setPerifericosEntregados, showConfirmacionEntrega, setShowConfirmacionEntrega }) => {
+export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comprobanteEquipos, setComprobanteEquipos, handleClose, equiposAsignados, setEquiposAsignados, remitoEntrega, setRemitoEntrega, equiposDataGroup, setEquiposDataGroup, perifericosEntregados, setPerifericosEntregados, showConfirmacionEntrega, setShowConfirmacionEntrega, handleVolverCargaDatos }) => {
 
     /* ACA DEBERÍA HACERSE EL POST PARA ENVIAR LOS DATOS ACTUALIZADOS A MATÍAS */
-   
 
     useEffect(() => {
         if (comprobanteEquipos && comprobanteEquipos.stockEquipos) {
@@ -50,7 +48,7 @@ export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comp
         })
 
         setShowConfirmacionEntrega(true)
-       setShowResumenEntrega(false)
+        setShowResumenEntrega(false)
     }
 
     console.log(perifericosEntregados)
@@ -59,7 +57,7 @@ export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comp
         <>
             {showResumenEntrega &&
                 <div>
-                    <h2>Comprobante de la entrega de equipos
+                    <h2>Resumen de los equipos a entregar
                     </h2>
                     <div className="p-2">
                         <ul className="row">
@@ -118,9 +116,10 @@ export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comp
                         </tbody>
                     </table>
                     <div className="d-grid gap-2 p-2 d-md-flex justify-content-md-end">
-                        <button className="btn btn-dark" type="button" onClick={handleClose}>Volver</button>
-                        <button className="btn btn-primary" onClick={handleEntregaPerifericos}>Confirmar entrega</button>
-                    </div>
+                        <button className="btn btn-dark" type="button" onClick={handleClose}>Cerrar</button>
+                        <button className="btn btn-primary" onClick={handleVolverCargaDatos} type="button" >Atrás</button>
+                        <button className="btn btn-success" onClick={handleEntregaPerifericos}>Confirmar entrega</button>
+                        </div>
                 </div>
             }</>
     )
