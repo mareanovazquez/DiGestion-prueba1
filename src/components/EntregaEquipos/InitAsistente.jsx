@@ -4,9 +4,6 @@ import { SelectDepartamentos } from "../Select/SelectDepartamentos";
 import { useNavigate } from "react-router-dom";
 import { SelectOrganismos } from "../Select/SelectOrganismos";
 
-
-
-
 export const InitAsistente = ({ showInitAsistente, setShowInitAsistente, showAsignacionStock, setShowAsignacionStock, remitoEntrega, setRemitoEntrega, deptoId, setDeptoId, handleClose }) => {
 
     const navigate = useNavigate();
@@ -22,12 +19,8 @@ export const InitAsistente = ({ showInitAsistente, setShowInitAsistente, showAsi
     /*ESTADO PARA CONTROLAR EL ENVÍO DEL FORMULARIO*/
     const [formSubmitted, setFormSubmitted] = useState(false);
 
-
-
-
     return (
         <>
-
             <div>
             </div>
             {showInitAsistente &&
@@ -72,8 +65,6 @@ export const InitAsistente = ({ showInitAsistente, setShowInitAsistente, showAsi
                             organismo: 'Seleccioná un organismo',
                             fechaEntrega: 'Definí una fecha de entrega',
                         }}
-
-
 
                     >
                         {({ errors, setFieldValue, values, resetForm }) => (

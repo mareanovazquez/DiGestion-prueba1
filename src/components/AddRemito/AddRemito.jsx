@@ -61,14 +61,12 @@ export const AddRemito = () => {
                         resetForm();
                         setShow(true)
                     }}
-
                 >
                     {({ errors, setFieldValue, values, resetForm }) => (
 
                         <Form>
                             <div className="row altaRemito">
                                 <h2 className="text-left"> Alta de Remito</h2>
-
                                 <div className="col">
                                     <label>Remito</label>
                                     <Field type="number"
@@ -83,7 +81,6 @@ export const AddRemito = () => {
                                         component={() => (<span><small className="text-danger p-2">{errors.remito}</small></span>)}
                                     />
                                 </div>
-
                                 <div className="col">
                                     <label htmlFor='departamentos' >Departamentos</label>
                                     <SelectDepartamentos

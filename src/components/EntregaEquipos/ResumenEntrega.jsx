@@ -5,11 +5,11 @@ import { useContext } from "react";
 
 export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comprobanteEquipos, setComprobanteEquipos, handleClose, equiposAsignados, setEquiposAsignados, remitoEntrega, setRemitoEntrega, equiposDataGroup, setEquiposDataGroup, perifericosEntregados, setPerifericosEntregados, showConfirmacionEntrega, setShowConfirmacionEntrega, handleVolverCargaDatos }) => {
 
- // Servicio para hacer el http request
- const http = new HttpService();
+    // Servicio para hacer el http request
+    const http = new HttpService();
 
-   //recuperar token para validar el HTTP request
-   const { token } = useContext(UserContext)
+    //recuperar token para validar el HTTP request
+    const { token } = useContext(UserContext)
 
     useEffect(() => {
         if (comprobanteEquipos && comprobanteEquipos.stockEquipos) {
@@ -54,22 +54,21 @@ export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comp
         })
 
         const dataBody = JSON.stringify(perifericosEntregados)
-                
+
         http.postData2('/entregas-create', dataBody, token)
-        .then(response =>{
-            const respuesta = response.data
-            console.log(respuesta)
-            setShowConfirmacionEntrega(true)
-            setShowResumenEntrega(false)
-        })
-        .catch(error => {
-            console.log(error)
-            alert('La entrega de periféricos no pudo realizarse correctamente.')
-        })
+            .then(response => {
+                const respuesta = response.data
+                console.log(respuesta)
+                setShowConfirmacionEntrega(true)
+                setShowResumenEntrega(false)
+            })
+            .catch(error => {
+                console.log(error)
+                alert('La entrega de periféricos no pudo realizarse correctamente.')
+            })
     }
-
     console.log(perifericosEntregados)
-
+    
     return (
         <>
             {showResumenEntrega &&
@@ -136,7 +135,7 @@ export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comp
                         <button className="btn btn-dark" type="button" onClick={handleClose}>Cerrar</button>
                         <button className="btn btn-primary" onClick={handleVolverCargaDatos} type="button" >Atrás</button>
                         <button className="btn btn-success" onClick={handleEntregaPerifericos}>Confirmar entrega</button>
-                        </div>
+                    </div>
                 </div>
             }</>
     )

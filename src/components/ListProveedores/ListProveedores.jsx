@@ -66,7 +66,7 @@ export const ListProveedores = () => {
         return (
             <>
                 <div>
-                    <h2 className="h2 text-center p-2">Lista de proveedores</h2>
+                    <h2 className="h2 text-center p-2">PROVEEDORES</h2>
                     <div className="selectVistaProveedores">
                         <div className="formSelectVistaProveedores">
                             <div className="form-group">
@@ -129,7 +129,6 @@ export const ListProveedores = () => {
     }
 
 
-
     function PaginatedItems({ itemsPorPagina }) {
         const [itemOffset, setItemOffset] = useState(0);
         const [pageSelect, setPageSelect] = useState(1)
@@ -183,7 +182,6 @@ export const ListProveedores = () => {
                                     <p>Mostrando resultados para {filterProveedor}</p>
                                 </div>} </>
                     </div>
-
                 }
             </>
         )

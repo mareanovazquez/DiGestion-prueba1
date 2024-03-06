@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-
 export const ItemCount = () => {
 
     const [counter, setCounter] = useState(1)

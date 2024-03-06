@@ -3,7 +3,6 @@ import { ResumenEntregaPDF } from "./ResumenEntregaPDF"
 
 export const ConfirmacionEntrega = ({ equiposAsignados, setEquiposAsignados, comprobanteEquipos, setComprobanteEquipos, perifericosEntregados, setPerifericosEntregados, showConfirmacionEntrega, setShowConfirmacionEntrega, handleClose }) => {
 
-
     return (
         <> {showConfirmacionEntrega &&
 
@@ -73,11 +72,7 @@ export const ConfirmacionEntrega = ({ equiposAsignados, setEquiposAsignados, com
                     </PDFDownloadLink>
                 </div>
             </div>
-
         }
-
-
-
         </>
     )
 }

@@ -173,21 +173,11 @@ import { ItemListRemitoRaW } from './components/ItemListRemito/ItemListRemitoRaW
 
 import { ItemListPerifericos } from './components/ItemListPerifericos/ItemListPerifericos';
 import { ItemProveedor } from './components/ItemProveedor/ItemProveedor';
-import { ListProveedoresPagi } from './components/ListProveedores/ListProveedoresPagi';
 import { ItemRemitoPDF } from './components/ItemRemito/ItemRemitoPDF';
 import { InitAsistente } from './components/EntregaEquipos/InitAsistente.jsx';
 import { AsignacionStock } from './components/EntregaEquipos/AsignacionStock.jsx'
 import { CargaDatosEquipos } from './components/EntregaEquipos/CargaDatosEquipos.jsx'
 import { ResumenEntrega } from './components/EntregaEquipos/ResumenEntrega.jsx'
-
-
-
-
-
-
-
-
-
 
 
 function App() {

@@ -7,7 +7,6 @@ import { CargaDatosEquipos } from "./CargaDatosEquipos";
 import { ResumenEntrega } from "./ResumenEntrega"
 import {ConfirmacionEntrega} from "./ConfirmacionEntrega"
 import { useState } from "react";
-import { ClipPath } from "@react-pdf/renderer";
 
 export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
 
@@ -86,7 +85,6 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
         setShowCargaDatos(true)
         setShowResumenEntrega(false)
     }
-
 
     return (
         <>
@@ -193,12 +191,9 @@ export const ModalEntrega = ({ data, dataPerifericos, setShow, show }) => {
                     showConfirmacionEntrega = {showConfirmacionEntrega}
                     setShowConfirmacionEntrega = {setShowConfirmacionEntrega}
                     handleClose={handleClose}
-                   />
+                    />
                 </ModalBody>
             </Modal>
-
-
-
         </>
     )
 }

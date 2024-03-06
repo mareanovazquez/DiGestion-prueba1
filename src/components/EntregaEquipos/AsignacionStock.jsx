@@ -11,9 +11,6 @@ export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsi
 
     const [cantidadDisponible, setCantidadDisponible] = useState({});
 
-
-
-
     useEffect(() => {
         // Actualizar la cantidad disponible cada vez que cambia la asignación
         const newCantidadDisponible = {};
@@ -38,10 +35,10 @@ export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsi
 
     const handleComentariosChange = (perifericoId, value) => {
         setComentarios((prevComentarios) => ({
-          ...prevComentarios,
-          [perifericoId]: value,
+            ...prevComentarios,
+            [perifericoId]: value,
         }));
-      };
+    };
 
     /*Actualiza la cantidad de cada periférico en el array updatedDataPerifericos 
     utilizando la información almacenada en el estado cantidadDisponible. 
@@ -62,7 +59,7 @@ export const AsignacionStock = ({ data, dataPerifericos, handleClose, setShowAsi
         setUpdatedDataPerifericos(newDataPerifericos);
         setShowCargaDatos(true)
         setShowAsignacionStock(false)
-        };
+    };
 
     /* 
     NEWDATAREMITO

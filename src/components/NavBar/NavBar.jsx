@@ -23,7 +23,6 @@ export const NavBar = () => {
     }
 
 
-
     const { username, setUsername, name, setName, email, setEmail, permisos, setPermisos, loggedIn, setLoggedIn, token, setToken } = useContext(UserContext);
 
     return (
