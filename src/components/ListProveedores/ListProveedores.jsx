@@ -176,9 +176,16 @@ export const ListProveedores = () => {
                         <>
                             {guiaPaginate ?
                                 <div className="text-center p-2">
-                                    <p> {`Página ${pageSelect} | ${endOffset} de ${proveedores.length} proveedores`} </p>
+                                    {endOffset < proveedores.length ?
+                                        <p> {`Página ${pageSelect} | ${endOffset} de ${proveedores.length} proveedores`}
+                                        </p>
+                                        :
+                                        <p> {`Página ${pageSelect} | ${proveedores.length} de ${proveedores.length} proveedores`}
+                                        </p>
+                                        }
                                 </div>
-                                : <div className="text-center p-2">
+                                :
+                                <div className="text-center p-2">
                                     <p>Mostrando resultados para {filterProveedor}</p>
                                 </div>} </>
                     </div>
