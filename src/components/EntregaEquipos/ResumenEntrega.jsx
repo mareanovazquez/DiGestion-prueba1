@@ -11,6 +11,8 @@ export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comp
     //recuperar token para validar el HTTP request
     const { token } = useContext(UserContext)
 
+    
+
     useEffect(() => {
         if (comprobanteEquipos && comprobanteEquipos.stockEquipos) {
             // Agrupar equipos por remito_modelo_id y modelo_id
@@ -22,15 +24,15 @@ export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comp
                         modelo_id: equipo.modeloid,
                         cantidad: 1, // Inicializar la cantidad en 1, ya que estamos contando este equipo
                         data: [{
-                            numeroSerie: equipo.numeroSerie,
-                            comentarioEquipo: equipo.comentarioEquipo
+                            nro_serie: equipo.numeroSerie,
+                            comentario: equipo.comentarioEquipo
                         }]
                     };
                 } else {
                     accumulator[key].cantidad++; // Incrementar la cantidad de este modelo
                     accumulator[key].data.push({ // Agregar este equipo al array de datos
-                        numeroSerie: equipo.numeroSerie,
-                        comentarioEquipo: equipo.comentarioEquipo
+                        nro_serie: equipo.numeroSerie,
+                        comentario: equipo.comentarioEquipo
                     });
                 }
                 return accumulator;
@@ -52,22 +54,25 @@ export const ResumenEntrega = ({ showResumenEntrega, setShowResumenEntrega, comp
             },
             equipos: equiposDataGroup
         })
-
-        const dataBody = JSON.stringify(perifericosEntregados)
-
-        http.postData2('/entregas-create', dataBody, token)
-            .then(response => {
-                const respuesta = response.data
-                console.log(respuesta)
-                setShowConfirmacionEntrega(true)
-                setShowResumenEntrega(false)
-            })
-            .catch(error => {
-                console.log(error)
-                alert('La entrega de periféricos no pudo realizarse correctamente.')
-            })
     }
-    console.log(perifericosEntregados)
+
+    useEffect(() => {
+        if (Object.keys(perifericosEntregados).length > 0) {
+            const dataBody = JSON.stringify(perifericosEntregados);
+            
+            http.postData2('/entregas-create', dataBody, token)
+                .then(response => {
+                    const respuesta = response.data;
+                    setShowConfirmacionEntrega(true);
+                    setShowResumenEntrega(false);
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert(error.message);
+                });
+        }
+    }, [perifericosEntregados]);
+
     
     return (
         <>
