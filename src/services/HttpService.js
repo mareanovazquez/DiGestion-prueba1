@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 export default class HttpService {
-    url = "http://10.10.49.124/api";
+    url = "http://10.10.51.54/api";
 
     postData = async (added_url, item, tokenId = "") => {
         return axios.post(this.url + added_url, item,
